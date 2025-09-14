@@ -6,3 +6,6 @@ set number
 set tabstop=4
 set shiftwidth=4
 set autoindent
+
+" Set mouse
+set mouse=a

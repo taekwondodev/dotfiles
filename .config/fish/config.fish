@@ -8,6 +8,9 @@ starship init fish | source
 set -gx COLORTERM truecolor
 set -gx TERM xterm-256color
 
+# Cargo
+fish_add_path ~/.cargo/bin
+
 # Working Directory
 if test "$TERM_PROGRAM" != "zed"
 	cd ~/Desktop
