@@ -9,5 +9,6 @@ set -gx COLORTERM truecolor
 set -gx TERM xterm-256color
 
 # Working Directory
-
-cd ~/Desktop
+if test "$TERM_PROGRAM" != "zed"
+	cd ~/Desktop
+end
