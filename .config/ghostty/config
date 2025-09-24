@@ -5,8 +5,6 @@ font-feature = zero, liga, calt
 adjust-cell-height = 35%
 window-width = 100
 window-height = 20
-window-position-x = 95
-window-position-y = 100
 
 # Theme
 palette = 0=#000000
