@@ -1,5 +1,12 @@
 # My Dotfiles
-Ghostty, Vim and Fish configuration files
+Kali, Ghostty, Vim and Fish configuration files
+
+## Start the Kali setup
+
+```bash
+chmod +x setup_kali.sh
+./setup_kali.sh
+```
 
 ## Load vim configs
 
