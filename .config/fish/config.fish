@@ -15,3 +15,12 @@ fish_add_path ~/.cargo/bin
 if test "$TERM_PROGRAM" != "zed"
 	cd ~/Desktop
 end
+
+# Python Virtual Environment Auto Activate
+function __auto_venv --on-variable PWD
+    if test -e .venv/bin/activate.fish
+        source .venv/bin/activate.fish
+    else if set -q VIRTUAL_ENV
+        deactivate
+    end
+end
