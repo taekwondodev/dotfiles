@@ -25,4 +25,5 @@ function __auto_venv --on-variable PWD
     end
 end
 
+# Kill Java process after quit Android Studio
 alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
