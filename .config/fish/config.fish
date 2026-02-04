@@ -24,3 +24,5 @@ function __auto_venv --on-variable PWD
         deactivate
     end
 end
+
+alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
