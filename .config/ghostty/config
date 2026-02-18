@@ -58,3 +58,6 @@ background-blur = 20
 window-vsync = true
 shell-integration = fish
 shell-integration-features = no-cursor
+
+# laggy issue
+macos-secure-input-indication = false
