@@ -27,3 +27,5 @@ end
 
 # Kill Java process after quit Android Studio
 alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
+# Claude Path
+export PATH="$HOME/.local/bin:$PATH"
