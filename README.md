@@ -1,5 +1,5 @@
 # My Dotfiles
-Kali, Ghostty, Vim and Fish configuration files
+Claude Code, Kali, Ghostty, Vim and Fish configuration files
 
 ## Start the Kali setup
 
