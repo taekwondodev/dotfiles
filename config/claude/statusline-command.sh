@@ -35,7 +35,7 @@ if [ -n "$used_pct" ]; then
   make_bar "$ctx_pct"
   printf "\033[2m %s%%\033[0m" "$ctx_pct"
 else
-  printf "\033[2mCtx ○○○○○○○○○○ --\033[0m"
+  printf "\033[2mCtx ○○○○○○○○○○ 0%%\033[0m"
 fi
 
 if [ -n "$five_hour" ]; then
