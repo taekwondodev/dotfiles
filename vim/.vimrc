@@ -11,3 +11,12 @@ set cindent
 
 " Set mouse
 set mouse=a
+
+" Clipboard
+set clipboard=unnamed
+
+" Backspace
+set backspace=indent,eol,start
+
+" Not block on not saving
+set confirm

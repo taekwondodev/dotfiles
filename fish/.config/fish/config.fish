@@ -28,6 +28,6 @@ end
 # Kill Java process after quit Android Studio
 alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
 # Claude Path
-export PATH="$HOME/.local/bin:$PATH"
+fish_add_path ~/.local/bin
 # Claude Code md file template
 alias ccinit='cp ~/.claude/templates/project-claude.md ./CLAUDE.md'
