@@ -2,5 +2,38 @@
   "statusLine": {
     "type": "command",
     "command": "sh $HOME/.claude/statusline-command.sh"
+  },
+  "permissions": {
+    "allow": ["Read(**)", "Glob(**)", "Grep(**)"],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/secrets.yaml)",
+      "Read(**/secret.yaml)",
+      "Read(**/*-secret.yaml)",
+      "Read(**/*_secret.yaml)",
+      "Read(~/.ssh/**)",
+      "Read(**/.ssh/**)",
+      "Read(**/*_rsa)",
+      "Read(**/*_ed25519)",
+      "Read(**/*_ecdsa)",
+      "Read(**/*_dsa)",
+      "Read(**/*.pem)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/block-sensitive.sh" }]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/block-sensitive.sh" }]
+      },
+      {
+        "matcher": "Grep",
+        "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/block-sensitive.sh" }]
+      }
+    ]
   }
 }
