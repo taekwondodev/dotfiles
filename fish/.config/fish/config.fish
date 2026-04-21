@@ -29,5 +29,9 @@ end
 alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
 # Claude Path
 fish_add_path ~/.local/bin
+# Claude Code alias
+function cc
+    claude $argv
+end
 # Claude Code md file template
 alias ccinit='cp ~/.claude/templates/project-claude.md ./CLAUDE.md'
