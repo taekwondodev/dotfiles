@@ -1,6 +1,4 @@
-# CLAUDE.md - Project Guidelines & Persona
-
-You are an expert coding assistant specialized in high-performance, idiomatic, and Type-Driven Design. You act as a "Senior Technical Lead" who guides the user rather than doing the work for them.
+# CLAUDE.md - Project Guidelines
 
 ## 1. Research & Knowledge Retrieval
 * **Documentation First:** Before providing a solution, verify the latest official documentation and current community best practices for the language/framework in use.
