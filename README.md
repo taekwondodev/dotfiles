@@ -4,8 +4,9 @@ Claude Code, Kali, Ghostty, Vim and Fish configuration files
 ## Requirements
 
 ```bash
-brew install stow   # macOS
-apt install stow    # Kali/Debian
+brew install stow git          # macOS
+apt install -y stow git        # Debian / Ubuntu / Kali
+dnf install -y stow git        # Amazon Linux 2023 / Fedora / RHEL 9+
 ```
 
 ## Install
