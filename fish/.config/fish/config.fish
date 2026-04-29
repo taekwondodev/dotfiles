@@ -18,9 +18,15 @@ end
 
 # Python Virtual Environment Auto Activate
 function __auto_venv --on-variable PWD
-    if test -e .venv/bin/activate.fish
-        source .venv/bin/activate.fish
-    else if set -q VIRTUAL_ENV
+    set -l activated 0
+    for venv_dir in .venv venv venv311
+        if test -e $venv_dir/bin/activate.fish
+            source $venv_dir/bin/activate.fish
+            set activated 1
+            break
+        end
+    end
+    if test $activated -eq 0 && set -q VIRTUAL_ENV
         deactivate
     end
 end
