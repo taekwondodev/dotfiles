@@ -12,7 +12,7 @@ set -gx TERM xterm-256color
 fish_add_path ~/.cargo/bin
 
 # Working Directory
-if test "$TERM_PROGRAM" != "zed"
+if status is-interactive && test "$TERM_PROGRAM" != "zed"
 	cd ~/Desktop
 end
 
@@ -41,3 +41,10 @@ function cc
 end
 # Claude Code md file template
 alias ccinit='cp ~/.claude/templates/project-claude.md ./CLAUDE.md'
+
+# Divider after command output
+function fish_postexec --on-event fish_postexec
+    set_color '#394260'
+    string repeat -n (tput cols) ─
+    set_color normal
+end
