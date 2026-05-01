@@ -11,6 +11,16 @@ dnf install -y stow git                 # Amazon Linux 2023 / Fedora / RHEL 9+
 
 > On Linux, install Starship separately: `curl -sS https://starship.rs/install.sh | sh`
 
+> **Font required:** [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) — needed for Ghostty and Starship icons.
+>
+> macOS: `brew install --cask font-jetbrains-mono-nerd-font`
+>
+> Linux:
+> ```bash
+> curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
+> mkdir -p ~/.local/share/fonts && tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts && fc-cache -fv
+> ```
+
 ## Install
 
 Clone the repo and run stow from inside it:
