@@ -1,7 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[  ](bg:#a3aed2 fg:#090c0c)\
+$os\
 [](bg:#769ff0 fg:#a3aed2)\
 $directory\
 ${custom.dir_close}\
@@ -104,3 +104,12 @@ command = "printf '%s' ''"
 when = '''[ -d .venv ] || [ -d venv ] || [ -d venv311 ] || [ -f package.json ] || [ -f Cargo.toml ] || [ -f go.mod ] || [ -f composer.json ]'''
 format = "[](fg:#212736)"
 shell = ["sh"]
+
+[os]
+disabled = false
+style = "bg:#a3aed2 fg:#090c0c"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Macos = ""
+Linux = ""
