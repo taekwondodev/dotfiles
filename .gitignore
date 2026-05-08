@@ -3,3 +3,4 @@
 *.swp
 *.backup
 wiki/
+nvim/.config/nvim/lazy-lock.json
