@@ -20,6 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = {
+        { import = "plugins.snacks" },
         { import = "plugins.treesitter" },
         { import = "plugins.mason" },
         { import = "plugins.editor" },

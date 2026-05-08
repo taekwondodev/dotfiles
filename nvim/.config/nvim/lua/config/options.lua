@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
         map("n", "gr", vim.lsp.buf.references, "References")
         map("n", "K", vim.lsp.buf.hover, "Hover docs")
-        map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+        map("n", "<leader>rn", function() return ":IncRename " .. vim.fn.expand("<cword>") end, "Rename symbol", { expr = true })
         map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
         map("n", "<leader>d", vim.diagnostic.open_float, "Diagnostic float")
         map("i", "<C-Space>", vim.lsp.completion.get, "Trigger completion")

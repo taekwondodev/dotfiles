@@ -9,6 +9,7 @@ return {
             local ensure_installed = {
                 -- LSP servers
                 "gopls",
+                "dockerfile-language-server",
                 "rust-analyzer",
                 "clangd",
                 "typescript-language-server",

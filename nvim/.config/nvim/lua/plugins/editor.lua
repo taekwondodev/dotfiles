@@ -1,18 +1,4 @@
 return {
-    -- Filesystem as editable buffer (replaces nvim-tree)
-    {
-        "stevearc/oil.nvim",
-        lazy = false,
-        keys = {
-            { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
-        },
-        opts = {
-            columns = { "icon" },
-            view_options = { show_hidden = true },
-            float = { padding = 2, border = "rounded" },
-        },
-    },
-
     -- Fast file marking / navigation
     {
         "ThePrimeagen/harpoon",
@@ -29,22 +15,6 @@ return {
         config = function()
             require("harpoon"):setup()
         end,
-    },
-
-    -- Fuzzy finding (replaces telescope)
-    {
-        "ibhagwan/fzf-lua",
-        keys = {
-            { "<leader>pf", function() require("fzf-lua").files() end, desc = "Find files" },
-            { "<C-p>", function() require("fzf-lua").git_files() end, desc = "Git files" },
-            { "<leader>ps", function() require("fzf-lua").live_grep() end, desc = "Live grep" },
-            { "<leader>pws", function() require("fzf-lua").grep_cword() end, desc = "Grep word" },
-            { "<leader>pWs", function() require("fzf-lua").grep_cWORD() end, desc = "Grep WORD" },
-            { "<leader>vh", function() require("fzf-lua").help_tags() end, desc = "Help tags" },
-        },
-        opts = {
-            winopts = { border = "rounded", preview = { border = "rounded" } },
-        },
     },
 
     -- Inline git signs + hunk navigation
@@ -71,6 +41,13 @@ return {
                 map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
             end,
         },
+    },
+
+    -- Advanced diff viewer
+    {
+        "sindrets/diffview.nvim",
+        cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
+        opts = {},
     },
 
     -- Git workflow (ThePrimeagen staple)
