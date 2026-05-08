@@ -12,8 +12,8 @@ set -gx TERM xterm-256color
 fish_add_path ~/.cargo/bin
 
 # Working Directory
-if status is-interactive && test "$TERM_PROGRAM" != "zed"
-	cd ~/Desktop
+if status is-interactive && test "$TERM_PROGRAM" != zed
+    cd ~/Desktop
 end
 
 # Python Virtual Environment Auto Activate
