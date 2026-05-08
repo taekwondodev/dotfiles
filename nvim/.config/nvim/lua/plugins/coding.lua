@@ -38,6 +38,8 @@ return {
                 sh = { "shfmt" },
                 bash = { "shfmt" },
                 fish = { "fish_indent" },
+                python = { "black" },
+                java = { "google_java_format" },
             },
             format_on_save = {
                 timeout_ms = 500,

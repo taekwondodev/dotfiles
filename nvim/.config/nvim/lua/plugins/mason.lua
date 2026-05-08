@@ -13,11 +13,15 @@ return {
                 "typescript-language-server",
                 "bash-language-server",
                 "lua-language-server",
+                "pyright",
+                "jdtls",
                 -- Formatters
                 "stylua",
                 "shfmt",
                 "prettier",
                 "gofumpt",
+                "black",
+                "google-java-format",
             }
 
             local mr = require("mason-registry")
