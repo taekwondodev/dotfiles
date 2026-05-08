@@ -1,4 +1,5 @@
 return {
+    filetypes = { "go", "gomod", "gowork", "gosum" },
     settings = {
         gopls = {
             analyses = { unusedparams = true, shadow = true },

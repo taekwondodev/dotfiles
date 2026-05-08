@@ -1,13 +1,21 @@
 # My Dotfiles
-Claude Code, Kali, Ghostty, Vim, Fish and Starship configuration files
+Claude Code, Kali, Ghostty, Vim, Neovim, Fish and Starship configuration files
 
 ## Requirements
 
 ```bash
-brew install stow git starship          # macOS
+brew install stow git starship neovim   # macOS
 apt install -y stow git                 # Debian / Ubuntu / Kali
 dnf install -y stow git                 # Amazon Linux 2023 / Fedora / RHEL 9+
 ```
+
+> **Neovim 0.12.0 or later required** for the nvim config.
+>
+> `tree-sitter-cli` is required by nvim-treesitter to build parsers:
+> ```bash
+> cargo install tree-sitter-cli
+> ```
+> Requires [Rust/cargo](https://rustup.rs) to be installed.
 
 > On Linux, install Starship separately: `curl -sS https://starship.rs/install.sh | sh`
 
@@ -33,7 +41,7 @@ cd ~/dotfiles
 Link all packages:
 
 ```bash
-stow vim fish ghostty claude starship
+stow vim nvim fish ghostty claude starship
 ```
 
 Or link a single package:

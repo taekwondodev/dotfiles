@@ -1,6 +1,13 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+
 vim.opt.guicursor = ""
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -22,6 +29,14 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
+vim.opt.confirm = true
+vim.opt.clipboard = "unnamedplus"
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank({ timeout = 150 })
+    end,
+})
 
 -- Native 0.12 completion
 vim.opt.completeopt = { "menuone", "noselect", "popup" }
@@ -67,12 +82,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "<leader>d", vim.diagnostic.open_float, "Diagnostic float")
         map("i", "<C-Space>", vim.lsp.completion.get, "Trigger completion")
 
-        if client and client.supports_method("textDocument/completion") then
+        if client and client:supports_method("textDocument/completion") then
             vim.lsp.completion.enable(true, client.id, buf, { autotrigger = true })
         end
 
-        if vim.lsp.inlay_hint and client and client.supports_method("textDocument/inlayHint") then
-            vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+        if vim.lsp.inlay_hint and client and client:supports_method("textDocument/inlayHint") then
+            if vim.fn.filereadable(vim.api.nvim_buf_get_name(buf)) == 1 then
+                vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+            end
         end
     end,
 })

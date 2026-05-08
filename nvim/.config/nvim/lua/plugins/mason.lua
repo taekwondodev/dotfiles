@@ -9,6 +9,7 @@ return {
             local ensure_installed = {
                 -- LSP servers
                 "gopls",
+                "rust-analyzer",
                 "clangd",
                 "typescript-language-server",
                 "bash-language-server",
