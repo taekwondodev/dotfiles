@@ -4,6 +4,9 @@ end
 
 starship init fish | source
 
+# Vim key bindings in shell — uncomment to use vim motions instead of readline (Ctrl+a/e)
+# fish_vi_key_bindings
+
 # True color
 set -gx COLORTERM truecolor
 set -gx TERM xterm-256color
@@ -12,8 +15,8 @@ set -gx TERM xterm-256color
 fish_add_path ~/.cargo/bin
 
 # Working Directory
-if status is-interactive && test "$TERM_PROGRAM" != "zed"
-	cd ~/Desktop
+if status is-interactive && test "$TERM_PROGRAM" != zed
+    cd ~/Desktop
 end
 
 # Python Virtual Environment Auto Activate

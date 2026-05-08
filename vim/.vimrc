@@ -20,3 +20,7 @@ set backspace=indent,eol,start
 
 " Not block on not saving
 set confirm
+
+" Cmd+Z as undo (macOS style)
+nnoremap <D-z> u
+inoremap <D-z> <C-o>u
