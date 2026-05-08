@@ -39,6 +39,13 @@ return {
         },
     },
 
+    -- Markdown rendering in normal mode
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "markdown" },
+        opts = {},
+    },
+
     -- Keymap hints
     {
         "folke/which-key.nvim",
