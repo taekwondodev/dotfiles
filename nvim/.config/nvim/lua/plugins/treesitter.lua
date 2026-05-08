@@ -14,6 +14,8 @@ return {
                     "html", "css",
                     "markdown", "markdown_inline",
                     "yaml", "toml",
+                    "python",
+                    "java",
                     "gitcommit", "git_config",
                 },
                 highlight = { enable = true },
