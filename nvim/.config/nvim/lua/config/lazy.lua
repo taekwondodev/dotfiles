@@ -26,6 +26,7 @@ require("lazy").setup({
         { import = "plugins.coding" },
         { import = "plugins.ui" },
     },
+    rocks = { enabled = false },
     install = { colorscheme = { "ayu-mirage", "habamax" } },
     checker = { enabled = true, notify = false },
     performance = {

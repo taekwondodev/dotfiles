@@ -25,6 +25,10 @@ map({ "n", "v" }, "<leader>d", '"_d')
 -- Ctrl-C as Escape in insert mode
 map("i", "<C-c>", "<Esc>")
 
+-- Cmd+Z as undo (macOS style)
+map({ "n", "v" }, "<D-z>", "u")
+map("i", "<D-z>", "<C-o>u")
+
 -- Disable ex mode
 map("n", "Q", "<nop>")
 
