@@ -4,6 +4,9 @@ end
 
 starship init fish | source
 
+# Vim key bindings in shell — uncomment to use vim motions instead of readline (Ctrl+a/e)
+# fish_vi_key_bindings
+
 # True color
 set -gx COLORTERM truecolor
 set -gx TERM xterm-256color
