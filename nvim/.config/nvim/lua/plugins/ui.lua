@@ -1,4 +1,16 @@
 return {
+    {
+        "echasnovski/mini.icons",
+        lazy = true,
+        opts = {},
+        init = function()
+            package.preload["nvim-web-devicons"] = function()
+                require("mini.icons").mock_nvim_web_devicons()
+                return package.loaded["nvim-web-devicons"]
+            end
+        end,
+    },
+
     -- Ayu mirage: matches ghostty palette exactly, transparent bg lets ghostty bg bleed through
     {
         "Shatur/neovim-ayu",
@@ -15,6 +27,37 @@ return {
             })
             vim.cmd.colorscheme("ayu-mirage")
         end,
+    },
+
+    -- Buffer tab bar
+    {
+        "akinsho/bufferline.nvim",
+        event = "VeryLazy",
+        opts = {
+            options = {
+                separator_style = "slope",
+            },
+        },
+    },
+
+    -- Fancy cmdline, messages and popups
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {
+            lsp = {
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                },
+            },
+            presets = {
+                bottom_search = true,
+                command_palette = true,
+                long_message_to_split = true,
+            },
+        },
     },
 
     -- Statusline

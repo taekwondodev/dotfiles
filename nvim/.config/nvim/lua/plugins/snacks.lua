@@ -1,0 +1,34 @@
+return {
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            explorer = {
+                replace_netrw = true,
+            },
+            picker = {
+                sources = {
+                    files = { hidden = true },
+                    grep = { hidden = true },
+                    explorer = {
+                        hidden = true,
+                        layout = {
+                            preset = "sidebar",
+                            preview = { main = true, enabled = false },
+                        },
+                    },
+                },
+            },
+        },
+        keys = {
+            { "<leader>e",   function() Snacks.explorer() end,              desc = "Explorer" },
+            { "<leader>pf",  function() Snacks.picker.files() end,          desc = "Find files" },
+            { "<C-p>",       function() Snacks.picker.git_files() end,      desc = "Git files" },
+            { "<leader>ps",  function() Snacks.picker.grep() end,           desc = "Live grep" },
+            { "<leader>pws", function() Snacks.picker.grep_word() end,      desc = "Grep word" },
+            { "<leader>pWs", function() Snacks.picker.grep_word() end,      desc = "Grep WORD", mode = { "n" } },
+            { "<leader>vh",  function() Snacks.picker.help() end,           desc = "Help tags" },
+        },
+    },
+}

@@ -4,9 +4,6 @@ local map = vim.keymap.set
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 
--- Keep cursor position when joining lines
-map("n", "J", "mzJ`z")
-
 -- Keep screen centered when scrolling / searching
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
