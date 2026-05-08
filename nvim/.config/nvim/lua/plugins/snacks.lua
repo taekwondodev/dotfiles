@@ -4,6 +4,9 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
+            dashboard = { enabled = true },
+            scroll = { enabled = true },
+            bufdelete = { enabled = true },
             explorer = {
                 replace_netrw = true,
             },
@@ -23,11 +26,11 @@ return {
         },
         keys = {
             { "<leader>e",   function() Snacks.explorer() end,              desc = "Explorer" },
+            { "<D-b>",       function() Snacks.explorer() end,              desc = "Explorer", mode = { "n", "i", "v" } },
             { "<leader>pf",  function() Snacks.picker.files() end,          desc = "Find files" },
             { "<C-p>",       function() Snacks.picker.git_files() end,      desc = "Git files" },
             { "<leader>ps",  function() Snacks.picker.grep() end,           desc = "Live grep" },
             { "<leader>pws", function() Snacks.picker.grep_word() end,      desc = "Grep word" },
-            { "<leader>pWs", function() Snacks.picker.grep_word() end,      desc = "Grep WORD", mode = { "n" } },
             { "<leader>vh",  function() Snacks.picker.help() end,           desc = "Help tags" },
         },
     },

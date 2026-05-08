@@ -7,10 +7,10 @@ return {
         keys = {
             { "<leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon add" },
             { "<C-e>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Harpoon menu" },
-            { "<C-h>", function() require("harpoon"):list():select(1) end },
-            { "<C-t>", function() require("harpoon"):list():select(2) end },
-            { "<C-n>", function() require("harpoon"):list():select(3) end },
-            { "<C-s>", function() require("harpoon"):list():select(4) end },
+            { "<M-1>", function() require("harpoon"):list():select(1) end },
+            { "<M-2>", function() require("harpoon"):list():select(2) end },
+            { "<M-3>", function() require("harpoon"):list():select(3) end },
+            { "<M-4>", function() require("harpoon"):list():select(4) end },
         },
         config = function()
             require("harpoon"):setup()
@@ -39,6 +39,8 @@ return {
                 map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame line")
                 map("n", "<leader>gd", gs.diffthis, "Diff this")
                 map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
+                map("n", "<leader>gr", gs.reset_hunk, "Reset hunk")
+                map("n", "<leader>gR", gs.reset_buffer, "Reset buffer")
             end,
         },
     },
@@ -64,6 +66,42 @@ return {
         "mbbill/undotree",
         keys = {
             { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undo tree" },
+        },
+    },
+
+    -- Jump anywhere with s + 2 chars
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+        },
+    },
+
+    -- Highlight and navigate TODO/FIXME/HACK comments
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        event = { "BufReadPre", "BufNewFile" },
+        opts = {},
+        keys = {
+            { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo" },
+            { "[t", function() require("todo-comments").jump_prev() end, desc = "Prev todo" },
+            { "<leader>st", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
+        },
+    },
+
+    -- Session save/restore per directory
+    {
+        "folke/persistence.nvim",
+        event = "BufReadPre",
+        opts = {},
+        keys = {
+            { "<leader>qs", function() require("persistence").load() end, desc = "Restore session" },
+            { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore last session" },
+            { "<leader>qd", function() require("persistence").stop() end, desc = "Don't save session" },
         },
     },
 
