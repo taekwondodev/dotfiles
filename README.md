@@ -4,9 +4,9 @@ Claude Code, Kali, Ghostty, Vim, Neovim, Fish and Starship configuration files
 ## Requirements
 
 ```bash
-brew install stow git starship neovim   # macOS
-apt install -y stow git                 # Debian / Ubuntu / Kali
-dnf install -y stow git                 # Amazon Linux 2023 / Fedora / RHEL 9+
+brew install stow git starship neovim fd   # macOS
+apt install -y stow git fd-find           # Debian / Ubuntu / Kali
+dnf install -y stow git fd-find           # Amazon Linux 2023 / Fedora / RHEL 9+
 ```
 
 > **Neovim 0.12.0 or later required** for the nvim config.
