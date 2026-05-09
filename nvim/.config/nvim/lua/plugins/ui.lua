@@ -27,6 +27,7 @@ return {
             })
             vim.cmd.colorscheme("ayu-mirage")
             vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#5ccfe6" })
+            vim.api.nvim_set_hl(0, "SnacksPickerDirectory", { link = "Normal" })
         end,
     },
 
@@ -131,6 +132,23 @@ return {
         opts = {
             current_only = true,
             winblend = 75,
+        },
+    },
+
+    -- Styled inline diagnostics with background
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "LspAttach",
+        priority = 1000,
+        opts = {
+            preset = "modern",
+            signs = {
+                arrow = "",
+                up_arrow = "",
+            },
+            options = {
+                enable_on_insert = true,
+            },
         },
     },
 

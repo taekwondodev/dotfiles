@@ -1,6 +1,12 @@
+local lombok_jar = vim.fn.expand("$MASON/share/jdtls/lombok.jar")
+
 return {
-    -- mason installs a wrapper script that handles jar paths automatically
-    cmd = { "jdtls" },
+    cmd = {
+        "jdtls",
+        string.format("--jvm-arg=-javaagent:%s", lombok_jar),
+        "--jvm-arg=-Djava.import.generatesMetadataFilesAtProjectRoot=false",
+        "--jvm-arg=-Xmx2G",
+    },
     filetypes = { "java" },
     root_markers = { "pom.xml", "build.gradle", "build.gradle.kts", ".git" },
     settings = {
@@ -16,4 +22,10 @@ return {
     init_options = {
         bundles = {},
     },
+    before_init = function(_, config)
+        local workspace = vim.fn.stdpath("data")
+            .. "/jdtls-workspaces/"
+            .. vim.fn.fnamemodify(config.root_dir, ":p"):gsub("[/:]", "_")
+        vim.list_extend(config.cmd, { "-data", workspace })
+    end,
 }
