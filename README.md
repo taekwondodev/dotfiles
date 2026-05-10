@@ -12,11 +12,16 @@ cd ~/dotfiles
 
 Prerequisites:
 
-| Profile | Requires |
-|---------|----------|
-| `macos` | [Homebrew](https://brew.sh) |
-| `linux` | `curl`, `sudo` |
-| `server` | `stow` |
+- **`macos`** — [Homebrew](https://brew.sh):
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+- **`linux`** — `curl` and `sudo` (usually pre-installed; if not: `apt install curl` / `dnf install curl`)
+- **`server`** — `stow`:
+  ```bash
+  apt install -y stow   # Debian / Ubuntu / Kali
+  dnf install -y stow   # Amazon Linux / Fedora / RHEL
+  ```
 
 Run the bootstrap script with a profile:
 
