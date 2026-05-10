@@ -15,7 +15,7 @@ set -gx TERM xterm-256color
 fish_add_path ~/.cargo/bin
 
 # Working Directory
-if status is-interactive && test "$TERM_PROGRAM" != zed
+if status is-interactive && test "$TERM_PROGRAM" != zed && test -d ~/Desktop
     cd ~/Desktop
 end
 
@@ -35,15 +35,18 @@ function __auto_venv --on-variable PWD
 end
 
 # Kill Java process after quit Android Studio
-alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
-# Claude Path
-fish_add_path ~/.local/bin
-# Claude Code alias
-function cc
-    claude $argv
+if type -q android-studio
+    alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
 end
-# Claude Code md file template
-alias ccinit='cp ~/.claude/templates/project-claude.md ./CLAUDE.md'
+
+# Claude Code
+fish_add_path ~/.local/bin
+if type -q claude
+    function cc
+        claude $argv
+    end
+    alias ccinit='cp ~/.claude/templates/project-claude.md ./CLAUDE.md'
+end
 
 # Divider after command output
 function fish_postexec --on-event fish_postexec
