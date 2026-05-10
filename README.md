@@ -36,7 +36,15 @@ chmod +x scripts/bootstrap.sh
 | vim      | ✓ | ✓ | ✓ |
 | claude   | ✓ | — | — |
 
-For a custom subset, install `stow` first, then link packages directly:
+For a custom subset, install `stow` first:
+
+```bash
+brew install stow                  # macOS
+apt install -y stow                # Debian / Ubuntu / Kali
+dnf install -y stow                # Amazon Linux / Fedora / RHEL
+```
+
+Then link packages directly:
 
 ```bash
 stow vim nvim fish
