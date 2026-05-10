@@ -1,15 +1,6 @@
 return {
-    {
-        "echasnovski/mini.icons",
-        lazy = true,
-        opts = {},
-        init = function()
-            package.preload["nvim-web-devicons"] = function()
-                require("mini.icons").mock_nvim_web_devicons()
-                return package.loaded["nvim-web-devicons"]
-            end
-        end,
-    },
+    { "nvim-tree/nvim-web-devicons", lazy = true },
+    { "mskelton/termicons.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, opts = {} },
 
     -- Ayu mirage: matches ghostty palette exactly, transparent bg lets ghostty bg bleed through
     {

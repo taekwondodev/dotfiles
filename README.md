@@ -19,15 +19,17 @@ dnf install -y stow git fd-find           # Amazon Linux 2023 / Fedora / RHEL 9+
 
 > On Linux, install Starship separately: `curl -sS https://starship.rs/install.sh | sh`
 
-> **Font required:** [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) — needed for Ghostty and Starship icons.
+> **Fonts required:**
 >
-> macOS: `brew install --cask font-jetbrains-mono-nerd-font`
+> - [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) — needed for Ghostty and Starship icons.
+>   - macOS: `brew install --cask font-jetbrains-mono-nerd-font`
+>   - Linux:
+>     ```bash
+>     curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
+>     mkdir -p ~/.local/share/fonts && tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts && fc-cache -fv
+>     ```
 >
-> Linux:
-> ```bash
-> curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
-> mkdir -p ~/.local/share/fonts && tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts && fc-cache -fv
-> ```
+> - [termicons](https://github.com/mskelton/termicons) — needed for Neovim Material icon theme. See the repo for installation instructions.
 
 ## Install
 
