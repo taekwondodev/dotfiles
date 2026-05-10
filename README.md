@@ -1,12 +1,38 @@
 # My Dotfiles
 Claude Code, Kali, Ghostty, Vim, Neovim, Fish and Starship configuration files
 
-## Requirements
+## Install
+
+Clone the repo:
 
 ```bash
-brew install stow git starship neovim fd   # macOS
-apt install -y stow git fd-find           # Debian / Ubuntu / Kali
-dnf install -y stow git fd-find           # Amazon Linux 2023 / Fedora / RHEL 9+
+git clone https://github.com/taekwondodev/dotfiles ~/dotfiles
+cd ~/dotfiles
+```
+
+Run the bootstrap script with a profile:
+
+```bash
+chmod +x scripts/bootstrap.sh
+./scripts/bootstrap.sh macos    # macOS — installs brew deps + all packages
+./scripts/bootstrap.sh linux    # Linux desktop — installs apt/dnf deps + all packages except claude
+./scripts/bootstrap.sh server   # Remote server — vim only, no deps needed
+```
+
+| Package  | macos | linux | server |
+|----------|:-----:|:-----:|:------:|
+| nvim     | ✓ | ✓ | — |
+| fish     | ✓ | ✓ | — |
+| ghostty  | ✓ | ✓ | — |
+| starship | ✓ | ✓ | — |
+| vim      | ✓ | ✓ | ✓ |
+| claude   | ✓ | — | — |
+
+For a custom subset, stow packages directly:
+
+```bash
+stow vim nvim fish
+stow -D ghostty   # remove a package
 ```
 
 > **Neovim 0.12.0 or later required** for the nvim config.
@@ -17,12 +43,10 @@ dnf install -y stow git fd-find           # Amazon Linux 2023 / Fedora / RHEL 9+
 > ```
 > Requires [Rust/cargo](https://rustup.rs) to be installed.
 
-> On Linux, install Starship separately: `curl -sS https://starship.rs/install.sh | sh`
-
 > **Fonts required:**
 >
 > - [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) — needed for Ghostty and Starship icons.
->   - macOS: `brew install --cask font-jetbrains-mono-nerd-font`
+>   - macOS: installed automatically by bootstrap.
 >   - Linux:
 >     ```bash
 >     curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
@@ -31,37 +55,16 @@ dnf install -y stow git fd-find           # Amazon Linux 2023 / Fedora / RHEL 9+
 >
 > - [termicons](https://github.com/mskelton/termicons) — needed for Neovim Material icon theme. See the repo for installation instructions.
 
-## Install
-
-Clone the repo and run stow from inside it:
-
-```bash
-git clone https://github.com/taekwondodev/dotfiles ~/dotfiles
-cd ~/dotfiles
-```
-
-Link all packages:
-
-```bash
-stow vim nvim fish ghostty claude starship
-```
-
-Or link a single package:
-
-```bash
-stow vim
-```
-
-Remove symlinks:
-
-```bash
-stow -D vim
-stow -D vim fish ghostty claude starship
-```
-
 ## Kali setup
 
 ```bash
 chmod +x scripts/setup_kali.sh
 ./scripts/setup_kali.sh
 ```
+
+Then run `./scripts/bootstrap.sh linux` to link the dotfiles.
+
+## Package manager support
+
+The `linux` profile auto-detects `apt` (Debian/Ubuntu/Kali) and `dnf` (Fedora/RHEL/Amazon Linux).
+Other package managers (`apk`, `pacman`, etc.) are not yet supported — add a case in `scripts/bootstrap.sh` if needed.
