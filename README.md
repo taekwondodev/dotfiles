@@ -13,9 +13,11 @@ cd ~/dotfiles
 Prerequisites:
 
 - **`macos`** — [Homebrew](https://brew.sh):
-  ```bash
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  ```
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
 - **`linux`** — `curl` and `sudo` (usually pre-installed; if not: `apt install curl` / `dnf install curl`)
 
 Run the bootstrap script with a profile:
@@ -36,6 +38,9 @@ chmod +x scripts/bootstrap.sh
 | vim      | ✓ | ✓ | ✓ |
 | claude   | ✓ | — | — |
 
+--- 
+## Custom subset
+
 For a custom subset, install `stow` first:
 
 ```bash
@@ -50,8 +55,6 @@ Then link packages directly:
 stow vim nvim fish
 stow -D ghostty   # remove a package
 ```
-
-> **Neovim 0.12.0 or later required** for the nvim config.
 
 The `macos` and `linux` profiles handle automatically:
 - **JetBrainsMono Nerd Font** — via `brew` on macOS, via `curl` + `fc-cache` on Linux
