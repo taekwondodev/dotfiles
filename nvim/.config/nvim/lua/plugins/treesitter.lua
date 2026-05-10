@@ -19,6 +19,8 @@ return {
                 "python",
                 "java",
                 "gitcommit", "git_config",
+                "hcl", "terraform",
+                "regex",
             })
 
             vim.api.nvim_create_autocmd("FileType", {
