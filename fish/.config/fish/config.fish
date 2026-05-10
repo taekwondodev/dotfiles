@@ -40,8 +40,8 @@ if type -q android-studio
 end
 
 # Claude Code
+fish_add_path ~/.local/bin
 if type -q claude
-    fish_add_path ~/.local/bin
     function cc
         claude $argv
     end
