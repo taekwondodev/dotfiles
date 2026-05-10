@@ -10,6 +10,14 @@ git clone https://github.com/taekwondodev/dotfiles ~/dotfiles
 cd ~/dotfiles
 ```
 
+Prerequisites:
+
+| Profile | Requires |
+|---------|----------|
+| `macos` | [Homebrew](https://brew.sh) |
+| `linux` | `curl`, `sudo` |
+| `server` | `stow` |
+
 Run the bootstrap script with a profile:
 
 ```bash
@@ -28,7 +36,7 @@ chmod +x scripts/bootstrap.sh
 | vim      | ✓ | ✓ | ✓ |
 | claude   | ✓ | — | — |
 
-For a custom subset, stow packages directly:
+For a custom subset, install `stow` first, then link packages directly:
 
 ```bash
 stow vim nvim fish
