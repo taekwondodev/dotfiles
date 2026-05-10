@@ -12,6 +12,7 @@ die()     { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 
 PROFILE=${1:-}
 DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+TERMICONS_URL="https://github.com/mskelton/termicons"
 
 usage() {
     echo "Usage: $0 [macos|linux|server]"
@@ -29,12 +30,53 @@ detect_pkg_manager() {
     fi
 }
 
+install_tree_sitter_cli() {
+    if command -v tree-sitter &>/dev/null; then
+        success "tree-sitter-cli già installato"
+        return
+    fi
+    if ! command -v cargo &>/dev/null; then
+        info "Cargo non trovato. Installazione Rust via rustup..."
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        source "$HOME/.cargo/env"
+    fi
+    info "Installazione tree-sitter-cli..."
+    cargo install tree-sitter-cli
+}
+
+install_font_linux() {
+    info "Installazione JetBrainsMono Nerd Font..."
+    local tmp
+    tmp=$(mktemp -d)
+    curl -OL --output-dir "$tmp" https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
+    mkdir -p ~/.local/share/fonts
+    tar -xf "$tmp/JetBrainsMono.tar.xz" -C ~/.local/share/fonts
+    fc-cache -fv
+    rm -rf "$tmp"
+    success "Font installato"
+}
+
+install_termicons() {
+    info "termicons richiede installazione manuale."
+    info "Apertura: $TERMICONS_URL"
+    if command -v xdg-open &>/dev/null; then
+        xdg-open "$TERMICONS_URL" 2>/dev/null || true
+    elif command -v open &>/dev/null; then
+        open "$TERMICONS_URL"
+    else
+        echo -e "${YELLOW}Apri manualmente:${NC} $TERMICONS_URL"
+    fi
+    read -rp "$(echo -e "${YELLOW}[WAIT]${NC} Premi Enter quando hai installato termicons...")"
+}
+
 install_macos() {
     command -v brew &>/dev/null || die "Homebrew non trovato: https://brew.sh"
     info "Installazione dipendenze macOS..."
     brew install stow git starship neovim fd
     brew install --cask font-jetbrains-mono-nerd-font
     success "Dipendenze installate"
+    install_tree_sitter_cli
+    install_termicons
 }
 
 install_linux() {
@@ -59,6 +101,9 @@ install_linux() {
     fi
 
     success "Dipendenze installate"
+    install_font_linux
+    install_tree_sitter_cli
+    install_termicons
 }
 
 stow_packages() {
