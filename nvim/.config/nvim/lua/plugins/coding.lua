@@ -1,4 +1,25 @@
 return {
+    -- GitHub Copilot inline ghost-text suggestions
+    {
+        "zbirenbaum/copilot.lua",
+        event = "InsertEnter",
+        opts = {
+            suggestion = {
+                enabled = true,
+                auto_trigger = true,
+                keymap = {
+                    accept = "<M-l>",
+                    accept_word = "<M-w>",
+                    accept_line = "<M-e>",
+                    next = "<M-]>",
+                    prev = "<M-[>",
+                    dismiss = "<M-x>",
+                },
+            },
+            panel = { enabled = false },
+        },
+    },
+
     -- Completion engine
     {
         "saghen/blink.cmp",
