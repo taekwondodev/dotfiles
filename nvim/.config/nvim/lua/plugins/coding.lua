@@ -74,6 +74,9 @@ return {
         },
     },
 
+    -- Schema catalog for yamlls and jsonls
+    { "b0o/schemastore.nvim", lazy = false },
+
     -- Better Lua LSP for nvim config
     {
         "folke/lazydev.nvim",
@@ -123,6 +126,8 @@ return {
                 fish = { "fish_indent" },
                 python = { "black" },
                 java = { "google_java_format" },
+                terraform = { "terraform_fmt" },
+                terraform_vars = { "terraform_fmt" },
             },
             format_on_save = {
                 timeout_ms = 500,

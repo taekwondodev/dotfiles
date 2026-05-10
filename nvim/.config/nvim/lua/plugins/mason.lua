@@ -17,6 +17,9 @@ return {
                 "lua-language-server",
                 "pyright",
                 "jdtls",
+                "terraform-ls",
+                "docker-compose-language-service",
+                "yaml-language-server",
                 -- Formatters
                 "stylua",
                 "shfmt",
