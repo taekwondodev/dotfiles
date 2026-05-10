@@ -36,24 +36,11 @@ stow -D ghostty   # remove a package
 ```
 
 > **Neovim 0.12.0 or later required** for the nvim config.
->
-> `tree-sitter-cli` is required by nvim-treesitter to build parsers:
-> ```bash
-> cargo install tree-sitter-cli
-> ```
-> Requires [Rust/cargo](https://rustup.rs) to be installed.
 
-> **Fonts required:**
->
-> - [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) — needed for Ghostty and Starship icons.
->   - macOS: installed automatically by bootstrap.
->   - Linux:
->     ```bash
->     curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
->     mkdir -p ~/.local/share/fonts && tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts && fc-cache -fv
->     ```
->
-> - [termicons](https://github.com/mskelton/termicons) — needed for Neovim Material icon theme. See the repo for installation instructions.
+The `macos` and `linux` profiles handle automatically:
+- **JetBrainsMono Nerd Font** — via `brew` on macOS, via `curl` + `fc-cache` on Linux
+- **tree-sitter-cli** — via `cargo`; installs Rust/rustup first if not present
+- **[termicons](https://github.com/mskelton/termicons)** — cannot be automated; the script opens the repo in the browser and waits for you to install it before continuing
 
 ## Kali setup
 
