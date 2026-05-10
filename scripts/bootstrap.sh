@@ -114,6 +114,12 @@ stow_packages() {
     success "Symlink creati"
 }
 
+link_server() {
+    info "Creazione symlink server (no stow)..."
+    ln -sf "$DOTFILES_DIR/vim/.vimrc" "$HOME/.vimrc"
+    success "Symlink creati"
+}
+
 [[ -z "$PROFILE" ]] && usage
 
 case "$PROFILE" in
@@ -126,7 +132,7 @@ case "$PROFILE" in
         stow_packages nvim fish ghostty starship vim
         ;;
     server)
-        stow_packages vim
+        link_server
         ;;
     *)
         usage
