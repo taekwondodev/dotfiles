@@ -1,63 +1,65 @@
 # My Dotfiles
 Claude Code, Kali, Ghostty, Vim, Neovim, Fish and Starship configuration files
 
-## Requirements
-
-```bash
-brew install stow git starship neovim fd   # macOS
-apt install -y stow git fd-find           # Debian / Ubuntu / Kali
-dnf install -y stow git fd-find           # Amazon Linux 2023 / Fedora / RHEL 9+
-```
-
-> **Neovim 0.12.0 or later required** for the nvim config.
->
-> `tree-sitter-cli` is required by nvim-treesitter to build parsers:
-> ```bash
-> cargo install tree-sitter-cli
-> ```
-> Requires [Rust/cargo](https://rustup.rs) to be installed.
-
-> On Linux, install Starship separately: `curl -sS https://starship.rs/install.sh | sh`
-
-> **Fonts required:**
->
-> - [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) — needed for Ghostty and Starship icons.
->   - macOS: `brew install --cask font-jetbrains-mono-nerd-font`
->   - Linux:
->     ```bash
->     curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
->     mkdir -p ~/.local/share/fonts && tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts && fc-cache -fv
->     ```
->
-> - [termicons](https://github.com/mskelton/termicons) — needed for Neovim Material icon theme. See the repo for installation instructions.
-
 ## Install
 
-Clone the repo and run stow from inside it:
+Clone the repo:
 
 ```bash
 git clone https://github.com/taekwondodev/dotfiles ~/dotfiles
 cd ~/dotfiles
 ```
 
-Link all packages:
+Prerequisites:
+
+- **`macos`** — [Homebrew](https://brew.sh):
 
 ```bash
-stow vim nvim fish ghostty claude starship
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Or link a single package:
+- **`linux`** — `curl` and `sudo` (usually pre-installed; if not: `apt install curl` / `dnf install curl`)
+
+Run the bootstrap script with a profile:
 
 ```bash
-stow vim
+chmod +x scripts/bootstrap.sh
+./scripts/bootstrap.sh macos    # macOS — installs brew deps + all packages
+./scripts/bootstrap.sh linux    # Linux desktop — installs apt/dnf deps + all packages except claude
+./scripts/bootstrap.sh server   # Remote server — vim only, no deps needed
 ```
 
-Remove symlinks:
+| Package  | macos | linux | server |
+|----------|:-----:|:-----:|:------:|
+| nvim     | ✓ | ✓ | — |
+| fish     | ✓ | ✓ | — |
+| ghostty  | ✓ | ✓ | — |
+| starship | ✓ | ✓ | — |
+| vim      | ✓ | ✓ | ✓ |
+| claude   | ✓ | — | — |
+
+--- 
+## Custom subset
+
+For a custom subset, install `stow` first:
 
 ```bash
-stow -D vim
-stow -D vim fish ghostty claude starship
+brew install stow                  # macOS
+apt install -y stow                # Debian / Ubuntu / Kali
+dnf install -y stow                # Amazon Linux / Fedora / RHEL
 ```
+
+Then link packages directly:
+
+```bash
+stow vim nvim fish
+stow -D ghostty   # remove a package
+```
+
+The `macos` and `linux` profiles handle automatically:
+- **JetBrainsMono Nerd Font** — via `brew` on macOS, via `curl` + `fc-cache` on Linux
+- **tree-sitter-cli** — via `cargo`; installs Rust/rustup first if not present
+- **[termicons](https://github.com/mskelton/termicons)** — cannot be automated; the script opens the repo in the browser and waits for you to install it before continuing
 
 ## Kali setup
 
@@ -65,3 +67,10 @@ stow -D vim fish ghostty claude starship
 chmod +x scripts/setup_kali.sh
 ./scripts/setup_kali.sh
 ```
+
+Then run `./scripts/bootstrap.sh linux` to link the dotfiles.
+
+## Package manager support
+
+The `linux` profile auto-detects `apt` (Debian/Ubuntu/Kali) and `dnf` (Fedora/RHEL/Amazon Linux).
+Other package managers (`apk`, `pacman`, etc.) are not yet supported — add a case in `scripts/bootstrap.sh` if needed.
