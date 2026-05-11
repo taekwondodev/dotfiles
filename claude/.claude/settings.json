@@ -21,6 +21,11 @@
     ]
   },
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/cleanup.sh" }]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
