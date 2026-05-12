@@ -55,12 +55,6 @@ map("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 -- Restart LSP
 map("n", "<leader>zig", "<cmd>LspRestart<cr>")
 
--- Go error handling snippets (ThePrimeagen style)
-map("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
-map("n", "<leader>ea", 'oassert.NoError(err, "")<Esc>F";a')
-map("n", "<leader>ef", 'oif err != nil {<CR>}<Esc>Olog.Fatalf("error: %s\\n", err.Error())<Esc>jj')
-map("n", "<leader>el", 'oif err != nil {<CR>}<Esc>O.logger.Error("error", "error", err)<Esc>F.;i')
-
 -- Buffer management
 map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" })
 map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete other buffers" })
