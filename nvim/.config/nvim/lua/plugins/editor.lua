@@ -116,4 +116,21 @@ return {
         },
         opts = {},
     },
+
+    -- Code refactoring: extract function/variable, inline variable/function
+    {
+        "ThePrimeagen/refactoring.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        event = { "BufReadPre", "BufNewFile" },
+        opts = {},
+        keys = {
+            { "<leader>re", function() require("refactoring").refactor("Extract Function") end,         mode = "v", desc = "Extract function" },
+            { "<leader>rv", function() require("refactoring").refactor("Extract Variable") end,         mode = "v", desc = "Extract variable" },
+            { "<leader>ri", function() require("refactoring").refactor("Inline Variable") end,          mode = "n", desc = "Inline variable" },
+            { "<leader>rf", function() require("refactoring").refactor("Inline Function") end,          mode = "n", desc = "Inline function" },
+        },
+    },
 }
