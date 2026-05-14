@@ -38,6 +38,9 @@ map("i", "<C-c>", "<Esc>")
 map({ "n", "v" }, "<D-z>", "u")
 map("i", "<D-z>", "<C-o>u")
 
+-- Toggle terminal
+map({ "n", "t" }, "<D-j>", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, { desc = "Toggle terminal" })
+
 -- Disable ex mode
 map("n", "Q", "<nop>")
 

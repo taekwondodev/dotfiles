@@ -10,6 +10,12 @@ return {
             explorer = {
                 replace_netrw = true,
             },
+            terminal = {
+                win = {
+                    position = "bottom",
+                    height = 0.3,
+                },
+            },
             picker = {
                 sources = {
                     files = { hidden = true },
