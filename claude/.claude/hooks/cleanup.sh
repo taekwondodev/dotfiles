@@ -16,3 +16,5 @@ rm -rf "$CLAUDE_DIR/projects" 2>/dev/null
 
 # shell-snapshots: older than 7 days
 find "$CLAUDE_DIR/shell-snapshots" -mindepth 1 -mtime +7 -delete 2>/dev/null
+
+exit 0
