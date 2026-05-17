@@ -39,3 +39,8 @@ Strictly adhere to separation of concerns within each module:
 * Ask: What are the assets? Who are the actors? What are the attack surfaces?
 * Use STRIDE as a mental checklist (Spoofing, Tampering, Repudiation, Information Disclosure, DoS, Elevation of Privilege).
 * If a trust boundary crosses the network or a privilege level, a security review of the design is mandatory before implementation.
+
+## References
+
+When project structure guidance is needed, consult the relevant file in `reference/`:
+- `reference/rust_structure.md` — Rust project layout
