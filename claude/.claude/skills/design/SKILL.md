@@ -24,7 +24,7 @@ Strictly adhere to separation of concerns within each module:
 
 * **Split Files:** Strictly avoid monolithic repository files. Split implementations into multiple focused files.
 * **Queries Module:** Always include a private `queries` module within the repository.
-* **Utils Reminder:** If a `utils` module for data access operations is missing, REMIND the user to create it. **DO NOT show examples** unless explicitly asked.
+* **Utils:** Data access utilities (base repositories, query builders, metrics) may come from a shared internal library rather than being written inline. Check the project's `utils` module and consult the relevant reference for language-specific details.
 * **Pattern:** Use interfaces/traits/abstractions to decouple implementation from the caller.
 
 ## Observability (Mandatory)
@@ -44,3 +44,4 @@ Strictly adhere to separation of concerns within each module:
 
 When project structure guidance is needed, consult the relevant file in `reference/`:
 - `reference/rust_structure.md` — Rust project layout
+- `reference/rust-rs-repository-utils.md` — `rs-repository-utils` exports, integration rules, and Prometheus wiring
