@@ -23,10 +23,8 @@ src/
 ├── utils/
 │   ├── mod.rs
 │   ├── validation.rs         # Input validation helpers
-│   ├── health.rs             # Health check endpoint logic
-│   └── repository/
-│       ├── mod.rs
-│       └── …                 # base, metrics, prepared_cache, query_builder
+│   ├── cookie.rs             # Cookie helpers
+│   └── metrics.rs            # Prometheus tracking macros (db_select!, db_insert!, redis_get!, …)
 └── <domain>/
     ├── mod.rs
     ├── handler.rs             # HTTP/Input layer

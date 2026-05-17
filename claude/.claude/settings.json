@@ -40,5 +40,6 @@
         "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/block-sensitive.sh" }]
       }
     ]
-  }
+  },
+  "awaySummaryEnabled": false
 }
