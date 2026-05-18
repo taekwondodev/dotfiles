@@ -24,16 +24,12 @@ print_error() {
 fix_package_conflicts() {
     print_status "Resolving package conflicts..."
 
-    # Unhold any held packages blocking apt resolver
-    sudo apt-mark unhold $(sudo apt-mark showhold 2>/dev/null) 2>/dev/null || true
+    # Reinstall missing theme deps to unblock apt (full-upgrade updates them to latest)
+    sudo apt-get install -y kali-themes kali-desktop-base kali-themes-common kali-wallpapers-2023 2>/dev/null || true
 
     # Configure any pending packages
     sudo dpkg --configure -a 2>/dev/null || true
 
-    # Let apt resolve broken deps, removing packages if needed
-    sudo apt-get -y -f install --allow-remove-essential --allow-downgrades 2>/dev/null || true
-
-    sudo apt autoremove -y
     sudo apt clean
 }
 
