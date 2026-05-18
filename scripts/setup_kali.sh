@@ -24,8 +24,8 @@ print_error() {
 fix_package_conflicts() {
     print_status "Resolving package conflicts..."
 
-    # Reinstall missing theme deps to unblock apt (full-upgrade updates them to latest)
-    sudo apt-get install -y kali-themes kali-desktop-base kali-themes-common kali-wallpapers-2023 2>/dev/null || true
+    # Install current theme deps to unblock apt (package lists must be updated first)
+    sudo apt-get install -y kali-wallpapers-2026 kali-themes kali-desktop-base kali-themes-common 2>/dev/null || true
 
     # Configure any pending packages
     sudo dpkg --configure -a 2>/dev/null || true
@@ -55,13 +55,13 @@ EOF
 
 # Main setup function
 main_setup() {
-    fix_package_conflicts
-    
     setup_gpg_keys
-    
-    print_status "Updating system..."
+
+    print_status "Updating package lists..."
     sudo apt update
-    
+
+    fix_package_conflicts
+
     if sudo apt full-upgrade -y --allow-downgrades --allow-remove-essential; then
         print_success "System updated successfully"
     else
