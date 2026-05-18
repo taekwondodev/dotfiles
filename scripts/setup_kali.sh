@@ -24,13 +24,15 @@ print_error() {
 fix_package_conflicts() {
     print_status "Resolving package conflicts..."
 
-    # Force-remove entire broken kali theme chain via dpkg (bypasses apt dep resolver)
-    sudo dpkg -r --force-all kali-themes kali-desktop-base kali-themes-common kali-wallpapers-2023 2>/dev/null || true
+    # Unhold any held packages blocking apt resolver
+    sudo apt-mark unhold $(sudo apt-mark showhold 2>/dev/null) 2>/dev/null || true
 
     # Configure any pending packages
-    sudo dpkg --configure -a
+    sudo dpkg --configure -a 2>/dev/null || true
 
-    # Clean up
+    # Let apt resolve broken deps, removing packages if needed
+    sudo apt-get -y -f install --allow-remove-essential --allow-downgrades 2>/dev/null || true
+
     sudo apt autoremove -y
     sudo apt clean
 }
@@ -64,12 +66,10 @@ main_setup() {
     print_status "Updating system..."
     sudo apt update
     
-    if sudo apt full-upgrade -y --allow-downgrades; then
+    if sudo apt full-upgrade -y --allow-downgrades --allow-remove-essential; then
         print_success "System updated successfully"
     else
-        print_error "APT upgrade failed, trying alternative method..."
-        sudo apt --fix-broken install
-        sudo apt full-upgrade -y
+        print_error "APT upgrade failed"
     fi
 
     # Permanent keyboard fix
