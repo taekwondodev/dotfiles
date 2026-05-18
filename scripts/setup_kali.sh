@@ -27,9 +27,6 @@ fix_package_conflicts() {
     # Fix broken packages
     sudo apt --fix-broken install -y
     
-    # Remove conflicting wallpapers package
-    sudo dpkg -r --force-all kali-wallpapers-2023 2>/dev/null || true
-    
     # Configure any pending packages
     sudo dpkg --configure -a
     
