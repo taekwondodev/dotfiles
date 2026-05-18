@@ -23,16 +23,13 @@ print_error() {
 
 fix_package_conflicts() {
     print_status "Resolving package conflicts..."
-    
-    # Remove broken theme package
-    sudo dpkg -r --force-all kali-themes-common 2>/dev/null || true
 
-    # Fix broken packages
-    sudo apt --fix-broken install -y
-    
+    # Force-remove entire broken kali theme chain via dpkg (bypasses apt dep resolver)
+    sudo dpkg -r --force-all kali-themes kali-desktop-base kali-themes-common kali-wallpapers-2023 2>/dev/null || true
+
     # Configure any pending packages
     sudo dpkg --configure -a
-    
+
     # Clean up
     sudo apt autoremove -y
     sudo apt clean
@@ -87,6 +84,19 @@ EOF
     
     # Apply immediately
     setxkbmap it -model apple
+
+    # Enable natural (reverse) scroll
+    print_status "Enabling natural scroll..."
+    sudo mkdir -p /etc/X11/xorg.conf.d
+    sudo tee /etc/X11/xorg.conf.d/40-libinput.conf > /dev/null << EOF
+Section "InputClass"
+    Identifier "libinput pointer catchall"
+    MatchIsPointer "on"
+    MatchDevicePath "/dev/input/event*"
+    Driver "libinput"
+    Option "NaturalScrolling" "true"
+EndSection
+EOF
 
     # Configure timezone
     print_status "Setting Europe/Rome timezone..."
