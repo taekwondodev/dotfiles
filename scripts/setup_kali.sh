@@ -24,8 +24,10 @@ print_error() {
 fix_package_conflicts() {
     print_status "Resolving package conflicts..."
 
-    # Install current theme deps to unblock apt (package lists must be updated first)
-    sudo apt-get install -y kali-wallpapers-2026 kali-themes kali-desktop-base kali-themes-common 2>/dev/null || true
+    # Upgrade kali-defaults and dconf-cli first (required by kali-themes 2026)
+    sudo apt-get install -y dconf-cli kali-defaults kali-wallpapers-2026 2>/dev/null || true
+    # Now install theme packages with satisfied deps
+    sudo apt-get install -y kali-themes kali-desktop-base kali-themes-common 2>/dev/null || true
 
     # Configure any pending packages
     sudo dpkg --configure -a 2>/dev/null || true
