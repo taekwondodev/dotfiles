@@ -24,6 +24,9 @@ print_error() {
 fix_package_conflicts() {
     print_status "Resolving package conflicts..."
     
+    # Remove broken theme package
+    sudo dpkg -r --force-all kali-themes-common 2>/dev/null || true
+
     # Fix broken packages
     sudo apt --fix-broken install -y
     
