@@ -73,21 +73,32 @@ reinstall_nm_vpn_plugins() {
 upgrade_old_kali() {
     print_status "Old Kali detected — running migration-aware upgrade..."
 
+    # Remove NM-VPN plugins first: old systemd rejects 'u!' in sysusers.d
     remove_nm_vpn_plugins
-    remove_old_t64_conflicts
 
-    sudo apt update
-
-    local attempts=0
-    until sudo apt-get -o Dpkg::Options::="--force-overwrite" full-upgrade -y; do
-        attempts=$((attempts + 1))
-        if [ "$attempts" -ge 5 ]; then
-            print_error "Full upgrade failed after $attempts attempts"
-            break
+    # Remove only packages that cause SPECIFIC file conflicts (not core libs)
+    # Core libs (libglib2.0-0, libgnutls30, etc.) must be replaced by apt,
+    # NOT pre-removed — removing them before upgrade breaks the entire system
+    for pkg in kali-wallpapers-2023 libgtk-3-0; do
+        if dpkg -l "$pkg" 2>/dev/null | grep -q "^ii"; then
+            sudo dpkg -r --force-depends "$pkg" 2>/dev/null && \
+                print_status "Removed conflicting package $pkg" || true
         fi
-        print_status "Upgrade attempt $attempts failed, running fix-broken..."
-        sudo apt-get -o Dpkg::Options::="--force-overwrite" --fix-broken install -y || true
     done
+
+    sudo apt update || true
+
+    # First attempt: force-overwrite handles t64 transition file conflicts
+    if sudo apt-get -o Dpkg::Options::="--force-overwrite" full-upgrade -y; then
+        print_success "Full upgrade succeeded"
+    else
+        print_status "First upgrade attempt failed, running fix-broken..."
+        sudo apt-get -o Dpkg::Options::="--force-overwrite" --fix-broken install -y || true
+
+        print_status "Retrying full upgrade..."
+        sudo apt-get -o Dpkg::Options::="--force-overwrite" full-upgrade -y || \
+            print_error "Full upgrade failed — manual intervention may be needed"
+    fi
 
     sudo apt-get -o Dpkg::Options::="--force-overwrite" --fix-broken install -y || true
 
@@ -156,8 +167,8 @@ EOF
     # Disabilita compositor per tutti gli utenti
     for home_dir in /root /home/*; do
         if [ -d "$home_dir" ]; then
-            mkdir -p "$home_dir/.config/xfce4/xfwm4"
-            cat > "$home_dir/.config/xfce4/xfwm4/xfwm4.xml" << 'EOF'
+            sudo mkdir -p "$home_dir/.config/xfce4/xfwm4"
+            sudo tee "$home_dir/.config/xfce4/xfwm4/xfwm4.xml" > /dev/null << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <channel name="xfwm4" version="1.0">
   <property name="general" type="empty">
