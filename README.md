@@ -64,7 +64,6 @@ The `macos` and `linux` profiles handle automatically:
 ## Kali setup
 
 ```bash
-chmod +x scripts/setup_kali.sh
 ./scripts/setup_kali.sh
 ```
 
