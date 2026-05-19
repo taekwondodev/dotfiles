@@ -9,10 +9,6 @@ print_status()  { echo -e "${YELLOW}[INFO]${NC} $1"; }
 print_success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
 print_error()   { echo -e "${RED}[ERROR]${NC} $1"; }
 
-get_kali_year() {
-    grep "VERSION_ID" /etc/os-release 2>/dev/null | cut -d'"' -f2 | cut -d'.' -f1
-}
-
 setup_gpg_keys() {
     print_status "Setting up Kali GPG keys..."
     sudo rm -f /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
@@ -23,88 +19,6 @@ setup_gpg_keys() {
 deb http://http.kali.org/kali kali-rolling main non-free contrib
 deb-src http://http.kali.org/kali kali-rolling main non-free contrib
 EOF
-}
-
-# Rimuove pacchetti non-t64 che conflittano con la transizione Debian 2026
-remove_old_t64_conflicts() {
-    print_status "Removing old non-t64 packages that conflict with 2026 transition..."
-    local OLD_PKGS=(
-        libgtk-3-0
-        libglib2.0-0
-        libgnutls30
-        libreadline8
-        libcups2
-        libpsl5
-        libhogweed6
-        libcurl3-gnutls
-        libtirpc3
-        libxerces-c3.2
-        libtumbler-1-0
-        libgnutls-dane0
-        kali-wallpapers-2023
-    )
-    for pkg in "${OLD_PKGS[@]}"; do
-        if dpkg -l "$pkg" 2>/dev/null | grep -q "^ii"; then
-            sudo dpkg -r --force-depends "$pkg" 2>/dev/null && \
-                print_status "Removed $pkg" || true
-        fi
-    done
-}
-
-# Rimuove plugin NM-VPN: systemd vecchio non supporta 'u!' in sysusers.d
-remove_nm_vpn_plugins() {
-    print_status "Removing NM VPN plugins (incompatible with old systemd)..."
-    sudo apt remove --purge -y \
-        network-manager-openvpn \
-        network-manager-openconnect \
-        network-manager-openvpn-gnome \
-        network-manager-openconnect-gnome 2>/dev/null || true
-}
-
-reinstall_nm_vpn_plugins() {
-    print_status "Reinstalling NM VPN plugins (systemd now updated)..."
-    sudo apt install -y \
-        network-manager-openvpn \
-        network-manager-openconnect \
-        network-manager-openvpn-gnome \
-        network-manager-openconnect-gnome 2>/dev/null || true
-}
-
-upgrade_old_kali() {
-    print_status "Old Kali detected — running migration-aware upgrade..."
-
-    # Remove NM-VPN plugins first: old systemd rejects 'u!' in sysusers.d
-    remove_nm_vpn_plugins
-
-    # Remove only packages that cause SPECIFIC file conflicts (not core libs)
-    # Core libs (libglib2.0-0, libgnutls30, etc.) must be replaced by apt,
-    # NOT pre-removed — removing them before upgrade breaks the entire system
-    for pkg in kali-wallpapers-2023 libgtk-3-0; do
-        if dpkg -l "$pkg" 2>/dev/null | grep -q "^ii"; then
-            sudo dpkg -r --force-depends "$pkg" 2>/dev/null && \
-                print_status "Removed conflicting package $pkg" || true
-        fi
-    done
-
-    sudo apt update || true
-
-    # First attempt: force-overwrite handles t64 transition file conflicts
-    if sudo apt-get -o Dpkg::Options::="--force-overwrite" full-upgrade -y; then
-        print_success "Full upgrade succeeded"
-    else
-        print_status "First upgrade attempt failed, running fix-broken..."
-        sudo apt-get -o Dpkg::Options::="--force-overwrite" --fix-broken install -y || true
-
-        print_status "Retrying full upgrade..."
-        sudo apt-get -o Dpkg::Options::="--force-overwrite" full-upgrade -y || \
-            print_error "Full upgrade failed — manual intervention may be needed"
-    fi
-
-    sudo apt-get -o Dpkg::Options::="--force-overwrite" --fix-broken install -y || true
-
-    reinstall_nm_vpn_plugins
-
-    print_success "Migration upgrade completed"
 }
 
 upgrade_current_kali() {
@@ -151,63 +65,15 @@ EndSection
 EOF
 }
 
-# Fix display nero su UTM/virtio-gpu: disabilita compositor xfwm4
-setup_display_utm() {
-    print_status "Configuring display for UTM (disabling compositor)..."
-
-    sudo tee -a /etc/lightdm/lightdm.conf > /dev/null << EOF
-
-[LightDM]
-logind-check-graphical=true
-
-[Seat:*]
-greeter-session=lightdm-gtk-greeter
-EOF
-
-    # Disabilita compositor per tutti gli utenti
-    for home_dir in /root /home/*; do
-        if [ -d "$home_dir" ]; then
-            sudo mkdir -p "$home_dir/.config/xfce4/xfwm4"
-            sudo tee "$home_dir/.config/xfce4/xfwm4/xfwm4.xml" > /dev/null << 'EOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<channel name="xfwm4" version="1.0">
-  <property name="general" type="empty">
-    <property name="use_compositing" type="bool" value="false"/>
-  </property>
-</channel>
-EOF
-        fi
-    done
-}
-
-setup_ssh() {
-    print_status "Installing and enabling SSH server..."
-    sudo apt install -y openssh-server 2>/dev/null || true
-    sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-    sudo systemctl enable ssh
-    sudo systemctl start ssh
-}
 
 main_setup() {
     echo -e "${GREEN}=== Kali Linux Basic Setup Script ===${NC}"
 
-    local kali_year
-    kali_year=$(get_kali_year)
-    print_status "Detected Kali version year: ${kali_year:-unknown}"
-
     setup_gpg_keys
-
-    if [ -n "$kali_year" ] && [ "$kali_year" -lt 2025 ] 2>/dev/null; then
-        print_status "Old Kali (${kali_year}) detected — migration mode"
-        upgrade_old_kali
-    else
-        upgrade_current_kali
-    fi
+    upgrade_current_kali
 
     setup_keyboard
     setup_input
-    setup_display_utm
-    setup_ssh
 
     print_status "Setting Europe/Rome timezone..."
     sudo timedatectl set-timezone Europe/Rome
@@ -217,7 +83,6 @@ main_setup() {
 
     print_success "=== Setup completed ==="
     echo -e "${YELLOW}Keyboard: Italian Apple | Timezone: Europe/Rome | Natural scroll + scroll speed 3.0: enabled${NC}"
-    echo -e "${YELLOW}SSH: enabled | Display: compositor disabled for UTM${NC}"
     echo -e "${GREEN}Reboot recommended.${NC}"
 }
 
