@@ -39,6 +39,8 @@ return {
             { "<leader>ps",  function() Snacks.picker.grep() end,           desc = "Live grep" },
             { "<leader>pws", function() Snacks.picker.grep_word() end,      desc = "Grep word" },
             { "<leader>vh",  function() Snacks.picker.help() end,           desc = "Help tags" },
+            { "<leader>sb",  function() Snacks.picker.lines() end,          desc = "Buffer lines" },
+            { "<leader>ss",  function() Snacks.picker.lsp_symbols() end,    desc = "LSP symbols" },
         },
     },
 }
