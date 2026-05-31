@@ -41,5 +41,9 @@
       }
     ]
   },
-  "awaySummaryEnabled": false
+  "awaySummaryEnabled": false,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
 }
