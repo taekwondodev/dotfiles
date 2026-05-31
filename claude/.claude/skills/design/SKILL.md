@@ -8,40 +8,37 @@ description: >
 
 ## Internal Layering
 
-Strictly adhere to separation of concerns within each module:
-
-1. **Handler:** HTTP/Input layer. Parses and validates incoming requests.
-2. **Service:** Business logic layer. Orchestrates domain operations.
-3. **Repository:** Data access layer. Abstracts persistence.
-4. **Middleware:** Observability and cross-cutting concerns.
+1. **Handler:** HTTP/Input layer. Parse + validate requests.
+2. **Service:** Business logic. Orchestrate domain operations.
+3. **Repository:** Data access. Abstract persistence.
+4. **Middleware:** Observability + cross-cutting concerns.
 
 ## Shared State & Error Handling
 
-* Use a dedicated `AppState` structure for shared application state, defined in its own file.
-* Use a centralized `AppError` type for global error handling. It must be the **only** error type returned by the server, defined in its own file.
+* Dedicated `AppState` struct for shared state, in its own file.
+* Centralized `AppError` type — only error type returned by server, in its own file.
 
 ## Repository Structure
 
-* **Split Files:** Strictly avoid monolithic repository files. Split implementations into multiple focused files.
-* **Queries Module:** Always include a private `queries` module within the repository.
-* **Utils:** Data access utilities (base repositories, query builders, metrics) may come from a shared internal library rather than being written inline. Check the project's `utils` module and consult the relevant reference for language-specific details.
-* **Pattern:** Use interfaces/traits/abstractions to decouple implementation from the caller.
+* **Split Files:** No monolithic repository files. Split into focused files.
+* **Queries Module:** Always include private `queries` module in repository.
+* **Utils:** Check project's `utils` module before writing inline. Consult language-specific reference.
+* **Pattern:** Use interfaces/traits/abstractions to decouple from caller.
 
 ## Observability (Mandatory)
 
-* **Day 0 Implementation:** Structured logging, metrics collection, and tracing are mandatory from the start, not optional.
-* **Implementation:** Must be implemented via the middleware layer.
-* **Check:** If middleware/metrics are missing, REMIND the user immediately. **DO NOT show examples** unless explicitly asked.
+* **Day 0:** Structured logging, metrics, tracing mandatory from start.
+* **Implementation:** Via middleware layer only.
+* **Check:** Missing middleware/metrics? REMIND user. **DO NOT show examples** unless asked.
 
 ## Threat Modeling (Mandatory for New Features)
 
-* Before designing a new feature, identify its trust boundaries.
-* Ask: What are the assets? Who are the actors? What are the attack surfaces?
-* Use STRIDE as a mental checklist (Spoofing, Tampering, Repudiation, Information Disclosure, DoS, Elevation of Privilege).
-* If a trust boundary crosses the network or a privilege level, a security review of the design is mandatory before implementation.
+* Identify trust boundaries before designing.
+* Ask: assets? actors? attack surfaces?
+* Use STRIDE checklist (Spoofing, Tampering, Repudiation, Information Disclosure, DoS, Elevation of Privilege).
+* Trust boundary crosses network or privilege level? Security review mandatory before implementation.
 
 ## References
 
-When project structure guidance is needed, consult the relevant file in `reference/`:
 - `reference/rust_structure.md` — Rust project layout
-- `reference/rust-rs-repository-utils.md` — `rs-repository-utils` exports, integration rules, and Prometheus wiring
+- `reference/rust-rs-repository-utils.md` — `rs-repository-utils` exports, integration rules, Prometheus wiring
