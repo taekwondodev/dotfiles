@@ -21,9 +21,10 @@ Extract from conversation + git state:
 - **Progress:** done items (file names, functions, decisions)
 - **What Didn't Work:** failed approaches — prevents next agent repeating them
 - **Pending:** ordered, most critical first
-- **Decisions & Context:** non-obvious choices, constraints, gotchas a fresh Claude won't know from code alone
+- **Decisions & Context:** non-obvious choices, constraints, gotchas fresh Claude can't derive from code
 - **Files Changed:** path → one-line description
 - **Blockers:** stuck or unclear items
+- **Active Skills:** skills active in current session (e.g. `/caveman full`, `/design`)
 - **Suggested Skills:** skills the next agent should invoke (e.g. `/design`, `/testing`)
 
 Policies:
@@ -34,10 +35,11 @@ Policies:
 
 Write to `.claude/HANDOFF.md` (create `.claude/` if missing).
 
-At the bottom add a `## Resume Prompt` — self-contained, copy-paste ready:
+Add `## Resume Prompt` at bottom — self-contained, copy-paste ready:
 ```
 Read `.claude/HANDOFF.md` first. We're working on <project> — <task goal>.
-Continue from the Pending section. Ask me nothing until you've read the handoff.
+Continue from the Pending section. Invoke active skills listed in Active Skills section immediately.
+Ask me nothing until you've read the handoff.
 ```
 
 Then: confirm path, print Resume Prompt in chat, say "Open new session, paste prompt above."
