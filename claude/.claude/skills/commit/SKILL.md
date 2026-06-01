@@ -27,8 +27,8 @@ Conventional Commits format:
 - Imperative mood: "add", "fix", "remove"
 - Subject ≤50 chars, hard cap 72
 - No trailing period
-- Body only if why isn't obvious, breaking change, or migration note
-- Wrap body at 72 chars
+- No body by default — omit unless the user explicitly asks for detail
+- If body is needed: breaking change or migration note only; wrap at 72 chars
 
 Never include: "This commit does X", emoji.
 
