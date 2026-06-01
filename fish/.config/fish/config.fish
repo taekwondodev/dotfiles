@@ -11,6 +11,9 @@ set -gx TERM xterm-256color
 # Cargo
 fish_add_path ~/.cargo/bin
 
+# Go 
+fish_add_path ~/go/bin
+
 # Working Directory
 if status is-interactive && test "$TERM_PROGRAM" != zed && test -d ~/Desktop
     cd ~/Desktop
