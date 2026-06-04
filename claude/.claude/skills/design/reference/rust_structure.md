@@ -24,7 +24,7 @@ src/
 │   ├── mod.rs
 │   ├── validation.rs         # Input validation helpers
 │   ├── cookie.rs             # Cookie helpers
-│   └── metrics.rs            # Prometheus tracking macros (db_select!, db_insert!, redis_get!, …)
+│   └── observer.rs           # PrometheusObserver — implements RepositoryObserver from rs-repository-utils
 └── <domain>/
     ├── mod.rs
     ├── handler.rs             # HTTP/Input layer
@@ -41,7 +41,7 @@ src/
 
 ## Test Layout
 
-Tests live in a `tests/` subdirectory at the same level as the module being tested. Never inline at the bottom of a source file.
+Tests in `tests/` subdirectory. Never inline at file bottom.
 
 ```
 <module>/
