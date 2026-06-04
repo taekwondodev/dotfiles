@@ -15,19 +15,19 @@ description: >
 
 ## Shared State & Error Handling
 
-* Dedicated `AppState` struct for shared state, in its own file.
-* Centralized `AppError` type — only error type returned by server, in its own file.
+* `AppState` struct in own file.
+* `AppError` — single server error type, own file.
 
 ## Repository Structure
 
-* **Split Files:** No monolithic repository files. Split into focused files.
-* **Queries Module:** Always include private `queries` module in repository.
-* **Utils:** Check project's `utils` module before writing inline. Consult language-specific reference.
-* **Pattern:** Use interfaces/traits/abstractions to decouple from caller.
+* **Split Files:** No monolithic repo files. Split by focus.
+* **Queries Module:** Always include private `queries` module.
+* **Utils:** Check `utils` before writing inline. Consult language-specific reference.
+* **Pattern:** Use traits to decouple from caller.
 
 ## Observability (Mandatory)
 
-* **Day 0:** Structured logging, metrics, tracing mandatory from start.
+* **Day 0:** Logging, metrics, tracing mandatory from start.
 * **Implementation:** Via middleware layer only.
 * **Check:** Missing middleware/metrics? REMIND user. **DO NOT show examples** unless asked.
 
@@ -36,7 +36,7 @@ description: >
 * Identify trust boundaries before designing.
 * Ask: assets? actors? attack surfaces?
 * Use STRIDE checklist (Spoofing, Tampering, Repudiation, Information Disclosure, DoS, Elevation of Privilege).
-* Trust boundary crosses network or privilege level? Security review mandatory before implementation.
+* Network/privilege boundary? Security review mandatory before impl.
 
 ## References
 

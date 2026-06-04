@@ -13,12 +13,12 @@ description: >
 
 ## File Structure
 
-* No inline tests at bottom of source file.
-* Create `tests/` dir at same level as module being tested.
+* No inline tests at file bottom.
+* `tests/` dir at same level as module.
 * Name test files consistently with module (e.g., `request_test` for `request`).
-* Declare test modules conditionally — excluded from production builds.
+* Declare test modules conditionally — excluded from prod builds.
 
 ## Coverage
 
 * Test behavior + domain invariants, not implementation details.
-* Security tests follow **OWASP Testing Guide** as reference standard.
+* Security tests: **OWASP Testing Guide**.
