@@ -28,7 +28,6 @@ Conventional Commits format:
 - Subject ≤50 chars, hard cap 72
 - No trailing period
 - No body by default
-- If body is needed: breaking change or migration note only; wrap at 72 chars
 
 Never include: "This commit does X", emoji.
 
