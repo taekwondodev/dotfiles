@@ -1,8 +1,8 @@
 ---
 name: commit
 description: >
-  Generate a concise commit message and stage + commit changes.
-  Optionally push if "push" is passed as argument.
+  Stage all changes and commit with a Conventional Commits message.
+  Pass "push" to also push. Never adds a commit body.
 argument-hint: "push"
 ---
 
@@ -27,7 +27,7 @@ Conventional Commits format:
 - Imperative mood: "add", "fix", "remove"
 - Subject ≤50 chars, hard cap 72
 - No trailing period
-- No body by default
+- Never add a body. Subject line only, always.
 
 Never include: "This commit does X", emoji.
 

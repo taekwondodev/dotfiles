@@ -1,10 +1,9 @@
 ---
 name: compress
 description: >
-  Compress natural language files (CLAUDE.md, todos, preferences, notes) into caveman format
-  to reduce input tokens. Preserves all technical substance, code, URLs, and structure.
-  Compressed version overwrites original.
-  Trigger: /compress FILEPATH or "compress this file"
+  Compress a natural language file (CLAUDE.md, notes, preferences, todos) into terse caveman
+  format to reduce input tokens. Invoke when user says "compress this file", "reduce tokens",
+  or runs /compress <filepath>. Overwrites original. Never modifies code files.
 argument-hint: "<filepath>"
 ---
 
