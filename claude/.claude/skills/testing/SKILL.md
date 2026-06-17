@@ -1,8 +1,8 @@
 ---
 name: testing
 description: >
-  Testing strategy guidelines. Defines scope, exclusions, file structure, and coverage rules.
-  Invoke when writing tests or setting up a test suite.
+  Testing strategy guidelines. Invoke when user asks to write tests, add a test suite, mentions
+  unit tests, integration tests, coverage, TDD, test file structure, or which layer to test.
 ---
 
 ## Scope & Exclusions

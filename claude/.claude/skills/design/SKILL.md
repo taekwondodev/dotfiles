@@ -1,9 +1,9 @@
 ---
 name: design
 description: >
-  Architecture and system design guidelines. Enforces internal layering (Handler/Service/Repository/Middleware),
-  AppState/AppError patterns, repository structure, mandatory observability, and threat modeling.
-  Invoke when designing a new feature, creating a new module, or doing structural refactoring.
+  Architecture and system design guidelines. Invoke when user asks to add a feature, create a module or class,
+  design an API, refactor structure, mentions architecture, layers, Handler/Service/Repository pattern,
+  AppState, AppError, observability, or threat modeling.
 ---
 
 ## Internal Layering
