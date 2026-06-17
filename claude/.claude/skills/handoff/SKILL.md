@@ -1,9 +1,11 @@
 ---
 name: handoff
 description: >
-  Context bridge for session continuity. When context is nearly full and the current task is
-  incomplete, synthesizes all session state into a structured HANDOFF.md file and produces
-  a copy-paste prompt to resume seamlessly in a new session.
+  Context bridge for session continuity. Synthesizes conversation state, git status, and pending
+  work into a structured HANDOFF.md, then produces a copy-paste resume prompt for the next session.
+  Invoke when user says "save context", "new session", "continue later", "save progress",
+  "running out of context", "handoff", "context limit", or when context window is nearly full
+  and the current task is incomplete.
 argument-hint: "What will the next session focus on?"
 ---
 
