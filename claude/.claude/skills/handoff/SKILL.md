@@ -37,11 +37,13 @@ Policies:
 
 Write to `.claude/HANDOFF.md` (create `.claude/` if missing).
 
-Add `## Resume Prompt` at bottom — self-contained, copy-paste ready:
+Add `## Resume Prompt` at bottom — self-contained, copy-paste ready.
+Expand Active Skills into direct invocations at the top, one per line:
 ```
-Read `.claude/HANDOFF.md` first. We're working on <project> — <task goal>.
-Continue from the Pending section. Invoke active skills listed in Active Skills section immediately.
-Ask me nothing until you've read the handoff.
+/<skill1> <args>
+/<skill2> <args>
+Read `.claude/HANDOFF.md`. We're working on <project> — <task goal>.
+Continue from the Pending section. Ask me nothing until you've read the handoff.
 ```
 
 Then: confirm path, print Resume Prompt in chat, say "Open new session, paste prompt above."
