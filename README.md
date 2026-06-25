@@ -1,5 +1,5 @@
 # My Dotfiles
-Claude Code, Kali, Ghostty, Vim, Neovim, Fish and Starship configuration files
+Claude Code, Kali, Ghostty, tmux, Vim, Neovim, Fish and Starship configuration files
 
 ## Install
 
@@ -34,6 +34,7 @@ chmod +x scripts/bootstrap.sh
 | nvim     | ✓ | ✓ | — |
 | fish     | ✓ | ✓ | — |
 | ghostty  | ✓ | ✓ | — |
+| tmux     | ✓ | ✓ | — |
 | starship | ✓ | ✓ | — |
 | vim      | ✓ | ✓ | ✓ |
 | claude   | ✓ | — | — |
