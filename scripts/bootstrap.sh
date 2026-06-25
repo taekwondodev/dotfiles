@@ -17,8 +17,8 @@ TERMICONS_URL="https://github.com/mskelton/termicons"
 usage() {
     echo "Usage: $0 [macos|linux|server]"
     echo ""
-    echo "  macos   — nvim fish ghostty claude starship vim (brew)"
-    echo "  linux   — nvim fish ghostty starship vim (apt/dnf)"
+    echo "  macos   — nvim fish ghostty tmux claude starship vim (brew)"
+    echo "  linux   — nvim fish ghostty tmux starship vim (apt/dnf)"
     echo "  server  — vim only"
     exit 1
 }
@@ -72,7 +72,7 @@ install_termicons() {
 install_macos() {
     command -v brew &>/dev/null || die "Homebrew non trovato: https://brew.sh"
     info "Installazione dipendenze macOS..."
-    brew install stow git starship neovim fd
+    brew install stow git starship neovim fd tmux
     brew install --cask font-jetbrains-mono-nerd-font
     success "Dipendenze installate"
     install_tree_sitter_cli
@@ -88,10 +88,10 @@ install_linux() {
     case "$pm" in
         apt)
             sudo apt update
-            sudo apt install -y stow git neovim fd-find
+            sudo apt install -y stow git neovim fd-find tmux
             ;;
         dnf)
-            sudo dnf install -y stow git neovim fd-find
+            sudo dnf install -y stow git neovim fd-find tmux
             ;;
     esac
 
@@ -125,11 +125,11 @@ link_server() {
 case "$PROFILE" in
     macos)
         install_macos
-        stow_packages nvim fish ghostty claude starship vim
+        stow_packages nvim fish ghostty tmux claude starship vim
         ;;
     linux)
         install_linux
-        stow_packages nvim fish ghostty starship vim
+        stow_packages nvim fish ghostty tmux starship vim
         ;;
     server)
         link_server
