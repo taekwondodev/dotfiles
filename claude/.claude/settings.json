@@ -1,10 +1,15 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "sh $HOME/.claude/statusline-command.sh"
+  "attribution": {
+    "commit": "",
+    "pr": ""
   },
   "permissions": {
-    "allow": ["Read(**)", "Glob(**)", "Grep(**)", "Bash(ls*)"],
+    "allow": [
+      "Read(**)",
+      "Glob(**)",
+      "Grep(**)",
+      "Bash(ls*)"
+    ],
     "deny": [
       "Read(**/.env)",
       "Read(**/secrets.yaml)",
@@ -23,28 +28,48 @@
   "hooks": {
     "Stop": [
       {
-        "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/cleanup.sh" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/cleanup.sh"
+          }
+        ]
       }
     ],
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/block-sensitive.sh" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/block-sensitive.sh"
+          }
+        ]
       },
       {
         "matcher": "Read",
-        "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/block-sensitive.sh" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/block-sensitive.sh"
+          }
+        ]
       },
       {
         "matcher": "Grep",
-        "hooks": [{ "type": "command", "command": "bash $HOME/.claude/hooks/block-sensitive.sh" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/block-sensitive.sh"
+          }
+        ]
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "sh $HOME/.claude/statusline-command.sh"
+  },
   "awaySummaryEnabled": false,
-  "autoMemoryEnabled": false,
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  }
+  "autoMemoryEnabled": false
 }

@@ -54,3 +54,7 @@ function fish_postexec --on-event fish_postexec
     string repeat -n (tput cols) ─
     set_color normal
 end
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
