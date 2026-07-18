@@ -53,7 +53,7 @@ clipboard-read = allow
 clipboard-write = allow
 copy-on-select = true
 
-scrollback-limit = 2000000
+scrollback-limit = 10000000
 
 background-opacity = 0.95
 background-blur = 20
