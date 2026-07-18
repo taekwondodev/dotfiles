@@ -30,7 +30,9 @@ src/
     ├── handler.rs             # HTTP/Input layer
     ├── service.rs             # Business logic layer
     ├── repository.rs          # Data access layer
-    ├── queries.rs             # Raw SQL / query definitions
+    ├── queries.rs             # pub const per query, body = include_str!("sql/...")
+    ├── sql/                   # one .sql file per query, flat, no subfolders
+    │   └── <submodule>_<query_name>.sql
     ├── traits.rs              # Repository and service abstractions
     ├── model.rs               # Domain types
     └── dto/

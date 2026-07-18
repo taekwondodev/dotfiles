@@ -70,5 +70,8 @@
     "command": "sh $HOME/.claude/statusline-command.sh"
   },
   "awaySummaryEnabled": false,
-  "autoMemoryEnabled": false
+  "autoMemoryEnabled": false,
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
+  }
 }

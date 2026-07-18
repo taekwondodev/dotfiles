@@ -21,7 +21,7 @@ description: >
 ## Repository Structure
 
 * No monolithic files. Split by focus.
-* Always include private `queries` module.
+* Always include private `queries` module. Externalize SQL to sibling `sql/` dir, one `.sql` file per query, loaded via `include_str!`.
 * Check `utils` before writing inline. Consult language-specific reference.
 * Use traits to decouple from caller.
 
@@ -43,3 +43,4 @@ description: >
 - `reference/rust_structure.md` — Rust project layout
 - `reference/rust-rs-repository-utils.md` — `rs-repository-utils` exports, integration rules, Prometheus wiring
 - `reference/rust-string-types.md` — String type governance (`&'static str` / `Box<str>` / `Cow` / `Arc<str>`), `AppError` security tier pattern, `Box<str>` PartialEq in tests
+- `reference/rust-sql-queries.md` — externalizing SQL to `.sql` files, naming, `include_str!` wiring
