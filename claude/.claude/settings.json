@@ -25,6 +25,17 @@
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/session-start-caveman.sh"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
