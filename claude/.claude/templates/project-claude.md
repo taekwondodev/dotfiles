@@ -15,9 +15,20 @@
 - **Database:**
 - **Other:**
 
+## Commands
+- 
+
+## Testing
+- 
+
+## Database
+- **Schema location:** 
+
 ## Architecture
-- **Structure:** [by-feature / by-technical-layer]
+- **Structure:** [by-feature / by-technical-layer / hexagonal]
 - **Key decisions:**
 
-## Constraints
-- 
+## Run Requirements
+- **Env vars:** 
+- **Config files:**
+- **Instructions:**
