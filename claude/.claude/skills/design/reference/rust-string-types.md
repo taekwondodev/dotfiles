@@ -57,43 +57,46 @@ fn normalize_domain(domain: &str) -> Cow<'_, str> {
 }
 ```
 
-## `AppError` Security Pattern
+## `DomainError` Security Pattern
 
-`&'static str` for client-visible variants: compile-time guarantee no runtime string (DB error, JWT detail) reaches HTTP body:
+Workspace layout splits single error type in two (see `SKILL.md` Cross-Boundary Error Handling): `DomainError` in domain crate, `HttpError` wrapping it in adapter crate. `&'static str`-for-client-visible-variants rule applies to `DomainError`, since that's type whose messages potentially reach HTTP body via `HttpError`'s conversion — compile-time guarantee no runtime string (DB error, JWT detail) leaks through:
 
 ```rust
-pub enum AppError {
+pub enum DomainError {
     // Logged only — dynamic content OK
-    InternalServer(Box<str>),
-    ServiceUnavailable(Box<str>),
-    CircuitBreakerOpen(Box<str>),
+    Internal(anyhow::Error),
+    ServiceUnavailable(String),
 
     // Client-visible — only compile-time literals allowed
     NotFound(&'static str),
-    AlreadyExists(&'static str),
+    Conflict(&'static str),
     Unauthorized(&'static str),
 
     // Client-visible but validation messages are safe
-    BadRequest(Box<str>),
+    BadRequest(String),
 }
 ```
 
-Sanitize all `From<ExternalError>` impls producing client-visible variants:
+Sanitize all `From<ExternalError>` impls producing client-visible variants — domain crate concern (jsonwebtoken/webauthn errors happen inside domain-adjacent validation), not adapter one:
 
 ```rust
 // BAD
-impl From<jsonwebtoken::errors::Error> for AppError {
-    fn from(e: ...) -> Self { AppError::Unauthorized(e.to_string()) }
+impl From<jsonwebtoken::errors::Error> for DomainError {
+    fn from(e: ...) -> Self { DomainError::Unauthorized(e.to_string()) }
 }
 
 // GOOD
-impl From<jsonwebtoken::errors::Error> for AppError {
-    fn from(_: ...) -> Self { AppError::Unauthorized("Invalid token") }
+impl From<jsonwebtoken::errors::Error> for DomainError {
+    fn from(_: ...) -> Self { DomainError::Unauthorized("Invalid token") }
 }
+```
 
-// GOOD — sanitize JSON rejection (reveals schema otherwise)
-impl From<axum::extract::rejection::JsonRejection> for AppError {
-    fn from(_: ...) -> Self { AppError::BadRequest("Malformed request body".into()) }
+`axum::extract::rejection::JsonRejection` never reaches `DomainError` at all in workspace layout — axum-specific parse failure happening inside adapter crate's custom extractor, converts straight to `HttpError` there. Sanitize at that boundary instead (reveals schema otherwise):
+
+```rust
+// GOOD — in the adapter crate, not the domain crate
+impl From<axum::extract::rejection::JsonRejection> for HttpError {
+    fn from(_: ...) -> Self { HttpError::bad_request("Malformed request body") }
 }
 ```
 

@@ -11,12 +11,14 @@ Editor SQL syntax highlighting. No Rust-string indentation artifacts. Query text
 ## Layout
 
 ```
-src/<domain>/
+crates/infra-<tech>/src/
 ├── queries.rs
 └── sql/
     ├── <submodule>_<query_name>.sql
     └── ...
 ```
+
+Queries live in the `infra-*` crate, not the `domain-*` crate — SQL is an infra concern by definition.
 
 Flat. No subfolders — file count per domain stays small (single digits to low tens); nesting adds path noise for no gain at that scale.
 
@@ -26,7 +28,7 @@ Flat. No subfolders — file count per domain stays small (single digits to low 
 
 ## File content
 
-- Reformat to plain left-aligned SQL — no leading indentation carried over from a Rust literal.
+- Reformat to plain left-aligned SQL — no leading indentation carried over from Rust literal.
 - Trailing `;` on every file (harmless to Postgres, keeps file valid as standalone statement for linters/`psql \i`).
 
 ## queries.rs wiring
@@ -37,8 +39,8 @@ pub mod users {
 }
 ```
 
-`include_str!` path resolves relative to `queries.rs`'s own directory (same rule as `mod`). Call sites elsewhere (`repo.rs` etc.) don't change — same `pub const &str` type and name, only the initializer changes.
+`include_str!` path resolves relative to `queries.rs`'s own directory (same rule as `mod`). Call sites elsewhere (`repo.rs` etc.) don't change — same `pub const &str` type and name, only initializer changes.
 
 ## Scope
 
-Applies to raw-SQL repositories (`tokio-postgres`, `deadpool-postgres`). If using `sqlx`, prefer its native `query_file!`/`query_file_as!` macros over rolling `include_str!` by hand — same one-file-per-query convention, less wiring.
+Applies to raw-SQL repositories (`tokio-postgres`, `deadpool-postgres`). If using `sqlx`, prefer native `query_file!`/`query_file_as!` macros over rolling `include_str!` by hand — same one-file-per-query convention, less wiring.
