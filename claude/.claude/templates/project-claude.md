@@ -3,17 +3,19 @@
 ## Description
 [Brief description of what this project does and its purpose]
 
-## Functional Requirements
-- 
-
-## Non-Functional Requirements
-- 
-
 ## Stack
+[name only, no version numbers — except Language]
 - **Language:**
 - **Framework:**
 - **Database:**
 - **Other:**
+
+## Gotchas
+[non-obvious/counterintuitive facts only — WHAT + WHY. One line by default; expand with an indented note when the reasoning needs more]
+- 
+
+## Non-Functional Requirements
+- 
 
 ## Commands
 - 
@@ -28,7 +30,6 @@
 - **Structure:** [by-feature / by-technical-layer / hexagonal]
 - **Key decisions:**
 
-## Run Requirements
-- **Env vars:** 
-- **Config files:**
-- **Instructions:**
+## Setup
+[numbered, one-time onboarding steps — keep permanent, not pruned after first run]
+1. 
