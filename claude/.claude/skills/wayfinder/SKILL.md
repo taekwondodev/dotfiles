@@ -16,7 +16,7 @@ Wayfinder is **planning** by default: each ticket resolves a decision, and the m
 
 ## Refer by name
 
-Every map and ticket is an issue, so it has a **name** — its title. In narration and in the map's Decisions-so-far, refer to it by that name, never by a bare id, number, or slug. The id and URL ride *inside* the name, never stand in for it.
+Every map and ticket is an issue, so it has a **name** — its title. In everything the human reads — narration, the map's Decisions-so-far — refer to it by that name, never by a bare id, number, or slug. A wall of `#42, #43, #44` is illegible; names read at a glance. The id and URL don't vanish — a name wraps its link — but they ride *inside* the name, never stand in for it.
 
 ## The Map
 
@@ -78,7 +78,7 @@ The answer isn't part of the body — it's recorded on resolution. Assets create
 
 Every ticket is either **HITL** — human in the loop, worked *with* a human who speaks for themselves — or **AFK**, driven by the agent alone. A HITL ticket only resolves through that live exchange.
 
-- **Research** (AFK): Reading documentation, third-party APIs, or local resources to surface a fact a decision waits on. Resolved by a subagent following the version/API lookup protocol from `/coding-standards` — WebSearch or WebFetch first, never from memory. Fire these in parallel at charting time.
+- **Research** (AFK): Reading documentation, third-party APIs, or local resources to surface a fact a decision waits on. Resolved by a subagent following the version/API lookup protocol from `/coding-standards` — WebSearch or WebFetch first, never from memory. Fire these in parallel at charting time, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket.
 - **Grilling** (HITL, default case): Conversation via `/grilling`, one question at a time, informed by `/design` (architecture, bounded contexts) and `/coding-standards` (types, dependencies) whenever the decision is code-shaped.
 - **Task** (HITL or AFK): Manual work that must happen before a decision can be made — nothing to decide or research, but the discussion is blocked until it's done. Signing up for a service, provisioning access, moving data. This is the one type that *does* rather than decides — it earns its place by unblocking a decision, not by delivering the destination.
   - **AFK Task tickets are restricted to non-code chores.** Anything that touches code is HITL, and follows the explain + snippet → confirm → implement sequence before anything gets written — no exception for wayfinder.
@@ -113,7 +113,7 @@ User invokes with a loose idea.
 2. **Map the frontier.** Grill again, breadth-first: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** — the whole journey fits in one session — stop, you don't need a map. Ask how to proceed instead.
 3. **Create the map** (label `wayfinder:map`) on the right tracker — GitHub Issues if in a repo, personal Linear otherwise. Destination and Notes filled in, Decisions-so-far empty, the fog sketched into Not yet specified.
 4. **Create the tickets you can specify now** as child issues, then wire blocking edges in a second pass. Everything you can't yet specify stays in the fog.
-5. **Fire the research subagents** in parallel for each research ticket just created, following the coding-standards WebSearch protocol.
+5. **Fire the research subagents** in parallel for each research ticket just created, following the coding-standards WebSearch protocol, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket.
 6. Stop — charting is one session's work; it hand-resolves nothing.
 
 ### Work through the map
