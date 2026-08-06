@@ -30,32 +30,12 @@ Compressed version overwrites original.
 
 ## Compression Rules
 
-### Remove
-- Articles: a, an, the
-- Filler: just, really, basically, actually, simply, essentially, generally
-- Pleasantries: "sure", "certainly", "of course", "happy to", "I'd recommend"
-- Hedging: "it might be worth", "you could consider", "it would be good to"
-- Redundant phrasing: "in order to" → "to", "make sure to" → "ensure", "the reason is because" → "because"
-- Connective fluff: however, furthermore, additionally, in addition
+Apply `/caveman`'s Rules section — drop articles/filler/pleasantries/hedging, short synonyms, fragments OK, preserve code/technical terms/proper nouns/numbers/errors exact — to the file's prose instead of a chat reply. `/caveman`'s own Boundaries section already names this file-compression case (`/caveman-compress`) as its counterpart, not a competing rule set; don't re-derive the list here.
 
-### Preserve EXACTLY (never modify)
-- Code blocks (fenced ``` and indented)
-- Inline code (`backtick content`)
-- URLs and markdown links
-- File paths
-- Shell commands
-- Technical terms (library names, API names, protocols, algorithms)
-- Proper nouns (project names, people, companies)
-- Dates, version numbers, numeric values
-- Environment variables (`$HOME`, `NODE_ENV`)
-- YAML/frontmatter headers
+### File-specific, beyond what /caveman covers
 
-### Compress Prose
-- Short synonyms: "big" not "extensive", "fix" not "implement a solution for", "use" not "utilize"
-- Fragments OK: "Run tests before commit" not "You should always run tests before committing"
-- Drop "you should", "make sure to", "remember to" — state action directly
-- Merge redundant bullets that say the same thing differently
-- Keep one example where multiple show same pattern
+- Redundant phrasing unique to written docs: "in order to" → "to", "make sure to" → "ensure", "the reason is because" → "because"
+- Preserve YAML/frontmatter headers untouched
 
 ### Structure: Preserve
 - All markdown headings (keep exact heading text, compress body below)

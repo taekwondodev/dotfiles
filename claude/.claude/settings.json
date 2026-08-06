@@ -7,7 +7,8 @@
     "allow": [
       "Read(**)",
       "Grep(**)",
-      "Bash(ls*)"
+      "Bash(ls*)",
+      "Read(/Users/taekwondodev/dotfiles/**)"
     ],
     "deny": [
       "Read(**/.env)",

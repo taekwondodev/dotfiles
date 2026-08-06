@@ -26,9 +26,7 @@ The map is an **index**, not a store. It lists the decisions made and points at 
 
 ### Tracker choice
 
-- **In a repo:** use that repo's GitHub Issues. Native child issues + blocking.
-- **No repo (exams, life-admin-style planning, anything without a natural home):** use personal Linear.
-- Never fall back to a local-markdown tracker. If neither a repo nor Linear access is wired up yet, that's a one-time setup to do ad hoc in the moment — not a reason to write tracker state to local files.
+Where the map, its child tickets, blocking, and frontier queries physically live is tracker-specific. Consult `docs/agents/issue-tracker.md`'s "Wayfinding operations" section for how *this* repo expresses them — GitHub Issues if the repo has a GitHub remote, personal Linear otherwise, never a local-markdown tracker (a map needs a real tracker to show blocking edges visually). If that file doesn't exist yet, run `/dev-cycle-setup` ad hoc in the moment — not a reason to write tracker state to local files.
 
 ### The map body
 
@@ -41,7 +39,7 @@ Loaded once per session. Open tickets are **not** listed — they are open child
 
 ## Notes
 
-<domain; skills every session should consult (e.g. /grilling, /design, /coding-standards, /testing); standing preferences for this effort>
+<domain; skills every session should consult (e.g. /grilling, /domain-modeling, /design, /coding-standards, /testing); standing preferences for this effort>
 
 ## Decisions so far
 
@@ -79,7 +77,7 @@ The answer isn't part of the body — it's recorded on resolution. Assets create
 Every ticket is either **HITL** — human in the loop, worked *with* a human who speaks for themselves — or **AFK**, driven by the agent alone. A HITL ticket only resolves through that live exchange.
 
 - **Research** (AFK): Reading documentation, third-party APIs, or local resources to surface a fact a decision waits on. Resolved by a subagent following the version/API lookup protocol from `/coding-standards` — WebSearch or WebFetch first, never from memory. Fire these in parallel at charting time, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket.
-- **Grilling** (HITL, default case): Conversation via `/grilling`, one question at a time, informed by `/design` (architecture, bounded contexts) and `/coding-standards` (types, dependencies) whenever the decision is code-shaped.
+- **Grilling** (HITL, default case): Conversation via `/grilling`, one question at a time, always alongside `/domain-modeling` to sharpen the terms the question turns on, and additionally informed by `/design` (architecture, bounded contexts) and `/coding-standards` (types, dependencies) whenever the decision is code-shaped.
 - **Task** (HITL or AFK): Manual work that must happen before a decision can be made — nothing to decide or research, but the discussion is blocked until it's done. Signing up for a service, provisioning access, moving data. This is the one type that *does* rather than decides — it earns its place by unblocking a decision, not by delivering the destination.
   - **AFK Task tickets are restricted to non-code chores.** Anything that touches code is HITL, and follows the explain + snippet → confirm → implement sequence before anything gets written — no exception for wayfinder.
   - Resolved when the work is done; the answer records what was done and any resulting facts later tickets depend on.
@@ -109,11 +107,11 @@ Two modes. Either way, **never resolve more than one ticket per session** — ex
 
 User invokes with a loose idea.
 
-1. **Name the destination.** Run a `/grilling` session, informed by `/design` and `/coding-standards` when the destination is code-shaped, to pin down what this map is finding its way to.
+1. **Name the destination.** Run a `/grilling` session, using `/domain-modeling` to pin down the language the destination is stated in, and informed by `/design` and `/coding-standards` when the destination is code-shaped, to pin down what this map is finding its way to.
 2. **Map the frontier.** Grill again, breadth-first: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** — the whole journey fits in one session — stop, you don't need a map. Ask how to proceed instead.
 3. **Create the map** (label `wayfinder:map`) on the right tracker — GitHub Issues if in a repo, personal Linear otherwise. Destination and Notes filled in, Decisions-so-far empty, the fog sketched into Not yet specified.
 4. **Create the tickets you can specify now** as child issues, then wire blocking edges in a second pass. Everything you can't yet specify stays in the fog.
-5. **Fire the research subagents** in parallel for each research ticket just created, following the coding-standards WebSearch protocol, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket.
+5. **Fire the research subagents** in parallel for each research ticket just created, following the coding-standards WebSearch protocol, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket. If `HERDR_ENV=1`, run each as its own herdr sibling pane (named `wf-research-<slug>`) instead of a Task sub-agent, for visible, non-focus-stealing progress — use `/herdr` for the mechanics, don't restate them here. Falls back to Task sub-agents otherwise.
 6. Stop — charting is one session's work; it hand-resolves nothing.
 
 ### Work through the map
@@ -122,8 +120,9 @@ User invokes with a map (URL or number). A ticket is optional — without one, p
 
 1. Load the map — the low-res view, not every ticket body.
 2. Choose the ticket. If named, use it. Otherwise take the first frontier ticket in order. **Claim it** — assign it to yourself before any work.
-3. Resolve it — zoom as needed: fetch the full body of any related or closed ticket on demand; invoke the skills the Notes block names. If in doubt, use `/grilling`.
+3. Resolve it — zoom as needed: fetch the full body of any related or closed ticket on demand; invoke the skills the Notes block names. If in doubt, use `/grilling` and `/domain-modeling`.
 4. Record the resolution: post the answer as a resolution comment, close the issue, append a context pointer to the map's Decisions-so-far.
 5. Add newly-surfaced tickets (create-then-wire); graduate any fog the answer made specifiable, clearing it from Not yet specified. If the answer reveals a ticket sits beyond the destination, rule it out of scope rather than resolving it. If the decision invalidates other parts of the map, update or delete those tickets.
+6. **When the frontier empties and Not yet specified holds nothing further, the map is done — hand off, don't build.** Run `/to-spec`, pointing it at this map: it reads every closed ticket's full body and the map's Decisions-so-far, and collapses them into one buildable spec, which continues through `/to-tickets` → `/implement` as normal. Looping straight into `/implement` from the map skips that collapse and throws the linked detail away — only skip the handoff when the resolved map turned out small enough that a spec would just restate one ticket.
 
 The user may run unblocked tickets in parallel, so expect other sessions to be editing the tracker concurrently.
