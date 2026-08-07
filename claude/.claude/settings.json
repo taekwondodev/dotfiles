@@ -8,7 +8,8 @@
       "Read(**)",
       "Grep(**)",
       "Bash(ls*)",
-      "Read(/Users/taekwondodev/dotfiles/**)"
+      "Read(~/dotfiles/**)",
+      "Read(~/.claude/**)"
     ],
     "deny": [
       "Read(**/.env)",
@@ -22,7 +23,8 @@
       "Read(**/*_ed25519)",
       "Read(**/*_ecdsa)",
       "Read(**/*_dsa)",
-      "Read(**/*.pem)"
+      "Read(**/*.pem)",
+      "Read(**/secrets.fish)"
     ]
   },
   "hooks": {

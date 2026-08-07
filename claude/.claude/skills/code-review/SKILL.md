@@ -66,6 +66,8 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 If `HERDR_ENV=1`, run each axis as its own **herdr sibling pane** (named `review-standards` and `review-spec`) instead of a Task sub-agent — real process isolation, visible to the user, never stealing focus. Use `/herdr` for the mechanics; it is the sole authority on current CLI syntax, don't restate it here. If `HERDR_ENV` is not set, fall back to two parallel **Task sub-agents** with the same two prompts below.
 
+Run one axis's pane on Opus instead of the session's default model (Sonnet) — a stronger model on the judgement-heavy half (hard violations vs baseline smells, or spec-correctness calls) catches what the default model's own review might miss. Once that axis's review is posted, switch the pane back to Sonnet so it doesn't keep running on the more expensive model.
+
 **Standards sub-agent prompt** — include:
 
 - The full diff command and commit list.

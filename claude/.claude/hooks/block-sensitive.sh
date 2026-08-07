@@ -24,6 +24,7 @@ patterns=(
   '\.pem(\s|$)'
   'secrets?\.ya?ml'
   'secret[-_][a-z]'
+  'secrets\.fish'
 )
 
 for pattern in "${patterns[@]}"; do
