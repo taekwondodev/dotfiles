@@ -1,7 +1,6 @@
 model:
-  default: anthropic/claude-opus-4.6
-  provider: auto
-  base_url: https://openrouter.ai/api/v1
+  default: deepseek-v4-flash
+  provider: opencode-go
 database:
   journal_mode: wal
 runtime:
@@ -83,6 +82,8 @@ memory:
   nudge_interval: 10
   flush_min_turns: 6
 delegation:
+  model: gpt-5.6-luna
+  provider: opencode-go
   max_iterations: 250
 skills:
   external_dirs:
