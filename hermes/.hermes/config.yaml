@@ -85,59 +85,68 @@ memory:
 delegation:
   max_iterations: 250
 skills:
+  external_dirs:
+    - ~/dotfiles/claude/.claude/skills
+    - ~/.agents/skills
   creation_nudge_interval: 15
   disabled:
-  - airtable
-  - apple-notes
-  - apple-reminders
-  - architecture-diagram
-  - arxiv
-  - ascii-art
-  - ascii-video
-  - baoyu-infographic
-  - blogwatcher
-  - box
-  - claude-design
-  - comfyui
-  - competitor-news-monitor
-  - computer-use
-  - design-md
-  - document-to-action-items
-  - email-inbox-triage
-  - evaluating-llms-harness
-  - excalidraw
-  - findmy
-  - gif-search
-  - google-workspace
-  - himalaya
-  - huggingface-hub
-  - humanizer
-  - imessage
-  - llama-cpp
-  - llm-wiki
-  - manim-video
-  - maps
-  - meeting-action-items
-  - merge-reconciler
-  - notion
-  - obsidian
-  - openhue
-  - p5js
-  - popular-web-designs
-  - powerpoint
-  - pretext
-  - product-price-monitor
-  - research-paper-writing
-  - sdlc-review
-  - serving-llms-vllm
-  - sketch
-  - songsee
-  - songwriting-and-ai-music
-  - teams-meeting-pipeline
-  - touchdesigner-mcp
-  - weights-and-biases
-  - xurl
-  - youtube-content
+    - airtable
+    - apple-notes
+    - apple-reminders
+    - architecture-diagram
+    - arxiv
+    - ascii-art
+    - ascii-video
+    - baoyu-infographic
+    - blogwatcher
+    - box
+    - claude-design
+    - comfyui
+    - competitor-news-monitor
+    - computer-use
+    - design-md
+    - document-to-action-items
+    - email-inbox-triage
+    - evaluating-llms-harness
+    - excalidraw
+    - findmy
+    - gif-search
+    - google-workspace
+    - himalaya
+    - huggingface-hub
+    - humanizer
+    - imessage
+    - llama-cpp
+    - llm-wiki
+    - manim-video
+    - maps
+    - meeting-action-items
+    - merge-reconciler
+    - notion
+    - obsidian
+    - openhue
+    - p5js
+    - popular-web-designs
+    - powerpoint
+    - pretext
+    - product-price-monitor
+    - research-paper-writing
+    - sdlc-review
+    - serving-llms-vllm
+    - sketch
+    - songsee
+    - songwriting-and-ai-music
+    - teams-meeting-pipeline
+    - touchdesigner-mcp
+    - weights-and-biases
+    - xurl
+    - youtube-content
+hooks:
+  pre_tool_call:
+    - matcher: terminal|read_file|write_file|patch|search_files
+      command: ~/.hermes/agent-hooks/block-sensitive.sh
+      timeout: 10
+      fail_closed: true
 kanban:
   review_dispatch: true
 code_execution:
@@ -172,26 +181,6 @@ platform_toolsets:
     - terminal
     - todo
     - web
-  telegram:
-    - hermes-telegram
-  discord:
-    - hermes-discord
-  whatsapp:
-    - hermes-whatsapp
-  slack:
-    - hermes-slack
-  signal:
-    - hermes-signal
-  homeassistant:
-    - hermes-homeassistant
-  qqbot:
-    - hermes-qqbot
-  yuanbao:
-    - hermes-yuanbao
-  teams:
-    - hermes-teams
-  google_chat:
-    - hermes-google_chat
 plugins:
   enabled:
     - herdr-agent-state
