@@ -22,3 +22,9 @@ description: >
 
 * Test behavior + domain invariants, not implementation details.
 * Security tests: **OWASP Testing Guide**.
+
+## Test quality — anti-patterns
+
+* **Implementation-coupled** — mocks internal collaborators, tests private methods, or verifies through a side channel (querying the database instead of using the interface). Tell: the test breaks on refactor with no behavior change.
+* **Tautological** — the assertion recomputes the expected value the way the code does, so it passes by construction. Expected values come from an independent source of truth — a known-good literal, a worked example, the spec's acceptance criteria — never derived by the same reasoning that produced the implementation.
+* **Self-graded** — the same agent invocation that wrote the implementation also invented the test's expected values from scratch. It shares the implementation's blind spots by construction. Derive expected values from the spec/ticket instead, or have a separate `/code-review` pass judge the tests independently.

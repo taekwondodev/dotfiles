@@ -1,7 +1,7 @@
 ---
 name: compress
 description: >
-  Compress a natural language file (CLAUDE.md, notes, preferences, todos) into terse caveman
+  Compress a natural language file (CLAUDE.md, notes, preferences, todos) into terse
   format to reduce input tokens. Invoke when user says "compress this file", "reduce tokens",
   or runs /compress <filepath>. Overwrites original. Never modifies code files.
 argument-hint: "<filepath>"
@@ -11,7 +11,7 @@ argument-hint: "<filepath>"
 
 ## Purpose
 
-Reduce token cost of natural language files by rewriting prose in caveman-speak.
+Reduce token cost of natural language files by rewriting prose in terse style.
 Compressed version overwrites original.
 
 ## Trigger
@@ -30,9 +30,17 @@ Compressed version overwrites original.
 
 ## Compression Rules
 
-Apply `/caveman`'s Rules section — drop articles/filler/pleasantries/hedging, short synonyms, fragments OK, preserve code/technical terms/proper nouns/numbers/errors exact — to the file's prose instead of a chat reply. `/caveman`'s own Boundaries section already names this file-compression case (`/caveman-compress`) as its counterpart, not a competing rule set; don't re-derive the list here.
+Apply this exact rule set to the file's prose (a file is not a chat reply; be conservative):
 
-### File-specific, beyond what /caveman covers
+- Drop articles (a/an/the) where grammar stays unambiguous; keep them where case markers carry meaning
+- Drop filler: just, really, basically, actually, simply, in order to, make sure to
+- Short synonyms (big not extensive, fix not "implement a solution for")
+- Fragments OK in bullet bodies; keep full sentences in numbered/procedural steps
+- Preserve EXACT: code, technical terms, proper nouns, numbers, units, error strings, API/CLI names
+- Never drop not/never/no/only/except — flips meaning
+- No invented abbreviations (cfg/impl/req) — zero token saved, costs decode clarity
+
+### File-specific
 
 - Redundant phrasing unique to written docs: "in order to" → "to", "make sure to" → "ensure", "the reason is because" → "because"
 - Preserve YAML/frontmatter headers untouched

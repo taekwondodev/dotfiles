@@ -71,7 +71,7 @@ Exception: if a prototype produced a snippet that encodes a decision more precis
 
 A list of testing decisions that were made, scoped by `/testing`'s rules. Include:
 
-- Which Service-layer and Domain-Type units `/tdd` will drive test-first
+- Which Service-layer and Domain-Type units get test coverage, and the expected behavior/values each asserts — `/implement` writes tests against this, not values invented during implementation
 - What makes a good test here (behavior + domain invariants, not implementation details)
 - Prior art for the tests (i.e. similar types of tests in the codebase)
 - Any OWASP-relevant security test called for by `/testing`'s coverage rule

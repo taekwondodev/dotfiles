@@ -39,8 +39,9 @@ The Standards axis is anchored on this repo's own rules, never a generic baselin
 
 - **`/coding-standards`** — TyDD, dependency management, secure defaults, visibility, secrets hygiene, version/API lookup discipline.
 - **`/design`** — layering (Handler/Service/Repository/Middleware), bounded contexts, shared kernel, cross-boundary error handling, observability, threat modeling.
+- **`/testing`** — scope rule and the Test quality anti-patterns (implementation-coupled, tautological, self-graded). `/implement` writes tests itself, so this axis is their only independent judge.
 
-Read both skills' full bodies before spawning the sub-agent — the sub-agent gets them pasted in, not a pointer, since it has no other access.
+Read all three skills' full bodies before spawning the sub-agent — the sub-agent gets them pasted in, not a pointer, since it has no other access.
 
 Underneath those, the axis also carries the **smell baseline** below — a fixed set of Fowler code smells (_Refactoring_, ch.3) for anything `/coding-standards`/`/design` don't already cover. Two rules bind it:
 
@@ -66,13 +67,13 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 If `HERDR_ENV=1`, run each axis as its own **herdr sibling pane** (named `review-standards` and `review-spec`) instead of a Task sub-agent — real process isolation, visible to the user, never stealing focus. Run `herdr --skill` for the mechanics; it is the sole authority on current CLI syntax, don't restate it here. If `HERDR_ENV` is not set, fall back to two parallel **Task sub-agents** with the same two prompts below.
 
-Run one axis's pane on Opus instead of the session's default model (Sonnet) — a stronger model on the judgement-heavy half (hard violations vs baseline smells, or spec-correctness calls) catches what the default model's own review might miss. Once that axis's review is posted, switch the pane back to Sonnet so it doesn't keep running on the more expensive model.
+Both axes default to the session's model (Sonnet). Only run an axis on Opus if the user explicitly asks for it on this review — a stronger model on the judgement-heavy half catches what Sonnet's own review might miss, but it draws from the same weekly cap, so it's opt-in, not automatic. Switch back to Sonnet once that axis's review is posted.
 
 **Standards sub-agent prompt** — include:
 
 - The full diff command and commit list.
-- The full bodies of `/coding-standards` and `/design`, **plus the smell baseline from step 3** pasted in full — the sub-agent has no other access to any of it.
-- The brief: "Report — per file/hunk where relevant — (a) every place the diff violates `/coding-standards` or `/design`: cite the rule; and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls — `/coding-standards`/`/design` breaches can be hard (especially the Mandatory sections), but baseline smells are always judgement calls, and either skill overrides the baseline where they conflict. Skip anything tooling enforces. Under 400 words."
+- The full bodies of `/coding-standards`, `/design`, and `/testing`'s Test quality section, **plus the smell baseline from step 3** pasted in full — the sub-agent has no other access to any of it.
+- The brief: "Report — per file/hunk where relevant — (a) every place the diff violates `/coding-standards` or `/design`: cite the rule; (b) any baseline smell you spot: name it and quote the hunk; (c) any test that's implementation-coupled, tautological, or self-graded per `/testing`'s Test quality section — quote the assertion and name which one. Distinguish hard violations from judgement calls — `/coding-standards`/`/design` breaches and Test quality violations can be hard, but baseline smells are always judgement calls, and either skill overrides the baseline where they conflict. Skip anything tooling enforces. Under 400 words."
 
 **Spec sub-agent prompt** — include:
 
@@ -88,7 +89,7 @@ Present the two reports under `## Standards` and `## Spec` headings, verbatim or
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes — that's the reranking the separation exists to prevent.
 
-Inside `/implement`: a hard `/coding-standards`/`/design` violation or a missing Spec requirement blocks the commit — go back a `/tdd` cycle rather than committing around it. Judgement-call smells and scope-creep notes don't block; surface them and let the user decide.
+Inside `/implement`: a hard `/coding-standards`/`/design`/Test-quality violation or a missing Spec requirement blocks the commit — fix it rather than committing around it. Judgement-call smells and scope-creep notes don't block; surface them and let the user decide.
 
 ## Why two axes
 

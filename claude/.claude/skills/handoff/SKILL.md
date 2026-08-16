@@ -26,7 +26,7 @@ Extract from conversation + git state:
 - **Decisions & Context:** non-obvious choices, constraints, gotchas fresh Claude can't derive from code
 - **Files Changed:** path → one-line description
 - **Blockers:** stuck or unclear items
-- **Active Skills:** skills active in current session (e.g. `/caveman full`, `/design`)
+- **Active Skills:** skills active in current session (e.g. `/grilling`, `/design`)
 - **Suggested Skills:** skills the next agent should call the Skill tool for (e.g. `design`, `testing`)
 
 Policies:

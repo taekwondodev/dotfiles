@@ -87,7 +87,6 @@ delegation:
 skills:
   external_dirs:
     - ~/dotfiles/claude/.claude/skills
-    - ~/.agents/skills
   creation_nudge_interval: 15
   disabled:
     - airtable
