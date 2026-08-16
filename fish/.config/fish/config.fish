@@ -61,8 +61,3 @@ source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
 # Added by Android Studio
 set -gx ANDROID_HOME $HOME/Library/Android/sdk
-
-# Local secrets (not versioned, machine-specific)
-if test -f ~/.config/fish/secrets.fish
-    source ~/.config/fish/secrets.fish
-end
