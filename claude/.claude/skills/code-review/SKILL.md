@@ -12,7 +12,7 @@ Both axes run as **parallel sub-agents** so they don't pollute each other's cont
 
 `/implement` invokes this automatically as its close-out step, before committing. Reach for it directly whenever you want to review a branch or PR against a fixed point.
 
-The issue tracker should have been provided to you — run `/dev-cycle-setup` if `docs/agents/issue-tracker.md` is missing.
+The issue tracker should have been provided to you — tell the user to run `/dev-cycle-setup` if `docs/agents/issue-tracker.md` is missing; it's user-invoked, so you can't call it yourself.
 
 ## Process
 
@@ -64,7 +64,7 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 ### 4. Spawn both reviewers in parallel
 
-If `HERDR_ENV=1`, run each axis as its own **herdr sibling pane** (named `review-standards` and `review-spec`) instead of a Task sub-agent — real process isolation, visible to the user, never stealing focus. Use `/herdr` for the mechanics; it is the sole authority on current CLI syntax, don't restate it here. If `HERDR_ENV` is not set, fall back to two parallel **Task sub-agents** with the same two prompts below.
+If `HERDR_ENV=1`, run each axis as its own **herdr sibling pane** (named `review-standards` and `review-spec`) instead of a Task sub-agent — real process isolation, visible to the user, never stealing focus. Run `herdr --skill` for the mechanics; it is the sole authority on current CLI syntax, don't restate it here. If `HERDR_ENV` is not set, fall back to two parallel **Task sub-agents** with the same two prompts below.
 
 Run one axis's pane on Opus instead of the session's default model (Sonnet) — a stronger model on the judgement-heavy half (hard violations vs baseline smells, or spec-correctness calls) catches what the default model's own review might miss. Once that axis's review is posted, switch the pane back to Sonnet so it doesn't keep running on the more expensive model.
 

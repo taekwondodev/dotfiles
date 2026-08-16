@@ -4,9 +4,9 @@ description: Turn the current conversation into a spec and publish it to the pro
 disable-model-invocation: true
 ---
 
-This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user — just synthesize what you already know. If real gaps remain, run `/grilling` (with `/domain-modeling` if the gap is a domain term) for just those gaps, not a full re-interview.
+This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user — just synthesize what you already know. If real gaps remain, call the Skill tool with "grilling" (and with "domain-modeling" too if the gap is a domain term) for just those gaps, not a full re-interview.
 
-The issue tracker and triage label vocabulary should have been provided to you — run `/dev-cycle-setup` if not.
+The issue tracker and triage label vocabulary should have been provided to you — tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
 This is also where `/wayfinder` hands off: when a map's frontier empties, its closed tickets and Decisions-so-far feed this skill instead of going straight to `/implement` — collapsing decisions scattered across many tickets into one buildable spec.
 

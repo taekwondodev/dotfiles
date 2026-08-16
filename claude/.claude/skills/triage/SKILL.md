@@ -36,7 +36,7 @@ Five **state** roles:
 
 Every triaged issue should carry exactly one category role and one state role. If state roles conflict, flag it and ask the maintainer before doing anything else.
 
-These are canonical role names — the actual label strings used in the issue tracker are in `docs/agents/triage-labels.md`. Run `/dev-cycle-setup` if that file doesn't exist yet.
+These are canonical role names — the actual label strings used in the issue tracker are in `docs/agents/triage-labels.md`. Tell the user to run `/dev-cycle-setup` if that file doesn't exist yet — it's user-invoked, so you can't call it yourself.
 
 State transitions: an unlabeled issue normally goes to `needs-triage` first; from there it moves to `needs-info`, `ready-for-agent`, `ready-for-human`, or `wontfix`. `needs-info` returns to `needs-triage` once the reporter replies. The maintainer can override at any time — flag transitions that look unusual and ask before proceeding.
 
@@ -67,7 +67,7 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 3. **Verify the claim.** Before any grilling, check that the claim holds up. For a bug, reproduce it from the reporter's steps. If `HERDR_ENV=1`, run the reproduction on a herdr sibling pane (named `triage-repro`) instead of inline, so the triage conversation stays free — run `herdr --skill` for the mechanics, don't restate them here. Otherwise reproduce inline. Report what happened: confirmed (with code path), failed, or insufficient detail (a strong `needs-info` signal). A confirmed verification makes a much stronger agent brief.
 
-4. **Grill (if needed).** If the request needs fleshing out, run the `/grilling` and `/domain-modeling` skills together — grill it into shape a round of questions at a time, sharpening domain terms and updating `CONTEXT.md`/ADRs inline as decisions land.
+4. **Grill (if needed).** If the request needs fleshing out, call the Skill tool twice, for "grilling" and "domain-modeling" — grill it into shape a round of questions at a time, sharpening domain terms and updating `CONTEXT.md`/ADRs inline as decisions land.
 
 5. **Apply the outcome:**
    - `ready-for-agent` — post an agent brief comment ([AGENT-BRIEF.md](AGENT-BRIEF.md)), naming the layer(s) it touches so `/to-tickets`/`/implement` don't have to rediscover it.

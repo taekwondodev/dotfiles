@@ -4,13 +4,6 @@
     "pr": ""
   },
   "permissions": {
-    "allow": [
-      "Read(**)",
-      "Grep(**)",
-      "Bash(ls*)",
-      "Read(~/dotfiles/**)",
-      "Read(~/.claude/**)"
-    ],
     "deny": [
       "Read(**/.env)",
       "Read(**/secrets.yaml)",

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Break a plan, spec, or conversation into a set of **tickets** — tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/design` layer(s) it touches.
 
-The issue tracker and triage label vocabulary should have been provided to you — run `/dev-cycle-setup` if not.
+The issue tracker and triage label vocabulary should have been provided to you — tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
 ## Process
 

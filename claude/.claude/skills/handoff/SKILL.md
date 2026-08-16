@@ -27,7 +27,7 @@ Extract from conversation + git state:
 - **Files Changed:** path → one-line description
 - **Blockers:** stuck or unclear items
 - **Active Skills:** skills active in current session (e.g. `/caveman full`, `/design`)
-- **Suggested Skills:** skills the next agent should invoke (e.g. `/design`, `/testing`)
+- **Suggested Skills:** skills the next agent should call the Skill tool for (e.g. `design`, `testing`)
 
 Policies:
 - Don't duplicate PRDs, plans, ADRs, issues, commits — reference by path or URL
