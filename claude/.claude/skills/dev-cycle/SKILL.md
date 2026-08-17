@@ -40,6 +40,11 @@ it as its closing gate before committing.
 - **Task is genuinely too big for one session** (needs research, decisions that block in
   a chain, multiple bounded contexts): use `wayfinder` to chart a map, resolve decision
   tickets one per session, and hand off to `to-spec` when the frontier empties.
+- **Starts small, grows big mid-grilling**: if the task starts in a single session but
+  grilling surfaces fog the whole journey can't hold (external research, decisions that
+  block in a chain, multiple bounded contexts), STOP mid-grilling and tell the user —
+  it's wayfinder-sized, not grilling-sized. Don't keep interviewing into a task that
+  needs a map.
 
 ## Hand-off wording
 
