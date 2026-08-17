@@ -12,7 +12,7 @@ agent:
   personalities: {}
 terminal:
   backend: local
-  cwd: .
+  cwd: /Users/taekwondodev/Desktop
   timeout: 180
   home_mode: auto
   container_cpu: 1
@@ -213,5 +213,11 @@ timezone: Europe/Rome
 onboarding:
   seen:
     tool_progress_prompt: true
+    busy_input_prompt: true
 approvals:
   destructive_slash_confirm: false
+auxiliary:
+  title_generation:
+    enabled: true
+    provider: opencode-go
+    model: mimo-v2.5
