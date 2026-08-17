@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 Implement the work described by the user in the spec or ticket.
 
+**This step is user-invoked**: do not start it on your own — the user triggers it explicitly (normally by approving a spec or tickets, after grilling/to-spec/to-tickets). The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill — read it before proceeding.
+
 Read the ticket's **Layer(s)** line first (`/to-tickets`/`/triage` set it) — it tells you which of `/design`'s Handler/Service/Repository/Middleware layers this touches before you open a single file.
 
 Build against `/design` and `/coding-standards` throughout, not just at review time: place new code in the layer the ticket names, wire it through the port the layer already exposes, and apply `/coding-standards`' TyDD/dependency/secure-defaults rules as you write each piece — don't defer them to `/code-review` to catch after the fact.

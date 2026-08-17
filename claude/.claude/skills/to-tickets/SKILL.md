@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Break a plan, spec, or conversation into a set of **tickets** — tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/design` layer(s) it touches.
 
+**This step is user-invoked**: do not start it on your own — the user triggers it explicitly. The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill — read it before proceeding.
+
 The issue tracker and triage label vocabulary should have been provided to you — tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
 ## Process

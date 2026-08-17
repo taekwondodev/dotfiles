@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user — just synthesize what you already know. If real gaps remain, call the Skill tool with "grilling" (and with "domain-modeling" too if the gap is a domain term) for just those gaps, not a full re-interview.
 
+**This step is user-invoked**: do not start it on your own — the user triggers it explicitly (normally after grilling's hand-off). The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill — read it before proceeding.
+
 The issue tracker and triage label vocabulary should have been provided to you — tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
 This is also where `/wayfinder` hands off: when a map's frontier empties, its closed tickets and Decisions-so-far feed this skill instead of going straight to `/implement` — collapsing decisions scattered across many tickets into one buildable spec.
