@@ -8,13 +8,32 @@ description: >
 
 ## Research & Knowledge Retrieval
 
-* Documentation first: verify latest official docs + community best practices before solving.
-* No hallucinations: unsure about lib version or API? Say so, ask user to check.
+* Documentation first: verify the latest official docs + community best practices before solving.
+* No hallucinations: if unsure about a lib version or API, say so and ask the user to check.
+* Prefer verified sources over memory — Hermes' research flow makes this cheap and context-safe:
+
+### Hermes research flow
+
+The goal is *verified, context-lean* findings — pull only what a decision needs, never a page
+dump. In order:
+
+1. **Search, then extract** — start with `web_search` to find sources (returns URL/title/description),
+   then `web_extract` on the relevant hits to pull clean markdown. This is the native equivalent of
+   "search then read" — do it yourself, in-session.
+2. **Browser for interaction** — when a page needs real navigation (a flow, a click-through, a
+   dynamic render, or `web_extract` is blocked), use `browser_exec` / `browser_navigate`.
+3. **Delegate long research** — for a broad or multi-source question that would flood your context,
+   hand it to a subagent via `delegate_task` (isolated context, background, aggregated result). This
+   is what `wayfinder` research tickets do — see the `wayfinder` skill.
+4. **Compression is built-in** — `web_extract` runs LLM post-processing that returns excerpts and
+   markdown summaries, not full pages; lean on that instead of pasting raw HTML into context.
 
 ## Version & API Lookup (Mandatory)
 
-* NEVER answer lib versions, API signatures, breaking changes from memory.
-* ALWAYS call `WebSearch` or `WebFetch` first for current docs or changelog.
+* NEVER answer lib versions, API signatures, or breaking changes from memory.
+* ALWAYS verify against current docs or changelog first, using the research flow above
+  (`web_search` → `web_extract`, browser if needed, `delegate_task` for breadth).
+* Cite what you found (URL or source), so the user can trust the version without re-checking.
 
 ## Dependency Management
 

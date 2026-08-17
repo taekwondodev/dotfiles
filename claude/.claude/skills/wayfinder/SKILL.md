@@ -76,10 +76,10 @@ The answer isn't part of the body — it's recorded on resolution. Assets create
 
 Every ticket is either **HITL** — human in the loop, worked *with* a human who speaks for themselves — or **AFK**, driven by the agent alone. A HITL ticket only resolves through that live exchange.
 
-- **Research** (AFK): Reading documentation, third-party APIs, or local resources to surface a fact a decision waits on. Resolved by a subagent following the version/API lookup protocol from `/coding-standards` — WebSearch or WebFetch first, never from memory. Fire these in parallel at charting time, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket.
+- **Research** (AFK): Reading documentation, third-party APIs, or local resources to surface a fact a decision waits on. Resolved by a subagent following the research flow from `/coding-standards` — verify against current sources (`web_search` → `web_extract`, browser if needed), never from memory, returning *verified, context-lean* findings (excerpts/URLs, not page dumps). Fire these in parallel at charting time, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket.
 - **Grilling** (HITL, default case): Conversation, one question at a time. Call the Skill tool twice, for "grilling" and "domain-modeling", to sharpen the terms the question turns on, and additionally informed by `/design` (architecture, bounded contexts) and `/coding-standards` (types, dependencies) whenever the decision is code-shaped.
 - **Task** (HITL or AFK): Manual work that must happen before a decision can be made — nothing to decide or research, but the discussion is blocked until it's done. Signing up for a service, provisioning access, moving data. This is the one type that *does* rather than decides — it earns its place by unblocking a decision, not by delivering the destination.
-  - **AFK Task tickets are restricted to non-code chores.** Anything that touches code is HITL, and follows the explain + snippet → confirm → implement sequence before anything gets written — no exception for wayfinder.
+  - **AFK Task tickets are restricted to non-code chores.** Anything that touches code is HITL, and follows the interaction protocol (confirm before code) before anything gets written — no exception for wayfinder.
   - Resolved when the work is done; the answer records what was done and any resulting facts later tickets depend on.
 
 ## Fog of war
@@ -111,7 +111,7 @@ User invokes with a loose idea.
 2. **Map the frontier.** Grill again, breadth-first: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** — the whole journey fits in one session — stop, you don't need a map. Ask how to proceed instead.
 3. **Create the map** (label `wayfinder:map`) on the right tracker — GitHub Issues if in a repo, personal Linear otherwise. Destination and Notes filled in, Decisions-so-far empty, the fog sketched into Not yet specified.
 4. **Create the tickets you can specify now** as child issues, then wire blocking edges in a second pass. Everything you can't yet specify stays in the fog.
-5. **Fire the research subagents** in parallel for each research ticket just created, following the coding-standards WebSearch protocol, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket. If `HERDR_ENV=1`, run each as its own herdr sibling pane (named `wf-research-<slug>`) instead of a Task sub-agent, for visible, non-focus-stealing progress — run `herdr --skill` for the mechanics, don't restate them here. Falls back to Task sub-agents otherwise.
+5. **Fire the research subagents** in parallel for each research ticket just created, following the coding-standards research flow, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket. If `HERDR_ENV=1`, run each as its own herdr sibling pane (named `wf-research-<slug>`) instead of a Task sub-agent, for visible, non-focus-stealing progress — run `herdr --skill` for the mechanics, don't restate them here. Falls back to Task sub-agents otherwise.
 6. Stop — charting is one session's work; it hand-resolves nothing.
 
 ### Work through the map
