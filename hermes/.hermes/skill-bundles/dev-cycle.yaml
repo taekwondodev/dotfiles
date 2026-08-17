@@ -1,11 +1,9 @@
 name: dev-cycle
-description: Full dev-cycle pipeline — grilling + to-spec + to-tickets + implement + code-review, workflow owned by the dev-cycle skill
+description: Loads the dev-cycle pipeline — grilling + to-spec + to-tickets + implement + code-review
 instruction: >
-  You are running the dev-cycle pipeline. The canonical workflow lives in the
-  dev-cycle skill (already loaded): grilling → STOP (human checkpoint) →
-  to-spec → to-tickets → implement → code-review. Every phase after grilling
-  is user-invoked: after each phase, STOP and ask the user how to proceed.
-  Never auto-start the next phase.
+  Read the `dev-cycle` skill (loaded first in this bundle) and follow it — it is the
+  single source of truth for the pipeline, its human checkpoints, and its invocation
+  rules. Do not rely on this bundle's description for the workflow; the skill owns it.
 skills:
   - dev-cycle
   - grilling

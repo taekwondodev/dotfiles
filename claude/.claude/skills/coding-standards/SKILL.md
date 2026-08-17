@@ -25,8 +25,7 @@ dump. In order:
 3. **Delegate long research** — for a broad or multi-source question that would flood your context,
    hand it to a subagent via `delegate_task` (isolated context, background, aggregated result). This
    is what `wayfinder` research tickets do — see the `wayfinder` skill.
-4. **Compression is built-in** — `web_extract` runs LLM post-processing that returns excerpts and
-   markdown summaries, not full pages; lean on that instead of pasting raw HTML into context.
+4. **Compression is built-in** — `web_extract` returns clean page content directly (Hermes handles truncation and large-page spill to disk itself); rely on that instead of pasting raw HTML into context.
 
 ## Version & API Lookup (Mandatory)
 

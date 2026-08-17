@@ -67,7 +67,7 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 If `HERDR_ENV=1`, run each axis as its own **herdr sibling pane** (named `review-standards` and `review-spec`) instead of a Task sub-agent — real process isolation, visible to the user, never stealing focus. Run `herdr --skill` for the mechanics; it is the sole authority on current CLI syntax, don't restate it here. If `HERDR_ENV` is not set, fall back to two parallel **Task sub-agents** with the same two prompts below.
 
-Both axes default to the session's model (Sonnet). Only run an axis on Opus if the user explicitly asks for it on this review — a stronger model on the judgement-heavy half catches what Sonnet's own review might miss, but it draws from the same weekly cap, so it's opt-in, not automatic. Switch back to Sonnet once that axis's review is posted.
+Both axes run as the configured delegation model (Hermes routes subagents via `delegation.model`/`delegation.provider`). The review prompts carry their standards/spec context explicitly, since each sub-agent has no other access.
 
 **Standards sub-agent prompt** — include:
 
