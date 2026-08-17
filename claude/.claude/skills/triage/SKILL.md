@@ -65,7 +65,7 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 2. **Recommend.** Tell the maintainer your category and state recommendation with reasoning, plus a brief codebase summary relevant to the request — including whether it's already implemented, and which layer(s) it would touch. Wait for direction.
 
-3. **Verify the claim.** Before any grilling, check that the claim holds up. For a bug, reproduce it from the reporter's steps. If `HERDR_ENV=1`, run the reproduction on a herdr sibling pane (named `triage-repro`) instead of inline, so the triage conversation stays free — run `herdr --skill` for the mechanics, don't restate them here. Otherwise reproduce inline. Report what happened: confirmed (with code path), failed, or insufficient detail (a strong `needs-info` signal). A confirmed verification makes a much stronger agent brief.
+3. **Verify the claim.** Before any grilling, check that the claim holds up. For a bug, reproduce it from the reporter's steps. If the reproduction is slow or would monopolise the conversation, dispatch it as a `delegate_task` sub-agent so the triage stays free; otherwise reproduce inline. Report what happened: confirmed (with code path), failed, or insufficient detail (a strong `needs-info` signal). A confirmed verification makes a much stronger agent brief.
 
 4. **Grill (if needed).** If the request needs fleshing out, read the `grilling` and `domain-modeling` skills — grill it into shape a round of questions at a time, sharpening domain terms and updating `CONTEXT.md`/ADRs inline as decisions land.
 

@@ -14,9 +14,9 @@ Read the ticket's **Layer(s)** line first (`/to-tickets`/`/triage` set it) — i
 
 Write tests alongside the implementation, at the seams `/testing` allows. Take expected values from the spec/ticket's Testing Decisions or acceptance criteria, never invent them from the same reasoning that produced the implementation — that's the self-graded anti-pattern in `/testing`'s Test quality section. Layers outside `/testing`'s scope get integration coverage instead — never a unit test bent to reach them.
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end. If `HERDR_ENV=1`, run the test suite in watch mode on a herdr sibling pane instead of re-invoking it inline each cycle — read its output rather than re-running it. Run `herdr --skill` for the mechanics; don't restate its CLI here.
+Run typechecking regularly, single test files regularly, and the full test suite once at the end. When the suite is long or slow, dispatch it as a `delegate_task` sub-agent and read its output rather than blocking the session inline.
 
-When closing a ticket unblocks new frontier tickets (per `docs/agents/issue-tracker.md`), and `HERDR_ENV=1`, **ask** the user whether to open a herdr sibling pane running `/implement` on one of them — never spawn it without asking first.
+When closing a ticket unblocks new frontier tickets (per `docs/agents/issue-tracker.md`), **ask** the user whether to dispatch a `delegate_task` sub-agent to implement one of them in parallel — never spawn it without asking first.
 
 Once done, read the `code-review` skill and review the work against this ticket, with `git rev-parse` of the ticket's starting commit as the fixed point — its Standards axis independently judges the tests you wrote, catching what a self-graded pass would miss. A hard `coding-standards`/`design` violation or a missing Spec requirement blocks the commit — fix it and re-review, don't commit around it.
 

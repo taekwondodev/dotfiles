@@ -65,9 +65,7 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 ### 4. Spawn both reviewers in parallel
 
-If `HERDR_ENV=1`, run each axis as its own **herdr sibling pane** (named `review-standards` and `review-spec`) instead of a Task sub-agent — real process isolation, visible to the user, never stealing focus. Run `herdr --skill` for the mechanics; it is the sole authority on current CLI syntax, don't restate it here. If `HERDR_ENV` is not set, fall back to two parallel **Task sub-agents** with the same two prompts below.
-
-Both axes run as the configured delegation model (Hermes routes subagents via `delegation.model`/`delegation.provider`). The review prompts carry their standards/spec context explicitly, since each sub-agent has no other access.
+Dispatch the two axes as parallel `delegate_task` sub-agents (one per axis), each with the corresponding prompt below. Each runs in an isolated context with real process isolation — visible in the session, never stealing focus. Both axes run as the configured delegation model (Hermes routes subagents via `delegation.model`/`delegation.provider`). The review prompts carry their standards/spec context explicitly, since each sub-agent has no other access.
 
 **Standards sub-agent prompt** — include:
 

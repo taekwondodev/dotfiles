@@ -62,7 +62,7 @@ Iterate until the user approves the breakdown.
 
 Publish the approved tickets in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the tracker's native blocking / sub-issue relationship — see `docs/agents/issue-tracker.md`'s "Tracer-bullet ticket operations" section. Apply the `ready-for-agent` triage label unless instructed otherwise — the tickets are agent-grabbable by construction.
 
-Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom. When a closed ticket opens up more than one frontier ticket at once, `/implement` will ask whether to open a herdr sibling pane for another one — it doesn't happen silently, and there's nothing to set up here for it.
+Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom. When a closed ticket opens up more than one frontier ticket at once, `/implement` will ask whether to dispatch a `delegate_task` sub-agent for another one — it doesn't happen silently, and there's nothing to set up here for it.
 
 Do NOT close or modify any parent issue.
 
