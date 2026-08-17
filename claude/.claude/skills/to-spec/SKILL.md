@@ -4,7 +4,7 @@ description: Turn the current conversation into a spec and publish it to the pro
 disable-model-invocation: true
 ---
 
-This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user — just synthesize what you already know. If real gaps remain, call the Skill tool with "grilling" (and with "domain-modeling" too if the gap is a domain term) for just those gaps, not a full re-interview.
+This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user — just synthesize what you already know. If real gaps remain, read the `grilling` skill (and `domain-modeling` too if the gap is a domain term) for just those gaps, not a full re-interview.
 
 **This step is user-invoked**: do not start it on your own — the user triggers it explicitly (normally after grilling's hand-off). The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill — read it before proceeding.
 
