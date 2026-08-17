@@ -90,8 +90,8 @@ memory:
   nudge_interval: 10
   flush_min_turns: 6
 delegation:
-  model: gpt-5.6-luna
-  provider: opencode-go
+  model: openai/gpt-5.6-luna
+  provider: nous
   max_iterations: 250
 skills:
   external_dirs:
@@ -224,6 +224,8 @@ known_builtin_toolsets:
     - web
     - x_search
     - yuanbao
+clarify:
+  timeout: 0
 
 # ── Security ──────────────────────────────────────────────────────────
 # Secret redaction is ON by default — strings that look like API keys,
