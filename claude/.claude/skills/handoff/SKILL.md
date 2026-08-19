@@ -21,29 +21,29 @@ Extract from conversation + git state:
 
 - **Task:** goal in 1-3 sentences. If args given, weight toward that focus.
 - **Progress:** done items (file names, functions, decisions)
-- **What Didn't Work:** failed approaches — prevents next agent repeating them
+- **What Didn't Work:** failed approaches that the next agent should not repeat
 - **Pending:** ordered, most critical first
 - **Decisions & Context:** non-obvious choices, constraints, gotchas fresh Claude can't derive from code
-- **Files Changed:** path → one-line description
+- **Files Changed:** path: one-line description
 - **Blockers:** stuck or unclear items
 - **Active Skills:** skills active in current session (e.g. `/grilling`, `/design`)
 - **Suggested Skills:** skills the next agent should read (e.g. `design`, `testing`)
 
 Policies:
-- Don't duplicate PRDs, plans, ADRs, issues, commits — reference by path or URL
+- Don't duplicate PRDs, plans, ADRs, issues, or commits. Reference them by path or URL
 - Redact secrets, API keys, PII
 
 ### 3. Write & Output
 
 Write to `.claude/HANDOFF.md` (create `.claude/` if missing).
 
-Add `## Resume Prompt` at bottom — self-contained, copy-paste ready.
+Add `## Resume Prompt` at bottom. It must be self-contained and copy-paste ready.
 Expand Active Skills into direct invocations at the top, one per line:
 ```
 /<skill1> <args>
 /<skill2> <args>
-Read `.claude/HANDOFF.md`. We're working on <project> — <task goal>.
+Read `.claude/HANDOFF.md`. We're working on <project>: <task goal>.
 Continue from the Pending section. Ask me nothing until you've read the handoff.
 ```
 
-Then: confirm path, print Resume Prompt in chat, say "Open new session, paste prompt above."
+Then confirm the path, print the Resume Prompt in chat, and say "Open new session, paste prompt above."

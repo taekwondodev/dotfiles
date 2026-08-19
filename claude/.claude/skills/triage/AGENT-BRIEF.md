@@ -1,6 +1,6 @@
 # Writing Agent Briefs
 
-An agent brief is a structured comment posted on an issue when it moves to `ready-for-agent`. It is the authoritative specification that `/implement` will work from. The original body and discussion are context — the agent brief is the contract.
+An agent brief is a structured comment posted on an issue when it moves to `ready-for-agent`. It is the authoritative specification that `/implement` will work from. The original body and discussion are context. The agent brief is the contract.
 
 ## Principles
 
@@ -10,8 +10,8 @@ The issue may sit in `ready-for-agent` for days or weeks. The codebase will chan
 
 - **Do** describe interfaces, types, and behavioral contracts
 - **Do** name specific types, function signatures, or config shapes that the agent should look for or modify
-- **Do** name the layer(s) touched, per `/design` (Handler/Service/Repository) — durable vocabulary, unlike a file path
-- **Don't** reference file paths — they go stale
+- **Do** name the layer(s) touched, per `/design` (Handler/Service/Repository). This is durable vocabulary, unlike a file path
+- **Don't** reference file paths; they go stale
 - **Don't** reference line numbers
 - **Don't** assume the current implementation structure will remain the same
 
@@ -26,7 +26,7 @@ Describe **what** the system should do, not **how** to implement it. `/implement
 
 ### Complete acceptance criteria
 
-The agent needs to know when it's done. Every agent brief must have concrete, testable acceptance criteria. Each criterion should be independently verifiable — this is the expected behavior `/implement` writes its tests against.
+The agent needs to know when it's done. Every agent brief must have concrete, testable acceptance criteria. Each criterion should be independently verifiable; this is the expected behavior `/implement` writes its tests against.
 
 - **Good:** "Running `gh issue list --label needs-triage` returns issues that have been through initial classification"
 - **Bad:** "Triage should work correctly"
@@ -53,9 +53,9 @@ Describe what should happen after the agent's work is complete.
 Be specific about edge cases and error conditions.
 
 **Key interfaces:**
-- `TypeName` — what needs to change and why
-- `functionName()` return type — what it currently returns vs what it should return
-- Config shape — any new configuration options needed
+- `TypeName`: what needs to change and why
+- `functionName()` return type: what it currently returns vs what it should return
+- Config shape: any new configuration options needed
 
 **Acceptance criteria:**
 - [ ] Specific, testable criterion 1
@@ -88,7 +88,7 @@ Truncation should break at the last word boundary before 1024 characters
 and append "..." to indicate truncation.
 
 **Key interfaces:**
-- The `SkillMetadata` type's `description` field — no type change needed,
+- The `SkillMetadata` type's `description` field; no type change needed,
   but the Service-layer logic that populates it needs to respect word
   boundaries
 
@@ -126,7 +126,7 @@ requested the feature. When triaging new issues, these files should be
 checked for matches.
 
 **Key interfaces:**
-- Markdown file format in `.out-of-scope/` — each file should have a
+- Markdown file format in `.out-of-scope/`: each file should have a
   `# Concept Name` heading, a `**Decision:**` line, a `**Reason:**` line,
   and a `**Prior requests:**` list with issue links
 - The triage workflow should read all `.out-of-scope/*.md` files early

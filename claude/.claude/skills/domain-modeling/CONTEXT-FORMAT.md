@@ -40,9 +40,9 @@ _Avoid_: Client, buyer, account
 
 ## Contexts
 
-- [Ordering](./src/ordering/CONTEXT.md) — receives and tracks customer orders
-- [Billing](./src/billing/CONTEXT.md) — generates invoices and processes payments
-- [Fulfillment](./src/fulfillment/CONTEXT.md) — manages warehouse picking and shipping
+- [Ordering](./src/ordering/CONTEXT.md): receives and tracks customer orders
+- [Billing](./src/billing/CONTEXT.md) (generates invoices and processes payments)
+- [Fulfillment](./src/fulfillment/CONTEXT.md), which manages warehouse picking and shipping
 
 ## Relationships
 
@@ -51,7 +51,7 @@ _Avoid_: Client, buyer, account
 - **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`
 ```
 
-Each context here corresponds to one bounded-context package under `/design`'s "one domain package per bounded context" rule — the map is the same boundary, seen from the domain-language side.
+Each context here corresponds to one bounded-context package under `/design`'s "one domain package per bounded context" rule. The map is the same boundary, seen from the domain-language side.
 
 The skill infers which structure applies:
 

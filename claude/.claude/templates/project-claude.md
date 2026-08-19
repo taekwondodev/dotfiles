@@ -4,14 +4,14 @@
 [Brief description of what this project does and its purpose]
 
 ## Stack
-[name only, no version numbers — except Language]
+[name only, no version numbers, except Language]
 - **Language:**
 - **Framework:**
 - **Database:**
 - **Other:**
 
 ## Gotchas
-[non-obvious/counterintuitive facts only — WHAT + WHY. One line by default; expand with an indented note when the reasoning needs more]
+[non-obvious/counterintuitive facts only: WHAT + WHY. One line by default; expand with an indented note when the reasoning needs more]
 - 
 
 ## Non-Functional Requirements
@@ -31,5 +31,5 @@
 - **Key decisions:**
 
 ## Setup
-[numbered, one-time onboarding steps — keep permanent, not pruned after first run]
+[numbered, one-time onboarding steps. Keep permanent, not pruned after first run]
 1. 

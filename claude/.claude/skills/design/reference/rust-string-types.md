@@ -1,4 +1,4 @@
-# Rust String Types — Field & Return Type Guide
+# Rust String Types: Field & Return Type Guide
 
 ## Decision Table
 
@@ -44,7 +44,7 @@ let c: Cow<'static, str> = "literal".into();       // → Borrowed
 let c: Cow<'static, str> = dynamic_string.into();  // → Owned
 ```
 
-## `normalize_domain` — Zero-Alloc Transform
+## `normalize_domain`: Zero-Alloc Transform
 
 Strip prefix with no alloc when unchanged:
 
@@ -59,15 +59,15 @@ fn normalize_domain(domain: &str) -> Cow<'_, str> {
 
 ## `DomainError` Security Pattern
 
-Workspace layout splits single error type in two (see `SKILL.md` Cross-Boundary Error Handling): `DomainError` in domain crate, `HttpError` wrapping it in adapter crate. `&'static str`-for-client-visible-variants rule applies to `DomainError`, since that's type whose messages potentially reach HTTP body via `HttpError`'s conversion — compile-time guarantee no runtime string (DB error, JWT detail) leaks through:
+Workspace layout splits single error type in two (see `SKILL.md` Cross-Boundary Error Handling): `DomainError` in domain crate, `HttpError` wrapping it in adapter crate. `&'static str`-for-client-visible-variants rule applies to `DomainError`, since that's type whose messages potentially reach HTTP body via `HttpError`'s conversion. This provides a compile-time guarantee that no runtime string (DB error, JWT detail) leaks through:
 
 ```rust
 pub enum DomainError {
-    // Logged only — dynamic content OK
+    // Logged only; dynamic content OK
     Internal(anyhow::Error),
     ServiceUnavailable(String),
 
-    // Client-visible — only compile-time literals allowed
+    // Client-visible; only compile-time literals allowed
     NotFound(&'static str),
     Conflict(&'static str),
     Unauthorized(&'static str),
@@ -77,7 +77,7 @@ pub enum DomainError {
 }
 ```
 
-Sanitize all `From<ExternalError>` impls producing client-visible variants — domain crate concern (jsonwebtoken/webauthn errors happen inside domain-adjacent validation), not adapter one:
+Sanitize all `From<ExternalError>` impls producing client-visible variants. This is a domain crate concern (jsonwebtoken/webauthn errors happen inside domain-adjacent validation), not an adapter concern:
 
 ```rust
 // BAD
@@ -91,10 +91,10 @@ impl From<jsonwebtoken::errors::Error> for DomainError {
 }
 ```
 
-`axum::extract::rejection::JsonRejection` never reaches `DomainError` at all in workspace layout — axum-specific parse failure happening inside adapter crate's custom extractor, converts straight to `HttpError` there. Sanitize at that boundary instead (reveals schema otherwise):
+`axum::extract::rejection::JsonRejection` never reaches `DomainError` at all in workspace layout. The axum-specific parse failure happens inside the adapter crate's custom extractor and converts straight to `HttpError` there. Sanitize at that boundary instead (reveals schema otherwise):
 
 ```rust
-// GOOD — in the adapter crate, not the domain crate
+// GOOD: in the adapter crate, not the domain crate
 impl From<axum::extract::rejection::JsonRejection> for HttpError {
     fn from(_: ...) -> Self { HttpError::bad_request("Malformed request body") }
 }
@@ -103,17 +103,17 @@ impl From<axum::extract::rejection::JsonRejection> for HttpError {
 ## PartialEq with `Box<str>` in Tests
 
 ```rust
-// Box<str> vs &str — explicit deref required
+// Box<str> vs &str: explicit deref required
 assert_eq!(&*msg, "expected string");
 assert_eq!(msg.as_ref(), "expected string");
 
 // Option<Box<str>> vs Option<&str>
 assert_eq!(opt.as_deref(), Some("expected"));
 
-// Box<str> vs Box<str> — works directly
+// Box<str> vs Box<str>: works directly
 assert_ne!(jti1, jti2);
 
-// method calls via auto-deref — no explicit deref needed
+// method calls via auto-deref: no explicit deref needed
 assert!(msg.contains("some substring"));
 ```
 

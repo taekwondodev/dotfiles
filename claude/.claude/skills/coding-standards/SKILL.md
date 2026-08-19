@@ -10,22 +10,22 @@ description: >
 
 * Documentation first: verify the latest official docs + community best practices before solving.
 * No hallucinations: if unsure about a lib version or API, say so and ask the user to check.
-* Prefer verified sources over memory — Hermes' research flow makes this cheap and context-safe:
+* Prefer verified sources over memory. Hermes' research flow makes this cheap and context-safe:
 
 ### Hermes research flow
 
-The goal is *verified, context-lean* findings — pull only what a decision needs, never a page
+The goal is *verified, context-lean* findings: pull only what a decision needs, never a page
 dump. In order:
 
-1. **Search, then extract** — start with `web_search` to find sources (returns URL/title/description),
+1. **Search, then extract**. Start with `web_search` to find sources (returns URL/title/description),
    then `web_extract` on the relevant hits to pull clean markdown. This is the native equivalent of
-   "search then read" — do it yourself, in-session.
-2. **Browser for interaction** — when a page needs real navigation (a flow, a click-through, a
+   "search then read"; do it yourself, in-session.
+2. **Browser for interaction**: when a page needs real navigation (a flow, a click-through, a
    dynamic render, or `web_extract` is blocked), use `browser_exec` / `browser_navigate`.
-3. **Delegate long research** — for a broad or multi-source question that would flood your context,
+3. **Delegate long research**. For a broad or multi-source question that would flood your context,
    hand it to a subagent via `delegate_task` (isolated context, background, aggregated result). This
-   is what `wayfinder` research tickets do — see the `wayfinder` skill.
-4. **Compression is built-in** — `web_extract` returns clean page content directly (Hermes handles truncation and large-page spill to disk itself); rely on that instead of pasting raw HTML into context.
+   is what `wayfinder` research tickets do. See the `wayfinder` skill.
+4. **Compression is built-in**: `web_extract` returns clean page content directly (Hermes handles truncation and large-page spill to disk itself); rely on that instead of pasting raw HTML into context.
 
 ## Version & API Lookup (Mandatory)
 

@@ -17,12 +17,12 @@ Run in parallel:
 ```
 git add $(git ls-files --modified --others --exclude-standard)
 ```
-Respects .gitignore — never stages ignored files.
+Respects .gitignore. Never stages ignored files.
 
 ### 3. Generate Message
 
 Conventional Commits format:
-- `<type>(<scope>): <summary>` — scope optional
+- `<type>(<scope>): <summary>`; scope is optional
 - Types: `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `chore`, `build`, `ci`, `style`, `revert`
 - Imperative mood: "add", "fix", "remove"
 - Subject ≤50 chars, hard cap 72
