@@ -14,9 +14,9 @@ Read the ticket's **Layer(s)** line first (`/to-tickets`/`/triage` set it). It t
 
 Write tests alongside the implementation, at the seams `/testing` allows. Take expected values from the spec/ticket's Testing Decisions or acceptance criteria. Never invent them from the same reasoning that produced the implementation; that's the self-graded anti-pattern in `/testing`'s Test quality section. Layers outside `/testing`'s scope get integration coverage instead. Never bend a unit test to reach them.
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end. When the suite is long or slow, dispatch it as a `delegate_task` sub-agent and read its output rather than blocking the session inline.
+Run typechecking regularly, single test files regularly, and the full test suite once at the end. When the suite is long or slow, dispatch it as a sub-agent and read its output rather than blocking the session inline.
 
-When closing a ticket unblocks new frontier tickets (per `docs/agents/issue-tracker.md`), **ask** the user whether to dispatch a `delegate_task` sub-agent to implement one of them in parallel. Never spawn it without asking first.
+When closing a ticket unblocks new frontier tickets (per `docs/agents/issue-tracker.md`), **ask** the user whether to dispatch a sub-agent to implement one of them in parallel. Never spawn it without asking first.
 
 Once done, read the `code-review` skill and review the work against this ticket, with `git rev-parse` of the ticket's starting commit as the fixed point. Its Standards axis independently judges the tests you wrote, catching what a self-graded pass would miss. A hard `coding-standards`/`design` violation or a missing Spec requirement blocks the commit. Fix it and re-review; do not commit around it.
 

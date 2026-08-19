@@ -65,7 +65,7 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 ### 4. Spawn both reviewers in parallel
 
-Dispatch the two axes as parallel `delegate_task` sub-agents (one per axis), each with the corresponding prompt below. Each runs in an isolated context with real process isolation. They are visible in the session and never steal focus. Both axes run as the configured delegation model (Hermes routes subagents via `delegation.model`/`delegation.provider`). The review prompts carry their standards/spec context explicitly, since each sub-agent has no other access.
+Dispatch the two axes as parallel sub-agents (one per axis), each with the corresponding prompt below. Each runs in its own isolated context. The review prompts carry their standards/spec context explicitly, since each sub-agent has no other access.
 
 **Standards sub-agent prompt**: include:
 
