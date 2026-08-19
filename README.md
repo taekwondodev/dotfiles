@@ -1,5 +1,5 @@
 # My Dotfiles
-Claude Code, Kali, Ghostty, tmux, Vim, Neovim, Fish and Starship configuration files
+Claude Code, Hermes Agent, GitHub CLI, Kali, Ghostty, tmux, Vim, Neovim, Fish and Starship configuration files
 
 ## Install
 
@@ -38,6 +38,8 @@ chmod +x scripts/bootstrap.sh
 | starship | ✓ | ✓ | — |
 | vim      | ✓ | ✓ | ✓ |
 | claude   | ✓ | — | — |
+| hermes   | ✓ | ✓ | — |
+| gh       | ✓ | ✓ | — |
 
 --- 
 ## Custom subset
@@ -60,7 +62,17 @@ stow -D ghostty   # remove a package
 The `macos` and `linux` profiles handle automatically:
 - **JetBrainsMono Nerd Font** — via `brew` on macOS, via `curl` + `fc-cache` on Linux
 - **tree-sitter-cli** — via `cargo`; installs Rust/rustup first if not present
+- **[Hermes Agent](https://hermes-agent.nousresearch.com/docs/getting-started/installation)** — via the official installer on macOS and Linux
+- **[GitHub CLI](https://cli.github.com/)** (`gh`) — via Homebrew on macOS, via `apt`/`dnf` on Linux
 - **[termicons](https://github.com/mskelton/termicons)** — cannot be automated; the script opens the repo in the browser and waits for you to install it before continuing
+
+After the bootstrap completes, authenticate GitHub CLI if needed:
+
+```bash
+gh auth login
+```
+
+The `macos` and `linux` profiles also stow the tracked Hermes configuration into `~/.hermes`.
 
 ## Kali setup
 

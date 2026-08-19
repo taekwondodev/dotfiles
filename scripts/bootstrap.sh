@@ -17,8 +17,8 @@ TERMICONS_URL="https://github.com/mskelton/termicons"
 usage() {
     echo "Usage: $0 [macos|linux|server]"
     echo ""
-    echo "  macos   — nvim fish ghostty tmux claude starship vim (brew)"
-    echo "  linux   — nvim fish ghostty tmux starship vim (apt/dnf)"
+    echo "  macos   — nvim fish ghostty tmux claude hermes gh starship vim (brew)"
+    echo "  linux   — nvim fish ghostty tmux hermes gh starship vim (apt/dnf)"
     echo "  server  — vim only"
     exit 1
 }
@@ -69,12 +69,23 @@ install_termicons() {
     read -rp "$(echo -e "${YELLOW}[WAIT]${NC} Premi Enter quando hai installato termicons...")"
 }
 
+install_hermes() {
+    if command -v hermes &>/dev/null; then
+        success "Hermes Agent già installato"
+        return
+    fi
+    info "Installazione Hermes Agent..."
+    curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+    success "Hermes Agent installato"
+}
+
 install_macos() {
     command -v brew &>/dev/null || die "Homebrew non trovato: https://brew.sh"
     info "Installazione dipendenze macOS..."
-    brew install stow git starship neovim fd tmux
+    brew install stow git gh starship neovim fd tmux
     brew install --cask font-jetbrains-mono-nerd-font
     success "Dipendenze installate"
+    install_hermes
     install_tree_sitter_cli
     install_termicons
 }
@@ -88,10 +99,10 @@ install_linux() {
     case "$pm" in
         apt)
             sudo apt update
-            sudo apt install -y stow git neovim fd-find tmux
+            sudo apt install -y stow git gh neovim fd-find tmux
             ;;
         dnf)
-            sudo dnf install -y stow git neovim fd-find tmux
+            sudo dnf install -y stow git gh neovim fd-find tmux
             ;;
     esac
 
@@ -101,6 +112,7 @@ install_linux() {
     fi
 
     success "Dipendenze installate"
+    install_hermes
     install_font_linux
     install_tree_sitter_cli
     install_termicons
@@ -125,11 +137,11 @@ link_server() {
 case "$PROFILE" in
     macos)
         install_macos
-        stow_packages nvim fish ghostty tmux claude starship vim
+        stow_packages nvim fish ghostty tmux claude hermes starship vim
         ;;
     linux)
         install_linux
-        stow_packages nvim fish ghostty tmux starship vim
+        stow_packages nvim fish ghostty tmux hermes starship vim
         ;;
     server)
         link_server
