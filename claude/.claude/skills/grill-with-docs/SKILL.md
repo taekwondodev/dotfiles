@@ -4,4 +4,4 @@ description: A relentless interview to sharpen a plan or design, which also crea
 disable-model-invocation: true
 ---
 
-Read the `grilling`, `domain-modeling`, and `writing-for-agents` skills before writing the glossary or ADRs. The domain-modeling formats add structure, but `writing-for-agents` remains the source of truth for general document writing.
+Read the `grilling` and `domain-modeling` skills. `domain-modeling` owns the glossary and ADR writes, including loading `writing-for-agents` before it writes them.

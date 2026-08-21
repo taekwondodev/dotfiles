@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # To Tickets
 
-Break a complete, approved spec into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/design` layer(s) it touches. Use `capture-issue` when the idea only needs to be recorded before grilling, and use `to-spec` when a plan or conversation has not yet become a complete spec.
+Break a complete, approved spec into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/design` layer(s) it touches.
 
 **This step is user-invoked**: do not start it on your own; the user triggers it explicitly. The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill; read it before proceeding.
 

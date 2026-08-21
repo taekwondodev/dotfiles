@@ -62,5 +62,5 @@ it as its closing gate before committing.
 
 When a phase completes and the next one is user-invoked, the agent stops and says
 something like: *"Phase complete. Decisions are [summary]. How do you want to proceed?
-`to-spec` to formalize, `to-tickets` to break it into tickets, or `implement` directly?"*
+`to-spec` to formalize, `to-tickets` if the spec needs multiple slices, or `implement` directly?"*
 The user chooses; the agent does not.
