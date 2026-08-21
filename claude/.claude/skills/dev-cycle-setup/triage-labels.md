@@ -6,22 +6,13 @@ The workflow speaks in terms of canonical category, state, and workflow-marker r
 
 `bug` and `enhancement` are fixed category labels in this workflow. They are not part of the configurable triage-state mapping.
 
-### Triage state labels
+### Issue state labels
 
 | Canonical role    | Label in this tracker |
 | ------------------ | ---------------------- |
-| `needs-triage`      | `needs-triage`          |
-| `needs-info`        | `needs-info`            |
-| `ready-for-agent`   | `ready-for-agent`       |
-| `ready-for-human`   | `ready-for-human`       |
-| `wontfix`           | `wontfix`               |
+| `needs-grilling`  | `needs-grilling`        |
+| `ready-for-agent` | `ready-for-agent`       |
 
-### Workflow markers
-
-| Canonical marker | Label in this tracker |
-| ---------------- | ---------------------- |
-| `needs-grilling` | `needs-grilling`       |
-
-`needs-grilling` marks a quick issue that is intentionally waiting for a future grilling session. It may coexist with one category label and one triage state label; it is not itself a triage state.
+`needs-grilling` is the initial state for a quick issue that is intentionally waiting for a future grilling session. `ready-for-agent` replaces it when the complete spec is ready.
 
 When a skill mentions a role or marker, use the corresponding label string from this table. Edit the right-hand column if this repo's tracker already uses different names. Don't create duplicate labels for the same role.

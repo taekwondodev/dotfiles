@@ -12,7 +12,7 @@ Break a complete, approved spec into a set of **tickets**: tracer-bullet vertica
 
 The issue tracker and issue-label vocabulary should have been provided to you. Tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
-Read `writing-for-agents` before drafting ticket bodies. Its general writing rules govern this document; the ticket template below adds only ticket-specific structure. Resolve the configured `ready-for-agent` label through `docs/agents/triage-labels.md` rather than assuming the canonical name is the tracker label.
+Read `writing-for-agents` before drafting ticket bodies. Its general writing rules govern this document; the ticket template below adds only ticket-specific structure. Resolve the configured `ready-for-agent` state label through `docs/agents/triage-labels.md` rather than assuming the canonical name is the tracker label.
 
 ## Process
 
@@ -64,7 +64,7 @@ Iterate until the user approves the breakdown.
 
 ### 5. Publish the tickets to the configured tracker
 
-Publish the approved tickets in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the tracker's native blocking / sub-issue relationship. See `docs/agents/issue-tracker.md`'s "Tracer-bullet ticket operations" section. Apply the configured `ready-for-agent` triage label unless instructed otherwise: the tickets are agent-grabbable by construction.
+Publish the approved tickets in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the tracker's native blocking / sub-issue relationship. See `docs/agents/issue-tracker.md`'s "Tracer-bullet ticket operations" section. Apply the configured `ready-for-agent` state label unless instructed otherwise: the tickets are agent-grabbable by construction.
 
 Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom. When a closed ticket opens up more than one frontier ticket at once, `/implement` will ask whether to dispatch a sub-agent for another one. It doesn't happen silently, and there's nothing to set up here for it.
 

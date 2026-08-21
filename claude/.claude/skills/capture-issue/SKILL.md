@@ -18,7 +18,7 @@ The issue tracker and issue-label vocabulary must be configured before this skil
 2. Classify the request as exactly one category: `bug` or `enhancement`.
 3. If the category is ambiguous, ask one focused classification question before publishing. Do not ask any other question in this skill.
 4. Create a new issue in the configured tracker with the concise title and minimally cleaned body.
-5. Apply the category label and the configured labels for the `needs-triage` state and `needs-grilling` marker.
+5. Apply the category label and the configured `needs-grilling` state label.
 6. Report the created issue and stop. Do not apply `ready-for-agent` and do not start grilling, `to-spec`, `to-tickets`, or `implement`.
 
 ## Resuming from a fresh session
@@ -28,7 +28,7 @@ The created issue URL or number is the handoff between sessions. The issue body 
 Later, from a fresh session with no capture context:
 
 1. Invoke `/grilling <issue URL or number>`. `grilling` reads the issue's full body, comments, and labels through the configured tracker before asking questions.
-2. After the grilling hand-off, invoke `/to-spec <same issue URL or number>`. `to-spec` rereads the issue and comments, writes the complete spec to that same issue, and replaces the configured `needs-triage` state and `needs-grilling` marker with `ready-for-agent`.
+2. After the grilling hand-off, invoke `/to-spec <same issue URL or number>`. `to-spec` rereads the issue and comments, writes the complete spec to that same issue, and replaces the configured `needs-grilling` state with `ready-for-agent`.
 3. Invoke `/to-tickets <same issue URL or number>` only if the complete spec needs multiple implementation slices. Otherwise invoke `/implement <same issue URL or number>` directly.
 
 The capture session itself stops after publishing. It does not try to grill, create a spec, or preserve hidden state in the original conversation.

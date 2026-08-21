@@ -24,7 +24,7 @@ This is also where `/wayfinder` hands off: when a map's frontier empties, its cl
 
 3. Sketch out where this will be tested, per `/testing`'s scope, not an oversight to flag if it excludes a layer. Use the highest existing seam possible; new seams are a real decision, not a default.
 
-4. Write the spec using the template below, then publish it to the project issue tracker. Apply the configured `ready-for-agent` triage label; no need for additional triage. When completing an issue, atomically remove the configured `needs-triage` state and, if present, the configured `needs-grilling` marker before applying `ready-for-agent`.
+4. Write the spec using the template below, then publish it to the project issue tracker. Apply the configured `ready-for-agent` state label; no additional triage step is needed. When completing an issue, replace the configured `needs-grilling` state with `ready-for-agent`.
 
 <spec-template>
 

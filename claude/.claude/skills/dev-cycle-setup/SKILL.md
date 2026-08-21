@@ -50,9 +50,9 @@ Record the choice in `docs/agents/issue-tracker.md`, seeded from [issue-tracker-
 
 > Do you want to keep the default issue labels? (recommended: **yes**)
 
-The defaults are the canonical issue-state labels, each label string equal to its name: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. On **yes**, write them as-is from [triage-labels.md](./triage-labels.md). Only collect the overrides if the user says no. Usually this is because their tracker already uses other names.
+The defaults are the two canonical issue-state labels, each label string equal to its name: `needs-grilling` and `ready-for-agent`. On **yes**, write them as-is from [triage-labels.md](./triage-labels.md). Only collect the overrides if the user says no. Usually this is because their tracker already uses other names.
 
-Add the workflow marker `needs-grilling` as a separate label. It is used for quick issues intentionally created before a grilling session; it does not replace the issue's category or triage state label.
+`needs-grilling` is the initial issue state for quick issues intentionally created before a grilling session. It is replaced by `ready-for-agent` when the complete spec is published.
 
 **Section C: Domain docs.** Default to **single-context**. Use one `CONTEXT.md` + `docs/adr/` at the repo root. This fits almost every repo; write it without asking.
 

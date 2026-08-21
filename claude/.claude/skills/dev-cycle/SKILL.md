@@ -21,10 +21,10 @@ grilling ──► STOP (human checkpoint) ──► to-spec ──► to-ticket
 A request may also be captured quickly before its requirements are fully explored:
 
 ```
-capture-issue ──► needs-triage + needs-grilling ──► grilling ──► STOP ──► to-spec
+capture-issue ──► needs-grilling ──► grilling ──► STOP ──► to-spec
 ```
 
-`needs-grilling` is a workflow marker, not a replacement for the triage state labels. It means the issue is intentionally parked until a later user-invoked grilling session.
+`needs-grilling` is the initial issue state. It means the issue is intentionally parked until a later user-invoked grilling session.
 
 - **grilling**: interview the user to reach a shared understanding (design tree, rounds).
 - **STOP**: the hard checkpoint. After the user confirms shared understanding, the agent
