@@ -55,4 +55,3 @@ If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](
 
 - `/grill-with-docs` drives this skill throughout its interview, so `CONTEXT.md`/ADRs update as the conversation goes, not after.
 - `/wayfinder`'s **Grilling** ticket type invokes this alongside `/grilling` whenever the decision is code-shaped.
-- `/triage` invokes this when fleshing out an issue needs sharper domain language.

@@ -8,7 +8,7 @@ This skill takes the current conversation context and codebase understanding and
 
 **This step is user-invoked**: do not start it on your own; the user triggers it explicitly (normally after grilling's hand-off). The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill; read it before proceeding.
 
-The issue tracker and triage label vocabulary should have been provided to you. Tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
+The issue tracker and issue-label vocabulary should have been provided to you. Tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
 Read `writing-for-agents` before drafting the spec. Its general writing rules govern this document; the spec template below adds only spec-specific structure.
 

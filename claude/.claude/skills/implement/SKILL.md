@@ -8,7 +8,7 @@ Implement the work described by the user in the spec or ticket.
 
 **This step is user-invoked**: do not start it on your own. The user triggers it explicitly (normally by approving a spec or tickets, after grilling/to-spec/to-tickets). The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill; read it before proceeding.
 
-Read the ticket's **Layer(s)** line first (`/to-tickets`/`/triage` set it). It tells you which of `/design`'s Handler/Service/Repository/Middleware layers this touches before you open a single file.
+Read the ticket's **Layer(s)** line first (`/to-tickets` sets it). It tells you which of `/design`'s Handler/Service/Repository/Middleware layers this touches before you open a single file.
 
 **Read the standards FIRST, before opening any file**: load the `coding-standards`, `design`, and `testing` skills and keep their bodies in context for the whole implementation. Their titles in the index are not enough: the rules live in the bodies (TyDD, dependency direction, secure defaults, layer placement, test seams), and skills load lazily, so you must read them explicitly or they never enter context. Apply them while you write, not just at review time: place new code in the layer the ticket names, wire it through the port the layer already exposes, and apply `/coding-standards`' TyDD/dependency/secure-defaults rules as you write each piece. Do not defer this to `/code-review` to catch after the fact (the review's Standards axis loads the same skills and judges against them, so anything you skip here surfaces there as rework).
 

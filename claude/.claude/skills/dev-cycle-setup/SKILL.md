@@ -1,15 +1,15 @@
 ---
 name: dev-cycle-setup
-description: Configure this repo for the dev-cycle skills. Set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of capture-issue, triage, to-spec, to-tickets, implement, or wayfinder.
+description: Configure this repo for the dev-cycle skills. Set up its issue tracker, issue-label vocabulary, and domain doc layout. Run once before first use of capture-issue, to-spec, to-tickets, implement, or wayfinder.
 disable-model-invocation: true
 ---
 
 # Dev Cycle Setup
 
-Scaffold the per-repo configuration that `/capture-issue`, `/triage`, `/to-spec`, `/to-tickets`, `/implement`, and `/wayfinder` assume:
+Scaffold the per-repo configuration that `/capture-issue`, `/to-spec`, `/to-tickets`, `/implement`, and `/wayfinder` assume:
 
 - **Issue tracker**: where issues and tickets live
-- **Triage labels**: the strings used for the five canonical triage roles
+- **Issue labels**: the strings used for the canonical category, state, and workflow-marker roles
 - **Domain docs**: where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
 
 Read `writing-for-agents` before drafting the generated project context, domain, and tracker documents. Its general writing rules govern those documents; this skill adds only setup-specific structure.
@@ -37,7 +37,7 @@ Lead each section with the recommended answer so the user can accept it in a wor
 
 **Section A: Issue tracker.**
 
-> Explainer: this is where issues and tickets live for this repo. `/capture-issue`, `/triage`, `/to-tickets`, `/to-spec`, and `/wayfinder` read from and write to it.
+> Explainer: this is where issues and tickets live for this repo. `/capture-issue`, `/to-tickets`, `/to-spec`, and `/wayfinder` read from and write to it.
 
 Default posture: if a `git remote` points at GitHub, propose GitHub Issues. Otherwise, propose personal Linear. Never use a local-markdown fallback (a wayfinder map needs a real tracker to show blocking edges visually).
 
@@ -46,11 +46,11 @@ Default posture: if a `git remote` points at GitHub, propose GitHub Issues. Othe
 
 Record the choice in `docs/agents/issue-tracker.md`, seeded from [issue-tracker-github.md](./issue-tracker-github.md) or [issue-tracker-linear.md](./issue-tracker-linear.md).
 
-**Section B: Triage label vocabulary.**
+**Section B: Issue-label vocabulary.**
 
-> Do you want to keep the default triage labels? (recommended: **yes**)
+> Do you want to keep the default issue labels? (recommended: **yes**)
 
-The defaults are the five canonical triage labels, each label string equal to its name: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. On **yes**, write them as-is from [triage-labels.md](./triage-labels.md). Only collect the overrides if the user says no. Usually this is because their tracker already uses other names, so `/triage` can apply existing labels instead of creating duplicates.
+The defaults are the canonical issue-state labels, each label string equal to its name: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. On **yes**, write them as-is from [triage-labels.md](./triage-labels.md). Only collect the overrides if the user says no. Usually this is because their tracker already uses other names.
 
 Add the workflow marker `needs-grilling` as a separate label. It is used for quick issues intentionally created before a grilling session; it does not replace the issue's category or triage state label.
 
@@ -95,7 +95,7 @@ The block contains pointers only, never the content itself:
 
 [one-line summary of where issues are tracked]. See `docs/agents/issue-tracker.md`.
 
-### Triage labels
+### Issue labels
 
 [one-line summary of the label vocabulary]. See `docs/agents/triage-labels.md`.
 

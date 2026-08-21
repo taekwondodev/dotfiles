@@ -10,7 +10,7 @@ Break a complete, approved spec into a set of **tickets**: tracer-bullet vertica
 
 **This step is user-invoked**: do not start it on your own; the user triggers it explicitly. The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill; read it before proceeding.
 
-The issue tracker and triage label vocabulary should have been provided to you. Tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
+The issue tracker and issue-label vocabulary should have been provided to you. Tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
 Read `writing-for-agents` before drafting ticket bodies. Its general writing rules govern this document; the ticket template below adds only ticket-specific structure. Resolve the configured `ready-for-agent` label through `docs/agents/triage-labels.md` rather than assuming the canonical name is the tracker label.
 

@@ -10,7 +10,7 @@ Create a new issue from the user's current request when they want to record an i
 
 Read `writing-for-agents` before writing the issue title or body. Keep the result minimal: synthesize a concise title and minimally clean the user's text without adding requirements, acceptance criteria, architecture, testing decisions, or scope claims.
 
-The issue tracker and triage label vocabulary must be configured before this skill runs. If `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md` is missing, tell the user to run `dev-cycle-setup` and stop without publishing. Read `docs/agents/issue-tracker.md` for the tracker's issue-creation operations and quick-capture rules, then read the right-hand mappings in `docs/agents/triage-labels.md`: `bug` and `enhancement` are fixed category labels, while the state and workflow-marker labels may be tracker-specific.
+The issue tracker and issue-label vocabulary must be configured before this skill runs. If `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md` is missing, tell the user to run `dev-cycle-setup` and stop without publishing. Read `docs/agents/issue-tracker.md` for the tracker's issue-creation operations and quick-capture rules, then read the right-hand mappings in `docs/agents/triage-labels.md`: `bug` and `enhancement` are fixed category labels, while the state and workflow-marker labels may be tracker-specific.
 
 ## Process
 

@@ -1,6 +1,6 @@
-# Triage Labels
+# Issue Labels
 
-The skills speak in terms of five canonical triage roles (meanings in `triage/SKILL.md`'s Roles section). This file maps those roles to the actual label strings used in this repo's issue tracker.
+The workflow speaks in terms of canonical category, state, and workflow-marker roles. This file maps those roles to the actual label strings used in this repo's issue tracker.
 
 ### Category labels
 
