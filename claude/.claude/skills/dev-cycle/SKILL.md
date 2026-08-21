@@ -1,6 +1,6 @@
 ---
 name: dev-cycle
-description: The canonical dev-cycle workflow, which is the one source of truth for the sequence grilling → to-spec → to-tickets → implement → code-review, its human checkpoints, and its invocation rules. Consult this skill before starting any phase of the cycle; other skills in the cycle point here instead of restating the workflow.
+description: The canonical dev-cycle workflow, which is the one source of truth for capture-issue, grilling → to-spec → optional to-tickets → implement → code-review, its human checkpoints, and its invocation rules. Consult this skill before starting any phase of the cycle; other skills in the cycle point here instead of restating the workflow.
 disable-model-invocation: true
 ---
 
@@ -15,24 +15,26 @@ files ever disagree about the workflow, this file wins. Fix the other file.
 The normal path is:
 
 ```
-grilling ──► STOP (human checkpoint) ──► to-spec ──► to-tickets ──► implement ──► code-review ──► commit
+grilling ──► STOP (human checkpoint) ──► to-spec ──► to-tickets (if multiple slices) ──► implement ──► code-review ──► commit
 ```
 
-A ticket may also be captured quickly before its requirements are fully explored:
+A request may also be captured quickly before its requirements are fully explored:
 
 ```
-quick ticket ──► needs-grilling ──► grilling ──► STOP ──► to-spec/to-tickets/implement
+capture-issue ──► needs-triage + needs-grilling ──► grilling ──► STOP ──► to-spec
 ```
 
-`needs-grilling` is a workflow marker, not a replacement for the triage state labels. It means the ticket is intentionally parked until a later user-invoked grilling session.
+`needs-grilling` is a workflow marker, not a replacement for the triage state labels. It means the issue is intentionally parked until a later user-invoked grilling session.
 
 - **grilling**: interview the user to reach a shared understanding (design tree, rounds).
 - **STOP**: the hard checkpoint. After the user confirms shared understanding, the agent
   **stops and hands off**: it reports the decisions and asks the user which phase comes
   next. It never proceeds on its own.
-- **to-spec**: synthesize the conversation into a spec on the issue tracker. No re-interview;
-  if real gaps remain, run targeted grilling on just those gaps.
-- **to-tickets**: break the spec into tracer-bullet tickets with blocking edges and layers.
+- **to-spec**: synthesize the conversation into a complete spec on the issue tracker. It may
+  complete the same issue that `capture-issue` parked. No re-interview; if real gaps remain,
+  run targeted grilling on just those gaps.
+- **to-tickets**: when the spec needs multiple implementation slices, break it into tracer-bullet
+  tickets with blocking edges and layers. A single-slice spec may go directly to `implement`.
 - **implement**: build from the spec/tickets, tests against the spec's Testing Decisions.
 - **code-review**: review before commit; a hard violation blocks the commit.
 

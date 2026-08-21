@@ -10,6 +10,7 @@ Exact tool/API surface is not hardcoded here because Linear's MCP tools or CLI c
 - **Read an issue**: fetch by id/url, including comments and labels.
 - **List issues**: filter by label/state as the connected tool allows.
 - **Comment on an issue**: via the connected tool.
+- **Update an issue body**: via the connected tool, preserving the existing issue id and comments.
 - **Apply / remove labels**: via the connected tool.
 - **Close**: mark done/cancelled via the connected tool.
 
@@ -20,6 +21,12 @@ Create a Linear issue.
 ## When a skill says "fetch the relevant ticket"
 
 Fetch the issue by its id or URL.
+
+## Quick issue capture
+
+Used by `/capture-issue`. Create a new issue with exactly one fixed category label (`bug` or `enhancement`), the configured `needs-triage` state label, and the configured `needs-grilling` workflow marker. The issue is intentionally incomplete and must not receive `ready-for-agent` until a complete spec exists.
+
+When `/to-spec` completes an existing issue, update its body in place through the connected tool, then apply and remove labels in the same transition. Do not create a replacement issue.
 
 ## Wayfinding operations
 

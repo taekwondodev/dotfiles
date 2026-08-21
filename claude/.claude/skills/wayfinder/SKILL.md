@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 A loose idea has arrived, too big for one agent session and wrapped in fog: the way from here to the **destination** isn't visible yet. Wayfinding is about finding that way, not charging at the destination. This skill charts the way as a **shared map** on the repo's issue tracker, then works its **decision tickets**, which are questions whose resolution is a decision rather than slices of a build to execute, one at a time until the route is clear.
 
+Read `writing-for-agents` before drafting map bodies, ticket bodies, resolution comments, or Decisions-so-far entries. Its general writing rules govern those artifacts; wayfinding adds only map-specific structure.
+
 **Only invoke this for work that is genuinely too big for one session.** If the task fits in one session, don't chart a map; just do it.
 
 The destination varies per effort, and naming it is the first act of charting because it shapes every ticket. It might be a spec to hand off, a decision to lock before work starts, or a change made in place. The map is domain-agnostic across coding projects, app projects, exams, cloud-security work, or whatever else fits the shape.

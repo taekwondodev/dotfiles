@@ -7,6 +7,8 @@ description: Build and sharpen a project's domain model. Use when the user wants
 
 Actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenge terms, invent edge-case scenarios, and write the glossary and decisions down the moment they crystallise. (Merely *reading* `CONTEXT.md` for vocabulary is not this skill. That's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
 
+Read `writing-for-agents` before writing `CONTEXT.md` entries or ADRs. Its general writing rules govern those documents; the context and ADR formats below add only domain-specific structure.
+
 `CONTEXT.md` and `docs/adr/` are project-local files, never CLAUDE.md. CLAUDE.md stays a router of pointers, and this skill owns the content behind them.
 
 ## File structure

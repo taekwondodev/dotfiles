@@ -36,11 +36,13 @@ Five **state** roles:
 
 One independent **workflow marker** may coexist with those roles:
 
-- `needs-grilling`: a quick ticket intentionally parked until a future grilling session
+- `needs-grilling`: a quick issue intentionally parked until a future grilling session
 
-Every triaged issue should carry exactly one category role and one state role. `needs-grilling` is not a state role and does not count toward that constraint. If state roles conflict, flag it and ask the maintainer before doing anything else.
+Every triaged issue should carry exactly one category role and one state role. `needs-grilling` is not a state role and does not count toward that constraint. A captured issue normally carries `needs-triage` plus `needs-grilling`; after its specification is complete, remove both configured labels and apply the configured `ready-for-agent` label. If state roles conflict, flag it and ask the maintainer before doing anything else.
 
 These are canonical role names. The actual label strings used in the issue tracker are in `docs/agents/triage-labels.md`. Tell the user to run `/dev-cycle-setup` if that file doesn't exist yet; it's user-invoked, so you can't call it yourself.
+
+Read `writing-for-agents` before writing triage notes, agent briefs, or out-of-scope entries. Its general writing rules govern those documents; the referenced templates add only triage-specific structure.
 
 State transitions: an unlabeled issue normally goes to `needs-triage` first; from there it moves to `needs-info`, `ready-for-agent`, `ready-for-human`, or `wontfix`. `needs-info` returns to `needs-triage` once the reporter replies. The maintainer can override at any time. Flag transitions that look unusual and ask before proceeding.
 
@@ -71,9 +73,9 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 3. **Verify the claim.** Before any grilling, check that the claim holds up. For a bug, reproduce it from the reporter's steps. If the reproduction is slow or would monopolise the conversation, dispatch it as a sub-agent so the triage stays free; otherwise reproduce inline. Report what happened: confirmed (with code path), failed, or insufficient detail (a strong `needs-info` signal). A confirmed verification makes a much stronger agent brief.
 
-4. **Grill (if needed).** If the request needs fleshing out, read the `grilling` and `domain-modeling` skills. Grill it into shape a round of questions at a time, sharpening domain terms and updating `CONTEXT.md`/ADRs inline as decisions land.
+4. **Grill (if needed).** If the request needs fleshing out, read the `grilling` and `domain-modeling` skills. Before updating `CONTEXT.md` or ADRs inline, read `writing-for-agents`. Grill it into shape a round of questions at a time, sharpening domain terms and updating those documents as decisions land.
 
-5. **Apply the outcome:**
+5. **Apply the outcome.** Before applying any outcome, resolve the tracker-specific label strings from `docs/agents/triage-labels.md`, ensure exactly one fixed category label (`bug` or `enhancement`), and remove any conflicting category or state labels. For `ready-for-agent`, verify that a complete specification or complete agent brief exists, remove the configured `needs-grilling` marker, and ensure no conflicting state remains; a partial brief is not sufficient. Then:
    - `ready-for-agent`: post an agent brief comment ([AGENT-BRIEF.md](AGENT-BRIEF.md)), naming the layer(s) it touches so `/to-tickets`/`/implement` don't have to rediscover it.
    - `ready-for-human`: use the same structure as an agent brief, but note why it can't be delegated (judgment calls, external access, design decisions, manual testing).
    - `needs-info`: post triage notes (template below).
@@ -85,7 +87,7 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 ## Quick state override
 
-If the maintainer says "move #42 to ready-for-agent", trust them and apply the role directly. Confirm what you're about to do (role changes, comment, close), then act. Skip grilling. If moving to `ready-for-agent` without a grilling session, ask whether they want to write an agent brief.
+If the maintainer says "move #42 to ready-for-agent", confirm that a complete specification or complete agent brief already exists, remove the configured `needs-grilling` marker, and apply the configured category and state labels directly. If no complete specification or complete brief exists, keep the issue out of `ready-for-agent` and direct the maintainer to `grilling` and `to-spec` first. Confirm what you're about to do (role changes, comment, close), then act.
 
 ## Needs-info template
 

@@ -1,24 +1,24 @@
 ---
 name: to-tickets
-description: Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges and the architecture layer(s) it touches, published to the configured tracker.
+description: Break a complete approved spec into tracer-bullet tickets when multiple implementation slices are needed, each declaring blocking edges and architecture layers, published to the configured tracker.
 disable-model-invocation: true
 ---
 
 # To Tickets
 
-Break a plan, spec, or conversation into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/design` layer(s) it touches.
-
-A quick ticket may be created before grilling when the idea should be captured immediately but is not ready for specification. Mark it with the configured `needs-grilling` workflow label, leave it parked, and run `/grilling` against that ticket later. Do not treat the quick ticket as implementation-ready merely because it exists.
+Break a complete, approved spec into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/design` layer(s) it touches. Use `capture-issue` when the idea only needs to be recorded before grilling, and use `to-spec` when a plan or conversation has not yet become a complete spec.
 
 **This step is user-invoked**: do not start it on your own; the user triggers it explicitly. The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill; read it before proceeding.
 
 The issue tracker and triage label vocabulary should have been provided to you. Tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
+Read `writing-for-agents` before drafting ticket bodies. Its general writing rules govern this document; the ticket template below adds only ticket-specific structure. Resolve the configured `ready-for-agent` label through `docs/agents/triage-labels.md` rather than assuming the canonical name is the tracker label.
+
 ## Process
 
 ### 1. Gather context
 
-Work from whatever is already in the conversation context. If the user passes a reference (a spec path, an issue number or URL) as an argument, fetch it and read its full body and comments.
+Work from the complete approved spec. If the user passes a reference (a spec path, an issue number or URL) as an argument, fetch it and read its full body and comments. If the available material is only a plan, conversation, or incomplete issue, stop and hand off to `to-spec` rather than drafting tickets.
 
 ### 2. Explore the codebase (optional)
 
@@ -29,6 +29,8 @@ Look for opportunities to prefactor the code to make the implementation easier. 
 ### 3. Draft vertical slices
 
 Break the work into **tracer bullet** tickets.
+
+First decide whether the approved spec describes one independently implementable slice or multiple slices. If it is one slice, report that `to-tickets` would add no value and stop, handing off to the user-invoked `implement` phase. Do not publish a redundant ticket.
 
 <vertical-slice-rules>
 
@@ -62,7 +64,7 @@ Iterate until the user approves the breakdown.
 
 ### 5. Publish the tickets to the configured tracker
 
-Publish the approved tickets in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the tracker's native blocking / sub-issue relationship. See `docs/agents/issue-tracker.md`'s "Tracer-bullet ticket operations" section. Apply the `ready-for-agent` triage label unless instructed otherwise: the tickets are agent-grabbable by construction.
+Publish the approved tickets in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the tracker's native blocking / sub-issue relationship. See `docs/agents/issue-tracker.md`'s "Tracer-bullet ticket operations" section. Apply the configured `ready-for-agent` triage label unless instructed otherwise: the tickets are agent-grabbable by construction.
 
 Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom. When a closed ticket opens up more than one frontier ticket at once, `/implement` will ask whether to dispatch a sub-agent for another one. It doesn't happen silently, and there's nothing to set up here for it.
 

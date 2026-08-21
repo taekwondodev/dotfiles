@@ -1,11 +1,20 @@
 ---
 name: writing-for-agents
-description: Writing documents for agents. Use when creating or editing skills, or modifying CLAUDE.md.
+description: Writing agent-facing documents. Use when creating or editing skills, project context, ADRs, specs, tickets, comments, or agent briefs.
 ---
 
-Reference for writing any document an agent consumes: a skill, a `CLAUDE.md`, or a doc reached by a pointer. The packaging differs; the writing does not. The same levers make each one predictable, with the agent taking the same _process_ every run rather than producing the same output.
+Reference for writing any document an agent consumes: a skill, project context file, ADR, domain context, issue specification, ticket, comment, agent brief, or doc reached by a pointer. The packaging differs; the writing does not. The same levers make each one predictable, with the agent taking the same _process_ every run rather than producing the same output.
 
 When the document you're writing is a skill, read [`SKILL-MECHANICS.md`](SKILL-MECHANICS.md) for frontmatter, invocation choice, and router skills.
+
+These general rules are the source of truth for agent-facing writing. A specialized writer may add artifact-specific format or domain constraints, but it must not contradict this reference. Read this skill before drafting an agent-facing document.
+
+## Global prose conventions
+
+- Write plain English prose.
+- Never use em-dashes. Prefer commas, colons, periods, parentheses, or conjunctions, rewriting the sentence naturally rather than substituting mechanically.
+- Use harness-neutral language. Do not name Claude Code, Hermes, Codex, or another agent harness unless the document explicitly describes that integration.
+- A project context file may override the harness-neutrality convention when the project deliberately documents a specific integration. The no-em-dash rule remains global unless the user explicitly changes the global writing policy.
 
 ## Context pointers
 

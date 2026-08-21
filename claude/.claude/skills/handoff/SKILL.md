@@ -11,6 +11,8 @@ argument-hint: "What will the next session focus on?"
 
 ## Steps
 
+Read `writing-for-agents` before writing `HANDOFF.md` or its resume prompt. Its general writing rules govern the handoff; this skill adds only handoff-specific structure.
+
 ### 1. Gather State
 
 Run: `git status && git diff HEAD && git log --oneline -10`
@@ -23,7 +25,7 @@ Extract from conversation + git state:
 - **Progress:** done items (file names, functions, decisions)
 - **What Didn't Work:** failed approaches that the next agent should not repeat
 - **Pending:** ordered, most critical first
-- **Decisions & Context:** non-obvious choices, constraints, gotchas fresh Claude can't derive from code
+- **Decisions & Context:** non-obvious choices, constraints, gotchas a fresh agent can't derive from code
 - **Files Changed:** path: one-line description
 - **Blockers:** stuck or unclear items
 - **Active Skills:** skills active in current session (e.g. `/grilling`, `/design`)

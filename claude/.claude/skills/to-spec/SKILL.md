@@ -10,6 +10,10 @@ This skill takes the current conversation context and codebase understanding and
 
 The issue tracker and triage label vocabulary should have been provided to you. Tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 
+Read `writing-for-agents` before drafting the spec. Its general writing rules govern this document; the spec template below adds only spec-specific structure.
+
+When invoked with an issue reference from `capture-issue`, first read `docs/agents/issue-tracker.md` and fetch the issue's full body, comments, and labels through the configured tracker. Use that issue as the source material, update the same issue with the completed spec and its label transition, and do not create a duplicate issue for the same captured request. Resolve the configured label strings through `docs/agents/triage-labels.md`; do not assume canonical state names are the tracker labels.
+
 This is also where `/wayfinder` hands off: when a map's frontier empties, its closed tickets and Decisions-so-far feed this skill instead of going straight to `/implement`, collapsing decisions scattered across many tickets into one buildable spec.
 
 ## Process
@@ -20,7 +24,7 @@ This is also where `/wayfinder` hands off: when a map's frontier empties, its cl
 
 3. Sketch out where this will be tested, per `/testing`'s scope, not an oversight to flag if it excludes a layer. Use the highest existing seam possible; new seams are a real decision, not a default.
 
-4. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label; no need for additional triage.
+4. Write the spec using the template below, then publish it to the project issue tracker. Apply the configured `ready-for-agent` triage label; no need for additional triage. When completing an issue, atomically remove the configured `needs-triage` state and, if present, the configured `needs-grilling` marker before applying `ready-for-agent`.
 
 <spec-template>
 

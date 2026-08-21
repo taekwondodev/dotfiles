@@ -1,11 +1,12 @@
 name: dev-cycle
-description: Loads the dev-cycle pipeline (grilling + to-spec + to-tickets + implement + code-review)
+description: Loads the dev-cycle pipeline (capture-issue + grilling + to-spec + optional to-tickets + implement + code-review)
 instruction: >
   Read the `dev-cycle` skill (loaded first in this bundle) and follow it; it is the
   single source of truth for the pipeline, its human checkpoints, and its invocation
   rules. Do not rely on this bundle's description for the workflow; the skill owns it.
 skills:
   - dev-cycle
+  - capture-issue
   - grilling
   - to-spec
   - to-tickets

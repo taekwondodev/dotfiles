@@ -8,6 +8,7 @@ Issues, specs, and tickets for this repo live as GitHub issues. Use the `gh` CLI
 - **Read an issue**: `gh issue view <number> --comments`, filtering comments by `jq` and also fetching labels.
 - **List issues**: `gh issue list --state open --json number,title,body,labels,comments --jq '[.[] | {number, title, body, labels: [.labels[].name], comments: [.comments[].body]}]'` with appropriate `--label` and `--state` filters.
 - **Comment on an issue**: `gh issue comment <number> --body "..."`
+- **Update an issue body**: `gh issue edit <number> --body-file <path>`; preserve the existing issue number and comments.
 - **Apply / remove labels**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`
 - **Close**: `gh issue close <number> --comment "..."`
 
@@ -20,6 +21,12 @@ Create a GitHub issue.
 ## When a skill says "fetch the relevant ticket"
 
 Run `gh issue view <number> --comments`.
+
+## Quick issue capture
+
+Used by `/capture-issue`. Create a new issue with exactly one fixed category label (`bug` or `enhancement`), the configured `needs-triage` state label, and the configured `needs-grilling` workflow marker. The issue is intentionally incomplete and must not receive `ready-for-agent` until a complete spec exists.
+
+When `/to-spec` completes an existing issue, update its body in place with `gh issue edit --body-file`, then apply and remove labels in the same transition. Do not create a replacement issue.
 
 ## Wayfinding operations
 
