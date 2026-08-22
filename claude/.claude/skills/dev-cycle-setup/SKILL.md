@@ -53,8 +53,6 @@ Take these steps before the other sections, because their output feeds Sections 
 5. Draft `AGENTS.md` with: the merged operational rules, a `## Dev cycle` block per the template below, and pointers to `CONTEXT.md`, `docs/adr/`, and the `docs/agents/` documents.
 6. Show the draft and let the user edit before writing. Then write `AGENTS.md` at the repo root.
 
-Never create `.hermes.md` or any other agent-flavored context file as output. The single deliverable of this skill is `AGENTS.md`.
-
 **Section A: Issue tracker.**
 
 > Explainer: this is where issues and tickets live for this repo. `/capture-issue`, `/to-tickets`, `/to-spec`, and `/wayfinder` read from and write to it.
