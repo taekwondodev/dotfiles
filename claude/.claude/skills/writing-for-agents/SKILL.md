@@ -18,7 +18,7 @@ These general rules are the source of truth for agent-facing writing. A speciali
 
 ## Context pointers
 
-A **context pointer** is a reference held in the agent's context that names some out-of-context material and encodes the condition for reaching it. A skill's description is one; a line in `CLAUDE.md` naming a doc is the same object. The pointer's _wording_, not its target, decides when the agent reaches the material and how reliably. A must-have target behind a weakly worded pointer is a variance bug: sharpen the wording first, and inline the material only if sharpening fails.
+A **context pointer** is a reference held in the agent's context that names some out-of-context material and encodes the condition for reaching it. A skill's description is one; a line in the project context file naming a doc is the same object. The pointer's _wording_, not its target, decides when the agent reaches the material and how reliably. A must-have target behind a weakly worded pointer is a variance bug: sharpen the wording first, and inline the material only if sharpening fails.
 
 A pointer does two jobs: it states what the material is and lists the **branches** that should trigger reaching it (a branch is a distinct case the document handles, so different runs take different paths through it). Every word of an always-loaded pointer costs on every turn, so it earns even harder pruning than the body:
 
@@ -30,10 +30,10 @@ A pointer does two jobs: it states what the material is and lists the **branches
 
 Every document and pointer you add spends one of two budgets:
 
-- **Context load**: the cost of always-loaded material on the agent's window: a `CLAUDE.md` line, a skill description, anything sitting in context every turn, spending tokens and attention whether or not it fires.
+- **Context load**: the cost of always-loaded material on the agent's window: a project context file line, a skill description, anything sitting in context every turn, spending tokens and attention whether or not it fires.
 - **Cognitive load**: the cost on the human: which documents exist and when to reach for each. The human is the index. Not a cost to minimise; it is the price of human agency; spend it where human judgement matters, remove it where it does not.
 
-Material reached only through a pointer escapes context load at the price of the pointer's own line; material with no pointer at all rides entirely on cognitive load. `CLAUDE.md`'s standing Interaction Protocol is the deliberate exception: content every branch needs pays context load on purpose rather than a pointer that would have to fire every turn anyway. See "Information hierarchy" below.
+Material reached only through a pointer escapes context load at the price of the pointer's own line; material with no pointer at all rides entirely on cognitive load. The project context file's standing interaction protocol is the deliberate exception: content every branch needs pays context load on purpose rather than a pointer that would have to fire every turn anyway. See "Information hierarchy" below.
 
 ## Information hierarchy
 
@@ -45,7 +45,7 @@ A document is built from two content types: **steps** (the ordered actions the a
 
 Push too little down and the top bloats; push too much and you hide material the agent actually needs. That tension is the whole decision.
 
-**Progressive disclosure** is the move down the ladder. Material moves out of the main file and behind a pointer so the top stays legible. Not primarily a token optimisation; it is how the hierarchy is protected. Branching is the cleanest disclosure test: inline what every branch needs, and push behind a pointer what only some branches reach. When a document has steps, in-file reference that should be disclosed buries them and turns attending to them into a coin-flip, which makes it a variance lever, not just a legibility one. The inverse test applies at document scope too: a rule every task needs, not just every branch of one document, belongs inline in `CLAUDE.md` rather than behind any skill's pointer, because a pointer that must fire on every turn costs the same as never disclosing it, with an extra line of indirection.
+**Progressive disclosure** is the move down the ladder. Material moves out of the main file and behind a pointer so the top stays legible. Not primarily a token optimisation; it is how the hierarchy is protected. Branching is the cleanest disclosure test: inline what every branch needs, and push behind a pointer what only some branches reach. When a document has steps, in-file reference that should be disclosed buries them and turns attending to them into a coin-flip, which makes it a variance lever, not just a legibility one. The inverse test applies at document scope too: a rule every task needs, not just every branch of one document, belongs inline in the project context file rather than behind any skill's pointer, because a pointer that must fire on every turn costs the same as never disclosing it, with an extra line of indirection.
 
 **Co-location** is the within-file companion: where the ladder decides _how far down_ a piece sits, co-location decides _what sits beside it_ once there. Keep a concept's definition, rules, and caveats under one heading rather than scattered, so reading one part brings its neighbours with it. The test: the document should read like documentation written for the agent. Grouped material reads that way; scattered material does not. (Distinct from duplication: that repeats one meaning in two places; scattering fragments one meaning across many.)
 

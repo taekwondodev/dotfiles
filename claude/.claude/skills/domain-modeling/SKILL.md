@@ -9,7 +9,7 @@ Actively build and sharpen the project's domain model as you design. This is the
 
 Read `writing-for-agents` before writing `CONTEXT.md` entries or ADRs. Its general writing rules govern those documents; the context and ADR formats below add only domain-specific structure.
 
-`CONTEXT.md` and `docs/adr/` are project-local files, never CLAUDE.md. CLAUDE.md stays a router of pointers, and this skill owns the content behind them.
+`CONTEXT.md` and `docs/adr/` are project-local files, never the project context file. `AGENTS.md` stays a router of pointers, and this skill owns the content behind it.
 
 ## File structure
 
