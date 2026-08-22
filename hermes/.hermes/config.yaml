@@ -187,8 +187,6 @@ platform_toolsets:
     - web
 plugins:
   enabled: []
-  disabled:
-    - herdr-agent-state
 known_plugin_toolsets:
   cli:
     - a2a
