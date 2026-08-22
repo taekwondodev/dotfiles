@@ -1,0 +1,66 @@
+model:
+  default: gpt-5.6-luna
+  provider: openai-codex
+agent:
+  reasoning_effort: medium
+  bot_mode_protocol: true
+terminal:
+  cwd: /Users/taekwondodev/Desktop
+delegation:
+  model: gpt-5.6-luna
+  provider: openai-codex
+  reasoning_effort: high
+skills:
+  external_dirs:
+    - ~/.hermes/skills
+  disabled:
+    - airtable
+    - apple-notes
+    - apple-reminders
+    - arxiv
+    - ascii-video
+    - box
+    - claude-code
+    - codex
+    - comfyui
+    - document-to-action-items
+    - docx
+    - email-inbox-triage
+    - evaluating-llms-harness
+    - findmy
+    - gif-search
+    - google-workspace
+    - himalaya
+    - huggingface-hub
+    - humanizer
+    - imessage
+    - llama-cpp
+    - manim-video
+    - maps
+    - meeting-action-items
+    - nano-pdf
+    - notion
+    - obsidian
+    - ocr-and-documents
+    - opencode
+    - openhue
+    - p5js
+    - pdf
+    - powerpoint
+    - pretext
+    - product-price-monitor
+    - serving-llms-vllm
+    - session-librarian
+    - songsee
+    - songwriting-and-ai-music
+    - teams-meeting-pipeline
+    - touchdesigner-mcp
+    - weekly-review-planning
+    - weights-and-biases
+    - xlsx
+    - youtube-content
+_config_version: 37
+mcp_servers:
+  figma:
+    url: https://mcp.figma.com/mcp
+    auth: oauth
