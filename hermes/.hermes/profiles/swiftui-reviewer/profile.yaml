@@ -1,0 +1,14 @@
+description: Read-only SwiftUI and native macOS UI reviewer focused on hierarchy,
+  popover sizing, scrolling, accessibility, rendering, and user-facing states.
+description_auto: false
+ui_meta:
+  hermes-bots:
+    groups:
+      - Hermes Mac Dev Squad
+    group: Hermes Mac Dev Squad
+    chat: 20260820_192321_f25835
+    shape: hexagon
+    color: hsl(195 68% 58%)
+    imageKind: photo
+    title: ''
+    custom: true

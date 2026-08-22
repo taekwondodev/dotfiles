@@ -1,0 +1,13 @@
+description: 'Wiki Obsidian/LLM: gestione note su ~/dotfiles/wiki (folder Neovim del
+  vault), stile personale coerente'
+description_auto: false
+ui_meta:
+  hermes-bots:
+    chat: 20260818_110701_9d6374
+    shape: cloud
+    color: hsl(16 68% 58%)
+    imageKind: photo
+    title: LLM Wiki
+    custom: true
+    groups: []
+    group: null

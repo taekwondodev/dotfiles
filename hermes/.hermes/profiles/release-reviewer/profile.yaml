@@ -1,0 +1,14 @@
+description: Read-only release reviewer focused on safe integration, packaging, installation
+  to ~/Applications, regression risk, and evidence-backed final verification.
+description_auto: false
+ui_meta:
+  hermes-bots:
+    groups:
+      - Hermes Mac Dev Squad
+    group: Hermes Mac Dev Squad
+    chat: 20260820_185530_0e7911
+    shape: cloud
+    color: '#9ca3af'
+    imageKind: photo
+    title: ''
+    custom: true
