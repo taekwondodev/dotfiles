@@ -1,1 +1,0 @@
-../../../hermes/.hermes/agent-hooks/block-sensitive.sh

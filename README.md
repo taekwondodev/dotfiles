@@ -1,5 +1,5 @@
 # My Dotfiles
-Claude Code, Hermes Agent, GitHub CLI, Kali, Ghostty, tmux, Vim, Neovim, Fish and Starship configuration files
+Hermes Agent, GitHub CLI, Kali, Ghostty, tmux, Vim, Neovim, Fish and Starship configuration files
 
 ## Install
 
@@ -25,7 +25,7 @@ Run the bootstrap script with a profile:
 ```bash
 chmod +x scripts/bootstrap.sh
 ./scripts/bootstrap.sh macos    # macOS — installs brew deps + all packages
-./scripts/bootstrap.sh linux    # Linux desktop — installs apt/dnf deps + all packages except claude
+./scripts/bootstrap.sh linux    # Linux desktop — installs apt/dnf deps + all packages
 ./scripts/bootstrap.sh server   # Remote server — vim only, no deps needed
 ```
 
@@ -37,7 +37,6 @@ chmod +x scripts/bootstrap.sh
 | tmux     | ✓ | ✓ | — |
 | starship | ✓ | ✓ | — |
 | vim      | ✓ | ✓ | ✓ |
-| claude   | ✓ | — | — |
 | hermes   | ✓ | ✓ | — |
 | gh       | ✓ | ✓ | — |
 

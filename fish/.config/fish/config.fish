@@ -39,14 +39,6 @@ if type -q android-studio
     alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
 end
 
-# Claude Code
-fish_add_path ~/.local/bin
-if type -q claude
-    function cc
-        claude $argv
-    end
-    alias ccinit='cp ~/.claude/templates/project-claude.md ./CLAUDE.md'
-end
 
 # Divider after command output
 function fish_postexec --on-event fish_postexec

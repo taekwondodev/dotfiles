@@ -97,8 +97,6 @@ delegation:
   max_iterations: 250
   reasoning_effort: high
 skills:
-  external_dirs:
-    - ~/dotfiles/claude/.claude/skills
   creation_nudge_interval: 15
   disabled:
     - airtable

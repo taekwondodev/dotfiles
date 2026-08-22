@@ -37,14 +37,14 @@ Policies:
 
 ### 3. Write & Output
 
-Write to `.claude/HANDOFF.md` (create `.claude/` if missing).
+Write to `HANDOFF.md` at the repository root.
 
 Add `## Resume Prompt` at bottom. It must be self-contained and copy-paste ready.
 Expand Active Skills into direct invocations at the top, one per line:
 ```
 /<skill1> <args>
 /<skill2> <args>
-Read `.claude/HANDOFF.md`. We're working on <project>: <task goal>.
+Read `HANDOFF.md`. We're working on <project>: <task goal>.
 Continue from the Pending section. Ask me nothing until you've read the handoff.
 ```
 
