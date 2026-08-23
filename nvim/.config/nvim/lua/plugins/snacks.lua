@@ -31,6 +31,22 @@ return {
                 },
             },
         },
+        config = function(_, opts)
+            local snacks = require("snacks")
+            snacks.setup(opts)
+
+            -- Resolve file icons by basename instead of full path so extension-less
+            -- special filenames (Makefile, Dockerfile, ...) get their devicon instead
+            -- of the generic "󰈔 " fallback. nvim-web-devicons keys on extension, so it
+            -- misses when handed a full path with no extension.
+            local orig_icon = Snacks.util.icon
+            Snacks.util.icon = function(name, cat, icon_opts)
+                if cat == "file" then
+                    name = vim.fs.basename(name)
+                end
+                return orig_icon(name, cat, icon_opts)
+            end
+        end,
         keys = {
             { "<leader>e",   function() Snacks.explorer() end,              desc = "Explorer" },
             { "<D-b>",       function() Snacks.explorer() end,              desc = "Explorer", mode = { "n", "i", "v" } },
