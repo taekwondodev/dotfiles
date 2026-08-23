@@ -1,15 +1,21 @@
 model:
-  default: gpt-5.6-luna
-  provider: openai-codex
+  default: deepseek-v4-flash
+  provider: opencode-go
+  base_url: https://opencode.ai/zen/go/v1
 agent:
-  reasoning_effort: medium
   bot_mode_protocol: true
+  reasoning_effort: medium
 terminal:
-  cwd: /Users/taekwondodev/Desktop
+  cwd: /Users/taekwondodev/Developer/HermesUsageMonitor
+auxiliary:
+  title_generation:
+    provider: opencode-go
+    model: mimo-v2.5
 delegation:
-  model: gpt-5.6-luna
-  provider: openai-codex
-  reasoning_effort: high
+  model: deepseek-v4-flash-vision-exp
+  provider: opencode-go
+  base_url: https://opencode.ai/zen/go/v1
+  default: stealth/ox-alpha
 skills:
   external_dirs:
     - ~/.hermes/skills

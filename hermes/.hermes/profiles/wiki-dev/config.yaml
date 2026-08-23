@@ -2,6 +2,10 @@ model:
   default: deepseek-v4-flash
   provider: opencode-go
   base_url: https://opencode.ai/zen/go/v1
+auxiliary:
+  title_generation:
+    provider: opencode-go
+    model: mimo-v2.5
 delegation:
   model: gpt-5.6-luna
   provider: openai-codex
@@ -96,3 +100,5 @@ skills:
     - xurl
     - youtube-content
 _config_version: 37
+terminal:
+  cwd: /Users/taekwondodev/dotfiles
