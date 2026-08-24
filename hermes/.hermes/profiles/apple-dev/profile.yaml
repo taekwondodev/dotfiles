@@ -1,13 +1,14 @@
-description: 'Sviluppo di app macOS: Swift/SwiftUI, design, workflow dev-cycle isolato'
+description: 'Sviluppo di app native Apple: Swift/SwiftUI/AppKit/UIKit su macOS, iOS,
+  iPadOS, watchOS, visionOS e tvOS'
 description_auto: false
 ui_meta:
   hermes-bots:
     shape: cloud
     color: hsl(43 68% 58%)
     imageKind: photo
-    title: MacOS
+    title: Apple Dev
     custom: true
     groups: []
     group: null
 _ui_meta_revisions:
-  hermes-bots: 1
+  hermes-bots: 4
