@@ -20,6 +20,7 @@ return {
                 "terraform-ls",
                 "docker-compose-language-service",
                 "yaml-language-server",
+                "sourcekit-lsp",
                 -- Formatters
                 "stylua",
                 "shfmt",
@@ -27,6 +28,7 @@ return {
                 "gofumpt",
                 "black",
                 "google-java-format",
+                "swift-format",
             }
 
             local mr = require("mason-registry")
