@@ -13,7 +13,7 @@ agent:
   personalities: {}
 terminal:
   backend: local
-  cwd: /Users/taekwondodev/Desktop
+  cwd: /Users/taekwondodev/Developer/rs-server
   timeout: 180
   home_mode: auto
   container_cpu: 1
@@ -102,11 +102,11 @@ skills:
     - airtable
     - apple-notes
     - apple-reminders
+    - architecture-diagram
     - ascii-art
     - ascii-video
     - baoyu-infographic
     - claude-design
-    - comfyui
     - design-md
     - email-inbox-triage
     - evaluating-llms-harness
@@ -129,10 +129,11 @@ skills:
     - popular-web-designs
     - pretext
     - serving-llms-vllm
-    - sketch
     - songsee
     - songwriting-and-ai-music
+    - teams-meeting-pipeline
     - touchdesigner-mcp
+    - weekly-review-planning
     - weights-and-biases
     - xlsx
     - xurl
