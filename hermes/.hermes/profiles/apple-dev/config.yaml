@@ -65,7 +65,7 @@ skills:
     - weights-and-biases
     - xlsx
     - youtube-content
-_config_version: 38
+_config_version: 39
 mcp_servers:
   figma:
     url: https://mcp.figma.com/mcp

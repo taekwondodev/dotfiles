@@ -2,6 +2,11 @@ model:
   default: deepseek-v4-flash
   provider: opencode-go
   base_url: https://opencode.ai/zen/go/v1
+agent:
+  bot_mode_protocol: true
+  reasoning_effort: medium
+terminal:
+  cwd: /Users/taekwondodev/dotfiles
 auxiliary:
   title_generation:
     provider: opencode-go
@@ -14,24 +19,29 @@ skills:
   external_dirs:
     - ~/.hermes/skills
   disabled:
+    - agent-context-migration
+    - agent-environment-migration
+    - agent-to-hermes-migration
     - airtable
     - apple-notes
     - apple-reminders
     - architecture-diagram
-    - arxiv
     - ascii-art
     - ascii-video
-    - blocked-page-recovery
-    - blogwatcher
     - box
+    - capture-issue
     - claude-code
     - claude-design
+    - code-review
     - codebase-inspection
     - codex
+    - coding-standards
     - comfyui
     - commit
-    - competitor-news-monitor
     - computer-use
+    - dependency-checkout-troubleshooting
+    - design
+    - dev-cycle
     - dev-cycle-setup
     - document-to-action-items
     - docx
@@ -45,26 +55,36 @@ skills:
     - github-auth
     - github-code-review
     - github-issue-to-pr
+    - github-issues
     - github-pr-workflow
     - github-repo-management
     - google-workspace
-    - grounded-citations
-    - hermes-agent
+    - grill-with-docs
+    - grilling
+    - handoff
     - hermes-agent-skill-authoring
+    - hermes-bot-mode-troubleshooting
+    - hermes-isolated-bots
+    - hermes-migration
+    - hermes-profile-provider-auth
+    - hermes-profile-skill-inheritance
+    - hermes-skill-collision-diagnostics
+    - hermes-startup-warnings
     - himalaya
     - huggingface-hub
-    - humanizer
     - imessage
+    - implement
     - inspecting-hermes-desktop-dom
     - llama-cpp
-    - llm-wiki
+    - macos-system-cleanup
+    - macos-wallpaper-theming
     - maps
     - meeting-action-items
     - merge-reconciler
+    - mirror
     - nano-pdf
     - node-inspect-debugger
     - notion
-    - obsidian
     - ocr-and-documents
     - opencode
     - openhue
@@ -75,9 +95,12 @@ skills:
     - powerpoint
     - pretext
     - product-price-monitor
+    - project-profile-routing
     - python-debugpy
+    - repo-relocation
     - requesting-code-review
-    - research-paper-writing
+    - safe-repository-migrations
+    - secure-cryptographic-implementation
     - serving-llms-vllm
     - session-librarian
     - simplify-code
@@ -92,19 +115,15 @@ skills:
     - to-spec
     - to-tickets
     - touchdesigner-mcp
-    - triage
     - wayfinder
+    - webauthn-passkey-auth
     - weekly-review-planning
     - weights-and-biases
+    - writing-for-agents
     - xlsx
     - xurl
     - youtube-content
-_config_version: 38
-terminal:
-  cwd: /Users/taekwondodev/dotfiles
-agent:
-  bot_mode_protocol: true
-  reasoning_effort: medium
+_config_version: 39
 
 # ── Security ──────────────────────────────────────────────────────────
 # Secret redaction is ON by default — strings that look like API keys,

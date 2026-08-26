@@ -387,11 +387,11 @@ For every scenario verify:
 - `hermes/.hermes/skills/handoff/SKILL.md`
 - `hermes/.hermes/skills/coding-standards/SKILL.md`
 - `hermes/.hermes/skills/writing-for-agents/SKILL.md`, only if a source-of-truth adjustment is required
-- `hermes/.hermes/skills/design/SKILL.md`, renamed to `architect/SKILL.md`
+- `hermes/.hermes/skills/architect/SKILL.md`, replacing the former `design` skill
 - new `principle-*/SKILL.md` files under `hermes/.hermes/skills/`
 - new `hermes/.hermes/skills/menu/SKILL.md`
 - architecture references where needed
-- `hermes/.hermes/skill-bundles/dev-cycle.yaml`, if the bundle needs updated loading order
+
 - project-local tests or eval fixtures, if the current skill test infrastructure supports them
 
 Preserve unrelated existing modifications. Do not touch profile configuration unless a later, explicit decision requires it.
@@ -408,7 +408,7 @@ Preserve unrelated existing modifications. Do not touch profile configuration un
 6. Rewrite `dev-cycle` as the sticky router and coordinator.
 7. Update `to-spec`, `to-tickets`, `implement`, `code-review`, `wayfinder`, and `handoff` with their owned capabilities.
 8. Add `menu` as the read-only catalog.
-9. Update bundle and all skill references from `design` to `architect`.
+9. Update all skill references from `design` to `architect`; do not add a second bundle layer.
 10. Build and run the evaluation matrix.
 11. Re-read all source-of-truth owners and search for duplicate rules.
 12. Review the diff and preserve unrelated changes.
