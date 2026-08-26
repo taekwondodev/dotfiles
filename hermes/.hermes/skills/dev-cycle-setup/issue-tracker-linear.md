@@ -43,7 +43,7 @@ Used by `/wayfinder`. The **map** is a single issue with **child** issues as tic
 
 Used by `/to-tickets` and `/implement`.
 
-- **Ticket**: a Linear issue, one per tracer-bullet slice. Body states the layer(s) touched (Handler/Service/Repository, per `/design`) and the behaviour to build.
+- **Ticket**: a Linear issue, one per tracer-bullet slice. Body states the layer(s) touched (Handler/Service/Repository, per `/architect`) and the behaviour to build.
 - **Blocking**: same native blocks/blocked-by relation as wayfinding above.
 - **Grabbing work**: any ticket whose blockers are all closed and which is unassigned is takeable. Claim it before `/implement` starts.
 - **Closing out**: `/implement` closes the ticket only after `/code-review` passes and the commit lands.

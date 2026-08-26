@@ -38,7 +38,7 @@ Multi-context repo (presence of `CONTEXT-MAP.md` at the root):
         └── docs/adr/
 ```
 
-Each context here is the same boundary as `/design`'s "one domain package per bounded context". The map is that boundary, seen from the domain-language side.
+Each context here is the same boundary as `/architect`'s "one domain package per bounded context". The map is that boundary, seen from the domain-language side.
 
 ## Use the glossary's vocabulary
 

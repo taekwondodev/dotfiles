@@ -20,7 +20,7 @@ This is also where `/wayfinder` hands off: when a map's frontier empties, its cl
 
 1. Explore the repo to understand the current state of the codebase, if you haven't already. Use `docs/agents/domain.md`'s glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching. If this spec closes out a `/wayfinder` map, read the map's Decisions-so-far and the full body of each closed ticket. That's the source material, not the conversation.
 
-2. Place the feature against `/design`'s layers (Handler/Service/Repository) and bounded contexts. Prefer extending an existing bounded context to creating a new one; a new context is a real decision, not a default. Check with the user that the layer/context split matches their expectations before writing it into the spec.
+2. For code-shaped work, use `/architect` to ground the caller, data shape, ownership, boundaries, and threat model before placing the feature against its layers and bounded contexts. Prefer extending an existing bounded context to creating a new one; a new context is a real decision, not a default. Check with the user that the layer/context split matches their expectations before writing it into the spec.
 
 3. Sketch out where this will be tested, per `/testing`'s scope, not an oversight to flag if it excludes a layer. Use the highest existing seam possible; new seams are a real decision, not a default.
 
@@ -50,7 +50,7 @@ This list of user stories should be extremely extensive and cover all aspects of
 
 ## Architecture
 
-Which layer(s) this touches (Handler/Service/Repository/Middleware, per `/design`), and which bounded context(s). State explicitly:
+Which layer(s) this touches (Handler/Service/Repository/Middleware, per `/architect`), and which bounded context(s). State explicitly:
 
 - Whether this is a new bounded context or an extension of an existing one, and why
 - Any port a service needs, and which layer implements it

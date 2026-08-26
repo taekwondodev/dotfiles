@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 # To Tickets
 
-Break a complete, approved spec into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/design` layer(s) it touches.
+Break a complete, approved spec into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/architect` layer(s) it touches.
+
+Use `/architect`'s selected sketch, ownership, bounded-context, and threat-model decisions as inputs. Do not restate those rules here.
 
 **This step is user-invoked**: do not start it on your own; the user triggers it explicitly. The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill; read it before proceeding.
 
@@ -34,7 +36,7 @@ First decide whether the approved spec describes one independently implementable
 
 <vertical-slice-rules>
 
-- Each slice cuts a narrow but COMPLETE path through every layer it touches (Handler → Service → Repository, per `/design`). It is vertical, NOT a horizontal slice of one layer
+- Each slice cuts a narrow but COMPLETE path through every layer it touches (Handler → Service → Repository, per `/architect`). It is vertical, NOT a horizontal slice of one layer
 - A completed slice is demoable or verifiable on its own, with its Service-layer/Domain-Type behaviour covered by `/testing`'s unit-test scope
 - Each slice is sized to fit in a single fresh context window
 - Any prefactoring should be done first
@@ -50,7 +52,7 @@ Give each ticket its **blocking edges**, meaning the other tickets that must com
 Present the proposed breakdown as a numbered list. For each ticket, show:
 
 - **Title**: short descriptive name
-- **Layer(s)**: which `/design` layer(s) and bounded context this touches
+- **Layer(s)**: which `/architect` layer(s) and bounded context this touches
 - **Blocked by**: which other tickets (if any) must complete first
 - **What it delivers**: the end-to-end behaviour this ticket makes work
 
@@ -78,7 +80,7 @@ A reference to the parent issue on the tracker (if the source was an existing is
 
 ## Layer(s)
 
-Handler / Service / Repository / Middleware, per `/design`, and the bounded context.
+Handler / Service / Repository / Middleware, per `/architect`, and the bounded context.
 
 ## What to build
 

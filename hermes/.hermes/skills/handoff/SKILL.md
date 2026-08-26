@@ -28,8 +28,10 @@ Extract from conversation + git state:
 - **Decisions & Context:** non-obvious choices, constraints, gotchas a fresh agent can't derive from code
 - **Files Changed:** path: one-line description
 - **Blockers:** stuck or unclear items
-- **Active Skills:** skills active in current session (e.g. `/grilling`, `/design`)
-- **Suggested Skills:** skills the next agent should read (e.g. `design`, `testing`)
+- **Active Skills:** skills active in current session (e.g. `/grilling`, `/architect`)
+- **Suggested Skills:** skills the next agent should read (e.g. `architect`, `testing`)
+
+The handoff is a pointer, not a copy of another skill's procedure. Preserve the canonical owner of every rule and record which principles changed decisions.
 
 Policies:
 - Don't duplicate PRDs, plans, ADRs, issues, or commits. Reference them by path or URL

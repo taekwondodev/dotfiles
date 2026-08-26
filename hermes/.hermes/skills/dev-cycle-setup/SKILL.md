@@ -138,6 +138,6 @@ After everything is written and verified, offer optional cleanup of the supersed
 2. State clearly that deletion is irreversible and that `AGENTS.md` now carries the merged content.
 3. Verify `AGENTS.md` exists and contains the merged result before proposing deletion.
 4. Ask one yes/no question covering every file on the proposed-for-deletion list together. Never delete without an explicit yes, and never delete a retained file as part of that confirmation.
-5. On confirmation, delete exactly the proposed-for-deletion originals in one operation and show the resulting repository status, including any retained files.
+5. On confirmation, delete exactly the proposed-for-deletion originals in one operation. Then remove only directories that became empty as a direct result of that deletion: for each deleted file, check its parent directory and walk upward only while the directory is empty, stopping at the repository root or at the first non-empty directory. Never delete a directory that was not empty after the file deletion, and never delete directories containing retained files. Show the resulting repository status, including any retained files and any directories removed because they became empty.
 
 Then tell the user the setup is complete and which skills will now read from these files. Mention they can edit `docs/agents/*.md` and `AGENTS.md` directly later. Re-running this skill is only necessary if they want to switch issue trackers, redo the context merge, or restart from scratch.

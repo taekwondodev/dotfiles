@@ -49,7 +49,8 @@ dump. In order:
 * **Refactor fearlessly:** prioritize correctness of current version.
 * **Visibility:** default private. Expose publicly only if strictly needed.
 * **Flattened hierarchy:** private submodules + explicit re-exports in parent.
-* **No comments** unless WHY is non-obvious. Never explain WHAT.
+* No comments by default. A comment is allowed only when it records a non-obvious WHY that the code cannot express more clearly. Never explain WHAT the code does.
+* This no-comments rule applies equally to production code, tests, scripts, migrations, configuration, verification harnesses, and generated artifacts. Review every comment against the rule before declaring work complete.
 * DRY, modern idioms, zero-cost abstractions.
 * **Fail fast:** missing required config = unrecoverable error. Crash early.
 * **Secure defaults:** insecure = explicit opt-in, never opt-out.

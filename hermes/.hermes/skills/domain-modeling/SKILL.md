@@ -33,7 +33,7 @@ When domain relationships are being discussed, stress-test them with specific sc
 
 ### Cross-reference with code
 
-When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?" Locate the contradiction by `/design`'s layers (Handler/Service/Repository) so the fix lands in the layer that actually owns the rule: usually Service, never Handler or Repository.
+When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?" Locate the contradiction by `/architect`'s layers (Handler/Service/Repository) so the fix lands in the layer that actually owns the rule: usually Service, never Handler or Repository.
 
 ### Update CONTEXT.md inline
 

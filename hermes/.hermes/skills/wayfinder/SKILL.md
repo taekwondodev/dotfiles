@@ -41,7 +41,7 @@ Loaded once per session. Open tickets are **not** listed; they are open child is
 
 ## Notes
 
-<domain; skills every session should consult (e.g. /grilling, /domain-modeling, /design, /coding-standards, /testing); standing preferences for this effort>
+<domain; skills every session should consult (e.g. /grilling, /domain-modeling, /architect, /coding-standards, /testing); standing preferences for this effort>
 
 ## Decisions so far
 
@@ -79,7 +79,7 @@ The answer isn't part of the body. Record it when resolving the ticket. Assets c
 Every ticket is either **HITL**, meaning human in the loop and worked *with* a human who speaks for themselves, or **AFK**, driven by the agent alone. A HITL ticket only resolves through that live exchange.
 
 - **Research** (AFK): Reading documentation, third-party APIs, or local resources to surface a fact a decision waits on. Resolved by a subagent following the research flow from `/coding-standards`. Verify against current sources (search → extract, browser if needed), never from memory, returning *verified, context-lean* findings (excerpts/URLs, not page dumps). Fire these in parallel at charting time, capturing findings on a throwaway `research/<name>` branch with a context pointer from the ticket.
-- **Grilling** (HITL, default case): Conversation, one question at a time. Read the `grilling` and `domain-modeling` skills to sharpen the terms the question turns on, and additionally consult `design` (architecture, bounded contexts) and `coding-standards` (types, dependencies) whenever the decision is code-shaped.
+- **Grilling** (HITL, default case): Conversation, one question at a time. Read the `grilling` and `domain-modeling` skills to sharpen the terms the question turns on, and additionally consult `architect` (architecture, bounded contexts) and `coding-standards` (types, dependencies) whenever the decision is code-shaped.
 - **Task** (HITL or AFK): Manual work that must happen before a decision can be made. There is nothing to decide or research, but the discussion is blocked until it's done. Signing up for a service, provisioning access, moving data. This is the one type that *does* rather than decides. It earns its place by unblocking a decision, not by delivering the destination.
   - **AFK Task tickets are restricted to non-code chores.** Anything that touches code is HITL, and follows the interaction protocol (confirm before code) before anything gets written; this rule has no exception for wayfinder.
   - Resolved when the work is done; the answer records what was done and any resulting facts later tickets depend on.
@@ -109,7 +109,7 @@ Two modes. Either way, **never resolve more than one ticket per session**; resea
 
 User invokes with a loose idea.
 
-1. **Name the destination.** Read the `grilling` and `domain-modeling` skills to pin down the language the destination is stated in, informed by `design` and `coding-standards` when the destination is code-shaped, to pin down what this map is finding its way to.
+1. **Name the destination.** Read the `grilling` and `domain-modeling` skills to pin down the language the destination is stated in, informed by `architect` and `coding-standards` when the destination is code-shaped, to pin down what this map is finding its way to.
 2. **Map the frontier.** Grill again, breadth-first: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog**, meaning the whole journey fits in one session, stop; you don't need a map. Ask how to proceed instead.
 3. **Create the map** (label `wayfinder:map`) on the right tracker: use GitHub Issues if in a repo, personal Linear otherwise. Destination and Notes filled in, Decisions-so-far empty, the fog sketched into Not yet specified.
 4. **Create the tickets you can specify now** as child issues, then wire blocking edges in a second pass. Everything you can't yet specify stays in the fog.
