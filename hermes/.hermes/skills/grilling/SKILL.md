@@ -55,51 +55,18 @@ When uncertain, do not silently convert a decision into an agent preference. Sta
 
 ## Investigation capabilities
 
-Activate only the capability that matches the uncertainty. Each capability returns evidence to this design tree rather than silently changing the requested scope.
+Load only the specialist skill that matches the uncertainty. The specialist owns its procedure; `grilling` owns the trigger and reintegrates its evidence into the design tree.
 
-### `how`
+- Load `how` for current code flow, ownership, layering, and runtime walkthroughs.
+- Load `why` for rationale, historical decisions, regressions, ADRs, and non-obvious constraints.
+- Load `investigation` for a read-only question, unknown cause, or bug reproduction.
+- Load `prototype` when an empirical technical fork is cheaper to test than discuss.
+- Load `runtime-forensics` when the symptom exists in a live process.
+- Load `trace-forensics` when the user supplies an existing profile, trace, snapshot, or spindump.
+- Load `perf-issue` for one measured performance problem.
+- Load `hillclimb` for sustained improvement against a fixed metric and stop predicate.
 
-Use for code walkthroughs, ownership, layering, and runtime flow. Trace callers, callees, types, and data from trigger to effect. Produce a context-lean explanation with file and symbol references.
-
-### `why`
-
-Use for rationale, historical decisions, regressions, ADRs, and non-obvious constraints. Search the code, git history, issue tracker, domain docs, and other available sources. Preserve verified rationale as evidence, not as an invented explanation.
-
-### Investigation
-
-Use for a read-only question or unknown cause:
-
-1. define the question and scope;
-2. search and read the relevant sources;
-3. run a focused test or probe when it can distinguish hypotheses;
-4. trace the mechanism to its effect;
-5. record evidence and unresolved uncertainty;
-6. return to the frontier.
-
-Completion criterion: the answer is supported by inspected sources or a reproducible observation, and the remaining uncertainty is named.
-
-### Prototype
-
-Use when a technical or behavioral fork can be answered by trying small alternatives.
-
-- Keep the prototype disposable unless the user asks to retain it.
-- Make alternatives structurally distinct when the decision is architectural.
-- Compare behavior, complexity, failure modes, and relevant measurements.
-- Do not let a prototype decide product scope or user preference.
-
-Completion criterion: the prototype produces an observation that changes, narrows, or rejects a candidate decision, or records why the experiment could not distinguish them.
-
-### Runtime forensics
-
-Use when the symptom exists in a live process, such as a leak, idle CPU spin, intermittent glitch, or unexpected scheduling. Capture a real runtime signal, reduce it to the mechanism, confirm the mechanism where possible, and map it to source. Return a diagnosis, not a fix, unless the user asks for one.
-
-### Trace forensics
-
-Use when the user provides an existing CPU profile, trace, heap snapshot, spindump, or similar artifact. Identify the format, transform large data into a queryable shape, narrow the cause, attribute it to source, and state whether a paired capture confirms the finding. Do not rerun the live system as a substitute for reading the supplied artifact.
-
-### Performance
-
-Use a baseline and realistic workload before asking which optimization to choose. A single measured problem is `perf-issue`; sustained improvement against a target is `hillclimb`. The measurement result informs the decision but does not choose product priorities.
+Completion criterion: the specialist returns sourced evidence, a reproducible observation, or an explicit unresolved uncertainty; the design tree records what changed and recomputes the frontier.
 
 ## Architecture escalation
 

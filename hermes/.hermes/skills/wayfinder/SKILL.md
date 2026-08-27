@@ -16,6 +16,20 @@ The destination varies per effort, and naming it is the first act of charting be
 
 Wayfinder is **planning** by default: each ticket resolves a decision, and the map is done when the way is clear, with nothing left to decide before someone goes and does the thing. The pull to just do the work is usually the signal you've reached the edge of the map and it's time to hand off. The one exception is the Task ticket type (below), which does rather than decides.
 
+## Continuity, capabilities, and principles
+
+Load the canonical owner when its trigger fires:
+
+- `principle-guard-the-context-window` keeps the map as a low-resolution index and loads ticket detail only for the active decision.
+- `principle-sequence-verifiable-units` makes one ticket the normal session unit, with a checkable resolution before the frontier advances.
+- `principle-never-block-on-the-human` sends observable facts and independent research to AFK work while preserving HITL ownership of product, scope, architecture, contract, and security decisions.
+- `show-me-your-work` records an auditable decision trail for long, unattended, or measurement-heavy tickets.
+- Parallel `delegate_task` workers handle independent research only; the map owner verifies artifacts and synthesizes the result.
+- `hillclimb` governs multi-session measurement work with a frozen harness and one keep-or-revert iteration per work unit.
+- `session-pickup` reconciles a resumed map with live tracker and repository state. `pause-safely` records evidence and the next completion criterion before a session boundary.
+
+Record which ticket shape, ownership mode, or continuation step each principle changed. Do not copy the specialist procedure into the map.
+
 ## Refer by name
 
 Every map and ticket is an issue, so it has a **name**, namely its title. In everything the human reads, including narration and the map's Decisions-so-far, refer to it by that name, never by a bare id, number, or slug. A wall of `#42, #43, #44` is illegible; names read at a glance. The id and URL don't vanish: a name wraps its link, but they ride *inside* the name, never stand in for it.

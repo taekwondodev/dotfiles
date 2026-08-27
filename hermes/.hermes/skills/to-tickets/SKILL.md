@@ -16,6 +16,18 @@ The issue tracker and issue-label vocabulary should have been provided to you. T
 
 Read `writing-for-agents` before drafting ticket bodies. Its general writing rules govern this document; the ticket template below adds only ticket-specific structure. Resolve the configured `ready-for-agent` state label through `docs/agents/triage-labels.md` rather than assuming the canonical name is the tracker label.
 
+## Capabilities and principles
+
+Load the canonical owner when its trigger fires:
+
+- `blast-radius` determines whether work is a narrow tracer bullet or a wide migration and identifies the consumers each ticket must account for.
+- `principle-sequence-verifiable-units` makes every ticket end in a checkable green or measured state.
+- `principle-build-the-lever` creates an enabling ticket when automation or a focused harness is cheaper and safer than repeated manual work.
+- `principle-migrate-callers-then-delete-legacy-apis` places expansion, caller batches, and contraction in dependency order without leaving two permanent APIs.
+- `hillclimb` makes each measurement ticket one hypothesis, one change, one measurement, and one keep-or-revert verdict against the frozen harness.
+
+Record the concrete ticket boundary or blocking edge each principle changed. Do not copy the specialist procedure into ticket bodies.
+
 ## Process
 
 ### 1. Gather context

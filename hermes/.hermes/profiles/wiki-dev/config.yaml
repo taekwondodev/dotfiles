@@ -12,9 +12,9 @@ auxiliary:
     provider: opencode-go
     model: mimo-v2.5
 delegation:
-  model: gpt-5.6-luna
-  provider: openai-codex
-  reasoning_effort: high
+  default: deepseek-v4-flash
+  provider: opencode-go
+  base_url: https://opencode.ai/zen/go/v1
 skills:
   external_dirs:
     - ~/.hermes/skills
@@ -25,9 +25,12 @@ skills:
     - airtable
     - apple-notes
     - apple-reminders
+    - architect
     - architecture-diagram
+    - arena
     - ascii-art
     - ascii-video
+    - blast-radius
     - box
     - capture-issue
     - claude-code
@@ -40,7 +43,6 @@ skills:
     - commit
     - computer-use
     - dependency-checkout-troubleshooting
-    - design
     - dev-cycle
     - dev-cycle-setup
     - document-to-action-items
@@ -48,6 +50,7 @@ skills:
     - dogfood
     - domain-modeling
     - email-inbox-triage
+    - eval
     - evaluating-llms-harness
     - excalidraw
     - findmy
@@ -70,17 +73,22 @@ skills:
     - hermes-profile-skill-inheritance
     - hermes-skill-collision-diagnostics
     - hermes-startup-warnings
+    - hillclimb
     - himalaya
+    - how
     - huggingface-hub
     - imessage
     - implement
     - inspecting-hermes-desktop-dom
+    - interrogate
+    - investigation
     - llama-cpp
     - macos-system-cleanup
     - macos-wallpaper-theming
     - maps
     - meeting-action-items
     - merge-reconciler
+    - menu
     - mirror
     - nano-pdf
     - node-inspect-debugger
@@ -89,20 +97,48 @@ skills:
     - opencode
     - openhue
     - p5js
+    - pause-safely
     - pdf
+    - perf-issue
     - plan
     - popular-web-designs
     - powerpoint
     - pretext
+    - principle-boundary-discipline
+    - principle-build-the-lever
+    - principle-encode-lessons-in-structure
+    - principle-exhaust-the-design-space
+    - principle-experience-first
+    - principle-fix-root-causes
+    - principle-foundational-thinking
+    - principle-guard-the-context-window
+    - principle-laziness-protocol
+    - principle-make-operations-idempotent
+    - principle-migrate-callers-then-delete-legacy-apis
+    - principle-minimize-reader-load
+    - principle-model-the-domain
+    - principle-never-block-on-the-human
+    - principle-outcome-oriented-execution
+    - principle-prove-it-works
+    - principle-redesign-from-first-principles
+    - principle-separate-before-serializing-shared-state
+    - principle-sequence-verifiable-units
+    - principle-subtract-before-you-add
+    - principle-type-system-discipline
     - product-price-monitor
     - project-profile-routing
+    - prototype
     - python-debugpy
+    - reflect
     - repo-relocation
     - requesting-code-review
+    - runtime-forensics
     - safe-repository-migrations
     - secure-cryptographic-implementation
     - serving-llms-vllm
     - session-librarian
+    - session-pickup
+    - show-me-your-work
     - simplify-code
     - sketch
     - songsee
@@ -115,50 +151,14 @@ skills:
     - to-spec
     - to-tickets
     - touchdesigner-mcp
+    - trace-forensics
     - wayfinder
     - webauthn-passkey-auth
     - weekly-review-planning
     - weights-and-biases
+    - why
     - writing-for-agents
     - xlsx
     - xurl
     - youtube-content
 _config_version: 39
-
-# ── Security ──────────────────────────────────────────────────────────
-# Secret redaction is ON by default — strings that look like API keys,
-# tokens, and passwords are masked in tool output, logs, and chat
-# responses before the model or user ever sees them. Set redact_secrets
-# to false to disable (e.g. when developing the redactor itself).
-# tirith pre-exec scanning is enabled by default when the tirith binary
-# is available. Configure via security.tirith_* keys or env vars
-# (TIRITH_ENABLED, TIRITH_BIN, TIRITH_TIMEOUT, TIRITH_FAIL_OPEN).
-#
-# security:
-#   redact_secrets: true
-#   tirith_enabled: true
-#   tirith_path: "tirith"
-#   tirith_timeout: 5
-#   tirith_fail_open: true
-
-# ── Fallback Model ────────────────────────────────────────────────────
-# Automatic provider failover when primary is unavailable.
-# Uncomment and configure to enable. Triggers on rate limits (429),
-# overload (529), service errors (503), or connection failures.
-#
-# Supported providers:
-#   openrouter   (OPENROUTER_API_KEY)  — routes to any model
-#   openai-codex (OAuth — hermes auth) — OpenAI Codex
-#   nous         (OAuth — hermes auth) — Nous Portal
-#   zai          (ZAI_API_KEY)         — Z.AI / GLM
-#   kimi-coding  (KIMI_API_KEY)        — Kimi / Moonshot
-#   kimi-coding-cn (KIMI_CN_API_KEY)   — Kimi / Moonshot (China)
-#   minimax      (MINIMAX_API_KEY)     — MiniMax
-#   minimax-cn   (MINIMAX_CN_API_KEY)  — MiniMax (China)
-#   bedrock      (AWS IAM / boto3)     — AWS Bedrock (Converse API)
-#
-# For custom OpenAI-compatible endpoints, add base_url and key_env.
-#
-# fallback_model:
-#   provider: openrouter
-#   model: anthropic/claude-sonnet-4

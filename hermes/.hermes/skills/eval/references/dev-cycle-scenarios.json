@@ -1,0 +1,699 @@
+{
+  "version": 1,
+  "expected_scenario_count": 16,
+  "forbidden_capabilities": [
+    "test-driven-development"
+  ],
+  "optional_capabilities": {
+    "read-only-code-question": ["dev-cycle", "investigation"],
+    "factual-bug-investigation": ["dev-cycle"],
+    "local-bug-fix": ["blast-radius", "dev-cycle", "interrogate"],
+    "bug-fix-public-api-change": ["blast-radius", "dev-cycle", "interrogate", "investigation", "to-tickets", "writing-for-agents"],
+    "simple-feature": ["blast-radius", "dev-cycle", "interrogate", "writing-for-agents"],
+    "multi-layer-feature": ["arena", "blast-radius", "dev-cycle", "how", "interrogate", "to-tickets", "writing-for-agents"],
+    "behavior-preserving-refactoring": ["dev-cycle", "interrogate"],
+    "one-off-performance-issue": ["blast-radius", "dev-cycle", "grilling", "interrogate"],
+    "iterative-hillclimb": ["blast-radius", "dev-cycle", "grilling", "interrogate", "pause-safely", "session-pickup", "writing-for-agents"],
+    "live-runtime-symptom": ["dev-cycle", "investigation"],
+    "existing-trace-artifact": ["dev-cycle", "investigation"],
+    "novel-architecture-decision": ["how", "why"],
+    "large-uncertain-effort": ["architect", "code-review", "coding-standards", "dev-cycle", "domain-modeling", "grilling", "handoff", "implement", "interrogate", "pause-safely", "session-pickup", "show-me-your-work", "testing", "to-spec", "to-tickets", "writing-for-agents"],
+    "explanation-request": ["dev-cycle", "investigation"],
+    "rationale-request": ["dev-cycle", "investigation"]
+  },
+  "optional_principles": {
+    "factual-bug-investigation": ["principle-prove-it-works"],
+    "local-bug-fix": ["principle-laziness-protocol", "principle-sequence-verifiable-units"],
+    "bug-fix-public-api-change": ["principle-boundary-discipline", "principle-outcome-oriented-execution", "principle-sequence-verifiable-units"],
+    "simple-feature": ["principle-foundational-thinking", "principle-laziness-protocol", "principle-never-block-on-the-human", "principle-sequence-verifiable-units"],
+    "multi-layer-feature": ["principle-exhaust-the-design-space", "principle-experience-first", "principle-never-block-on-the-human", "principle-prove-it-works", "principle-redesign-from-first-principles", "principle-sequence-verifiable-units", "principle-type-system-discipline"],
+    "behavior-preserving-refactoring": ["principle-laziness-protocol", "principle-minimize-reader-load", "principle-outcome-oriented-execution", "principle-sequence-verifiable-units"],
+    "one-off-performance-issue": ["principle-build-the-lever", "principle-fix-root-causes", "principle-sequence-verifiable-units"],
+    "iterative-hillclimb": ["principle-build-the-lever", "principle-guard-the-context-window", "principle-never-block-on-the-human"],
+    "live-runtime-symptom": ["principle-prove-it-works"],
+    "existing-trace-artifact": ["principle-fix-root-causes", "principle-guard-the-context-window", "principle-never-block-on-the-human"],
+    "novel-architecture-decision": ["principle-boundary-discipline", "principle-minimize-reader-load", "principle-prove-it-works", "principle-redesign-from-first-principles", "principle-type-system-discipline"],
+    "large-uncertain-effort": ["principle-prove-it-works"]
+  },
+  "scenarios": [
+    {
+      "id": "read-only-code-question",
+      "prompt": "How does request validation flow through the codebase?",
+      "primary_mode": "investigation",
+      "capabilities": [
+        "grilling",
+        "how"
+      ],
+      "principles": [
+        "principle-never-block-on-the-human",
+        "principle-minimize-reader-load",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "none",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Investigation",
+            "Investigate observable facts before asking"
+          ]
+        },
+        {
+          "file": "grilling/SKILL.md",
+          "contains": [
+            "Load `how`",
+            "Investigate it. Do not ask the user"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "factual-bug-investigation",
+      "prompt": "Find why the cache sometimes returns stale values without changing code.",
+      "primary_mode": "investigation",
+      "capabilities": [
+        "grilling",
+        "investigation"
+      ],
+      "principles": [
+        "principle-fix-root-causes",
+        "principle-never-block-on-the-human"
+      ],
+      "checkpoint": "none",
+      "checks": [
+        {
+          "file": "grilling/SKILL.md",
+          "contains": [
+            "Load `investigation`",
+            "reproducible observation"
+          ]
+        },
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Bug fix",
+            "Reproduce first"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "local-bug-fix",
+      "prompt": "Fix a local parser defect without changing its public contract.",
+      "primary_mode": "bug_fix",
+      "capabilities": [
+        "investigation",
+        "implement",
+        "coding-standards",
+        "architect",
+        "testing",
+        "code-review"
+      ],
+      "principles": [
+        "principle-fix-root-causes",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": [
+        "none",
+        "conditional_contract_change"
+      ],
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Bug fix",
+            "smallest regression proof"
+          ]
+        },
+        {
+          "file": "implement/SKILL.md",
+          "contains": [
+            "For a bug fix",
+            "principle-fix-root-causes",
+            "principle-prove-it-works"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bug-fix-public-api-change",
+      "prompt": "Fix the defect even though the public API must change.",
+      "primary_mode": "feature",
+      "capabilities": [
+        "grilling",
+        "architect",
+        "to-spec",
+        "implement",
+        "coding-standards",
+        "testing",
+        "code-review"
+      ],
+      "principles": [
+        "principle-never-block-on-the-human",
+        "principle-fix-root-causes",
+        "principle-foundational-thinking",
+        "principle-type-system-discipline",
+        "principle-migrate-callers-then-delete-legacy-apis",
+        "principle-experience-first",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "human_owned_contract",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "Promote to the governed feature path",
+            "a public API or trait",
+            "Preserve the human checkpoint"
+          ]
+        },
+        {
+          "file": "architect/SKILL.md",
+          "contains": [
+            "public function, trait, API",
+            "caller-facing contract"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "simple-feature",
+      "prompt": "Add one small user-visible option in an existing bounded context.",
+      "primary_mode": "feature",
+      "capabilities": [
+        "grilling",
+        "to-spec",
+        "implement",
+        "coding-standards",
+        "architect",
+        "testing",
+        "code-review"
+      ],
+      "principles": [
+        "principle-experience-first",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "product_scope",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Feature",
+            "product and scope decisions",
+            "checkpoint",
+            "to-spec"
+          ]
+        },
+        {
+          "file": "to-spec/SKILL.md",
+          "contains": [
+            "principle-experience-first",
+            "principle-outcome-oriented-execution"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multi-layer-feature",
+      "prompt": "Add behavior spanning handler, service, repository, and a trust boundary.",
+      "primary_mode": "feature",
+      "capabilities": [
+        "grilling",
+        "architect",
+        "to-spec",
+        "implement",
+        "coding-standards",
+        "testing",
+        "code-review"
+      ],
+      "principles": [
+        "principle-foundational-thinking",
+        "principle-model-the-domain",
+        "principle-boundary-discipline"
+      ],
+      "checkpoint": "product_scope_boundary",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "Activate `architect`",
+            "changes a shape or contract"
+          ]
+        },
+        {
+          "file": "architect/SKILL.md",
+          "contains": [
+            "## Applicable Principles",
+            "Threat model",
+            "selected sketch"
+          ]
+        },
+        {
+          "file": "to-spec/SKILL.md",
+          "contains": [
+            "selected `/architect` sketch",
+            "blast-radius"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "behavior-preserving-refactoring",
+      "prompt": "Restructure a shared API while preserving behavior.",
+      "primary_mode": "refactoring",
+      "capabilities": [
+        "blast-radius",
+        "implement",
+        "coding-standards",
+        "architect",
+        "testing",
+        "code-review"
+      ],
+      "principles": [
+        "principle-subtract-before-you-add",
+        "principle-migrate-callers-then-delete-legacy-apis",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "conditional_contract_change",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Refactoring",
+            "Pin the behavior",
+            "verify equivalence"
+          ]
+        },
+        {
+          "file": "implement/SKILL.md",
+          "contains": [
+            "For a refactoring",
+            "blast-radius",
+            "migrate every caller"
+          ]
+        },
+        {
+          "file": "code-review/SKILL.md",
+          "contains": [
+            "For a refactoring",
+            "pinned behavior",
+            "target-shape contract"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "one-off-performance-issue",
+      "prompt": "Reduce one measured latency bottleneck.",
+      "primary_mode": "performance_issue",
+      "capabilities": [
+        "perf-issue",
+        "implement",
+        "coding-standards",
+        "architect",
+        "testing",
+        "code-review"
+      ],
+      "principles": [
+        "principle-prove-it-works"
+      ],
+      "checkpoint": [
+        "none",
+        "conditional_contract_change"
+      ],
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Performance issue",
+            "realistic baseline",
+            "measure before and after"
+          ]
+        },
+        {
+          "file": "implement/SKILL.md",
+          "contains": [
+            "use `perf-issue`",
+            "realistic workload",
+            "measured verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iterative-hillclimb",
+      "prompt": "Keep improving throughput across sessions until the target is met.",
+      "primary_mode": "hillclimb",
+      "capabilities": [
+        "hillclimb",
+        "show-me-your-work",
+        "handoff",
+        "implement",
+        "coding-standards",
+        "architect",
+        "testing",
+        "code-review"
+      ],
+      "principles": [
+        "principle-sequence-verifiable-units",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "target_stop_predicate",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Hillclimb",
+            "Freeze the measurement harness",
+            "keep or revert"
+          ]
+        },
+        {
+          "file": "to-tickets/SKILL.md",
+          "contains": [
+            "`hillclimb`",
+            "one hypothesis",
+            "keep-or-revert verdict"
+          ]
+        },
+        {
+          "file": "wayfinder/SKILL.md",
+          "contains": [
+            "`hillclimb` governs multi-session measurement work"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "live-runtime-symptom",
+      "prompt": "Diagnose intermittent CPU spin in the running process.",
+      "primary_mode": "investigation",
+      "capabilities": [
+        "grilling",
+        "runtime-forensics"
+      ],
+      "principles": [
+        "principle-fix-root-causes",
+        "principle-never-block-on-the-human"
+      ],
+      "checkpoint": "none",
+      "checks": [
+        {
+          "file": "grilling/SKILL.md",
+          "contains": [
+            "Load `runtime-forensics`",
+            "live process"
+          ]
+        },
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "Do not declare success from a self-report"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "existing-trace-artifact",
+      "prompt": "Analyze this supplied profile without rerunning the system.",
+      "primary_mode": "investigation",
+      "capabilities": [
+        "grilling",
+        "trace-forensics"
+      ],
+      "principles": [
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "none",
+      "checks": [
+        {
+          "file": "grilling/SKILL.md",
+          "contains": [
+            "Load `trace-forensics`",
+            "user supplies an existing profile"
+          ]
+        },
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "real artifact"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "novel-architecture-decision",
+      "prompt": "/architect Choose a new ownership and data shape across bounded contexts.",
+      "primary_mode": "architecture",
+      "capabilities": [
+        "architect",
+        "arena"
+      ],
+      "principles": [
+        "principle-foundational-thinking",
+        "principle-exhaust-the-design-space",
+        "principle-model-the-domain"
+      ],
+      "checkpoint": "explicit_only",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Architecture",
+            "proceeds without an automatic checkpoint"
+          ]
+        },
+        {
+          "file": "architect/SKILL.md",
+          "contains": [
+            "Load `arena`",
+            "does not make hexagonal"
+          ]
+        },
+        {
+          "file": "arena/SKILL.md",
+          "contains": [
+            "at least two for a novel or contested architecture",
+            "Keep candidates structurally distinct"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "large-uncertain-effort",
+      "prompt": "Map a project too large and uncertain for one session.",
+      "primary_mode": "large_work",
+      "capabilities": [
+        "wayfinder"
+      ],
+      "principles": [
+        "principle-guard-the-context-window",
+        "principle-sequence-verifiable-units",
+        "principle-never-block-on-the-human"
+      ],
+      "checkpoint": "hitl_decisions",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "### Large or multi-session work",
+            "wayfinder",
+            "handoff"
+          ]
+        },
+        {
+          "file": "wayfinder/SKILL.md",
+          "contains": [
+            "## Continuity, capabilities, and principles",
+            "session-pickup",
+            "pause-safely",
+            "AFK work",
+            "HITL ownership"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "explanation-request",
+      "prompt": "Explain how this subsystem works from caller to effect.",
+      "primary_mode": "investigation",
+      "capabilities": [
+        "grilling",
+        "how"
+      ],
+      "principles": [
+        "principle-never-block-on-the-human",
+        "principle-minimize-reader-load",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "none",
+      "checks": [
+        {
+          "file": "grilling/SKILL.md",
+          "contains": [
+            "Load `how`",
+            "current code flow"
+          ]
+        },
+        {
+          "file": "architect/SKILL.md",
+          "contains": [
+            "Use `how` for a subsystem walkthrough"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rationale-request",
+      "prompt": "Explain why this design exists and whether history constrains it.",
+      "primary_mode": "investigation",
+      "capabilities": [
+        "grilling",
+        "why"
+      ],
+      "principles": [
+        "principle-never-block-on-the-human",
+        "principle-guard-the-context-window",
+        "principle-minimize-reader-load",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "none",
+      "checks": [
+        {
+          "file": "grilling/SKILL.md",
+          "contains": [
+            "Load `why`",
+            "historical decisions"
+          ]
+        },
+        {
+          "file": "architect/SKILL.md",
+          "contains": [
+            "Use `why` when existing rationale"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "menu-catalog-request",
+      "prompt": "/menu Show me the available development skills without starting work.",
+      "primary_mode": "catalog",
+      "capabilities": [
+        "menu"
+      ],
+      "principles": [],
+      "checkpoint": "user_choice",
+      "checks": [
+        {
+          "file": "menu/SKILL.md",
+          "contains": [
+            "read-only catalog",
+            "live `skills_list` inventory",
+            "never invokes the result",
+            "do not start any listed skill"
+          ]
+        }
+      ]
+    }
+  ],
+  "global_checks": [
+    {
+      "id": "no-accidental-tdd",
+      "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "not_contains": [
+            "test-driven-development",
+            "TDD"
+          ]
+        },
+        {
+          "file": "implement/SKILL.md",
+          "not_contains": [
+            "test-driven-development",
+            "TDD"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "single-source-no-comments",
+      "checks": [
+        {
+          "file": "coding-standards/SKILL.md",
+          "contains": [
+            "No comments by default",
+            "non-obvious WHY",
+            "Never explain WHAT"
+          ]
+        },
+        {
+          "file": "code-review/SKILL.md",
+          "contains": [
+            "no-comments rule comes only from `/coding-standards`"
+          ],
+          "not_contains": [
+            "A comment is allowed only when"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "single-source-agent-writing",
+      "checks": [
+        {
+          "file": "writing-for-agents/SKILL.md",
+          "contains": [
+            "source of truth for agent-facing writing",
+            "single source of truth"
+          ]
+        },
+        {
+          "file": "menu/SKILL.md",
+          "contains": [
+            "only source of truth for agent-facing prose and `unslop`"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "architecture-not-forced-hexagonal",
+      "checks": [
+        {
+          "file": "architect/SKILL.md",
+          "contains": [
+            "does not make hexagonal",
+            "smallest architecture that protects the real boundaries"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "separate-review-axes",
+      "checks": [
+        {
+          "file": "code-review/SKILL.md",
+          "contains": [
+            "## Standards",
+            "## Spec",
+            "## Adversarial",
+            "Do **not** merge or rerank findings",
+            "rerun every affected axis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no-stale-design-skill",
+      "glob": "*/SKILL.md",
+      "not_contains": [
+        "`design`",
+        "/design"
+      ]
+    },
+    {
+      "id": "references-resolve",
+      "type": "references_resolve"
+    }
+  ]
+}

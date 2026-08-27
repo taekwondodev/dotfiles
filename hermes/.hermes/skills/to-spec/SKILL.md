@@ -16,6 +16,17 @@ When invoked with an issue reference from `capture-issue`, first read `docs/agen
 
 This is also where `/wayfinder` hands off: when a map's frontier empties, its closed tickets and Decisions-so-far feed this skill instead of going straight to `/implement`, collapsing decisions scattered across many tickets into one buildable spec.
 
+## Evidence and principles
+
+Carry forward the selected `/architect` sketch and any `how`, `why`, `investigation`, or `prototype` evidence that changed a decision. Load `blast-radius` when a contract, data shape, migration, or shared symbol may affect consumers beyond the obvious scope; the confirmed consumers and unproven risks must shape Architecture, Implementation Decisions, Testing Decisions, and Out of Scope.
+
+Load the canonical principle when its trigger fires:
+
+- `principle-experience-first` changes Solution and Out of Scope toward the user outcome rather than implementation convenience.
+- `principle-outcome-oriented-execution` describes the intended end state and keeps temporary migration states from becoming accidental requirements.
+
+Record a principle only where the spec can name the decision it changed. Evidence supports a decision; it does not silently expand product scope.
+
 ## Process
 
 1. Explore the repo to understand the current state of the codebase, if you haven't already. Use `docs/agents/domain.md`'s glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching. If this spec closes out a `/wayfinder` map, read the map's Decisions-so-far and the full body of each closed ticket. That's the source material, not the conversation.

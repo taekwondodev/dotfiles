@@ -84,6 +84,8 @@ Choose one primary mode and add secondary capabilities as needed. Do not force a
 
 Use for a read-only question or an unknown cause.
 
+Apply `principle-never-block-on-the-human` by gathering available facts before asking questions, and `principle-prove-it-works` by grounding the answer in inspected repository or runtime evidence.
+
 ```text
 dev-cycle why does X continue to work?
 → grilling
@@ -110,7 +112,7 @@ Activate `architect` when the feature crosses a boundary or changes a shape or c
 
 ### Bug fix
 
-Use for a reported defect. Reproduce first, trace the root cause, add the smallest regression proof available, fix, verify, and review. Promote to the governed feature path if the fix changes a public contract, schema, security boundary, scope, or architecture.
+Use for a reported defect. Reproduce first, trace the root cause, add the smallest regression proof available, then use `implement` for the fix and `code-review` for close-out. Promote to the governed feature path if the fix changes a public contract, schema, security boundary, scope, or architecture.
 
 ### Refactoring
 
@@ -118,11 +120,11 @@ Use when structure changes but behavior must not. Pin the behavior, define the t
 
 ### Performance issue
 
-Use for a single measured performance problem. Establish a realistic baseline, profile, form a mechanism-based hypothesis, change one thing, and measure before and after.
+Use for a single measured performance problem. Establish a realistic baseline, profile, form a mechanism-based hypothesis, use `implement` to change one thing, measure before and after, and close out with `code-review`.
 
 ### Hillclimb
 
-Use for sustained improvement against a metric. Freeze the measurement harness, log each hypothesis, keep or revert each change, preserve the regression gate, and stop only on an explicit predicate or a documented plateau.
+Use for sustained improvement against a metric. Freeze the measurement harness, log each hypothesis, use `implement` for each candidate change, keep or revert it, preserve the regression gate, and stop only on an explicit predicate or a documented plateau. Close out accepted work with `code-review`.
 
 ### Architecture
 
@@ -152,6 +154,8 @@ Promote a local capability to the governed dev-cycle path when the work changes:
 - a contract future agents must know.
 
 Do not promote solely because the task uses a prototype, benchmark, investigation, or local reversible edit.
+
+Apply `principle-never-block-on-the-human` when promotion reaches a user-owned decision. Continue gathering reversible evidence, but stop before choosing product, scope, architecture, contract, or security direction for the user.
 
 ## Delegation
 

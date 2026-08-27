@@ -98,18 +98,7 @@ Completion criterion: a reviewer can identify the caller-facing contract, the ow
 
 ### 4. Arena
 
-Use `delegate_task` to produce at least two structurally distinct candidates when the design is novel, contested, or likely to affect several boundaries. Keep candidates isolated when they write artifacts. Use the `arena` procedure conceptually, but adapt its execution to Hermes tools and available models.
-
-Each candidate must receive:
-
-- the grounded model;
-- the requirements and constraints;
-- the threat model;
-- the caller usage;
-- the requested output shape;
-- explicit fences around files and assumptions.
-
-Do not accept two candidates that differ only in naming or one local implementation detail. Compare whole shapes.
+Load `arena` when the design is novel, contested, or likely to affect several boundaries. Pass it the grounded model, requirements, threat model, caller usage, requested output shape, and explicit write fences. `arena` owns candidate dispatch, isolation, and synthesis; this skill owns the decision to invoke it and consumes its comparison.
 
 Completion criterion: the candidates, their assumptions, and their tradeoffs are available for comparison, or the sketch records why a second candidate would add no information for a genuinely local and settled structure.
 
@@ -197,7 +186,10 @@ Possible references include:
 - `references/hexagonal.md` for ports-and-adapters;
 - `references/layered.md` for layered structures;
 - `references/modular-monolith.md` for module boundaries without unnecessary deployment boundaries;
-- `references/rust_structure.md` for repository-specific Rust workspace structure.
+- `references/rust-structure.md` for repository-specific Rust workspace structure;
+- `references/rust-string-types.md` for Rust domain-string modeling;
+- `references/rust-sql-queries.md` for SQL query boundaries in Rust;
+- `references/rust-rs-repository-utils.md` for repository utilities in Rust.
 
 A reference informs a decision. It does not override the grounded system model or force a pattern that protects no real boundary.
 

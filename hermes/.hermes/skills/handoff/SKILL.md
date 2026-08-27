@@ -13,6 +13,14 @@ argument-hint: "What will the next session focus on?"
 
 Read `writing-for-agents` before writing `HANDOFF.md` or its resume prompt. Its general writing rules govern the handoff; this skill adds only handoff-specific structure.
 
+Use `pause-safely` as the suspension contract and this skill as the artifact writer. Use `session-pickup` in the next session to reconcile the handoff with live repository state. When conversation context is incomplete, use `session_search` to recall the relevant session; when long or unattended work has a `show-me-your-work` log, point to it instead of copying it.
+
+Apply the canonical principles where they change the artifact:
+
+- `principle-guard-the-context-window` keeps the handoff context-lean and links large sources instead of embedding them.
+- `principle-prove-it-works` requires current git, test, process, and artifact evidence before progress is called complete.
+- `principle-sequence-verifiable-units` makes the next action singular and gives it an exact completion criterion.
+
 ### 1. Gather State
 
 Run: `git status && git diff HEAD && git log --oneline -10`
@@ -22,12 +30,15 @@ Run: `git status && git diff HEAD && git log --oneline -10`
 Extract from conversation + git state:
 
 - **Task:** goal in 1-3 sentences. If args given, weight toward that focus.
+- **Mode:** current `dev-cycle` mode, phase, and active capabilities
 - **Progress:** done items (file names, functions, decisions)
 - **What Didn't Work:** failed approaches that the next agent should not repeat
 - **Pending:** ordered, most critical first
 - **Decisions & Context:** non-obvious choices, constraints, gotchas a fresh agent can't derive from code
 - **Files Changed:** path: one-line description
 - **Blockers:** stuck or unclear items
+- **Verification:** tests, checks, measurements, and processes with their latest observed result
+- **Next Completion Criterion:** the exact observable state the next session should reach
 - **Active Skills:** skills active in current session (e.g. `/grilling`, `/architect`)
 - **Suggested Skills:** skills the next agent should read (e.g. `architect`, `testing`)
 

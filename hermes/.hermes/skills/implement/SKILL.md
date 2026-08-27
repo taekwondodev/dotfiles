@@ -14,7 +14,19 @@ Read the ticket's **Layer(s)** line first (`/to-tickets` sets it). It tells you 
 
 Write tests alongside the implementation, at the seams `/testing` allows. Take expected values from the spec/ticket's Testing Decisions or acceptance criteria. Never invent them from the same reasoning that produced the implementation; that's the self-graded anti-pattern in `/testing`'s Test quality section. Layers outside `/testing`'s scope get integration coverage instead. Never bend a unit test to reach them.
 
-When the ticket crosses a boundary, use the `/architect` sketch and its threat-model decisions as the implementation contract. When the task is a bug fix, reproduce the defect before changing code. When it is a refactoring, pin behavior and verify equivalence. When it is performance work, measure before and after.
+## Modes, capabilities, and principles
+
+When the ticket crosses a boundary, use the `/architect` sketch and its threat-model decisions as the implementation contract. Load the canonical owner when its trigger fires:
+
+- For a bug fix, use `investigation` and `principle-fix-root-causes`: reproduce before editing, trace the mechanism, add the smallest regression proof, then fix the owning cause.
+- For a refactoring, use `blast-radius`, `principle-subtract-before-you-add`, and `principle-migrate-callers-then-delete-legacy-apis`: pin behavior, remove dead weight, migrate every caller, and verify equivalence.
+- For a performance issue, use `perf-issue`; for repeated metric work, use `hillclimb`. Preserve the realistic workload, baseline, regression gate, and measured verdict.
+- Use `principle-build-the-lever` when a focused script, transform, or harness makes non-trivial work safer or reviewable.
+- Use `principle-sequence-verifiable-units` to split the implementation into todo items that each finish in an observable state.
+- Use `principle-prove-it-works` to choose a check against the real artifact rather than compilation or a delegated self-report.
+- Apply the canonical domain, type, boundary, idempotence, and migration principles named by `/architect` when their triggers fire; each must change a type, owner, boundary, operation, or verification step.
+
+Record the changed behavior for every applied principle. Do not add a principle list that has no effect on the implementation or its checks.
 
 Run typechecking regularly, single test files regularly, and the full test suite once at the end. When the suite is long or slow, dispatch it as a sub-agent and read its output rather than blocking the session inline.
 
