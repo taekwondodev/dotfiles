@@ -51,7 +51,7 @@ Build a traced model of the existing system before proposing structure.
 - Use `search_files` and `read_file` to locate the entry point, callers, callees, types, data flow, and current boundaries.
 - Use `how` for a subsystem walkthrough when the flow is not already clear.
 - Use `why` when existing rationale or an ADR may constrain the choice.
-- Read the repository `AGENTS.md`, relevant `CONTEXT.md`, and relevant ADRs.
+- Read the relevant domain context, ADRs, and design documents.
 - Identify current ownership, dependency direction, error conversion, validation boundary, observability, and security assumptions.
 
 Completion criterion: the caller-to-effect path, affected types, current owner, and constraints are written down without relying on file names alone.

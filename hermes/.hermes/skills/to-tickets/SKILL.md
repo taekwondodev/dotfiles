@@ -8,9 +8,9 @@ disable-model-invocation: true
 
 Break a complete, approved spec into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it and the `/architect` layer(s) it touches.
 
-Use `/architect`'s selected sketch, ownership, bounded-context, and threat-model decisions as inputs. Do not restate those rules here.
+Use `/architect`'s selected sketch, ownership, bounded-context, and threat-model decisions as inputs.
 
-**This step is user-invoked**: do not start it on your own; the user triggers it explicitly. The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill; read it before proceeding.
+**This step is user-invoked**: do not start it on your own; the user triggers it explicitly.
 
 The issue tracker and issue-label vocabulary should have been provided to you. Tell the user to run `/dev-cycle-setup` if not; it's user-invoked, so you can't call it yourself.
 

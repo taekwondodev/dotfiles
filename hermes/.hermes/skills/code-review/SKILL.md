@@ -9,7 +9,7 @@ Three-axis review of the diff between `HEAD` and a fixed point the user supplies
 - **Spec**: does the code faithfully implement the originating issue / spec?
 - **Adversarial**: what unsafe assumption, hidden impact, or unproven claim survives the first two axes?
 
-The Standards axis also checks the applicable principles through their canonical skills. The no-comments rule comes only from `/coding-standards`; do not create a second comments policy here.
+The Standards axis also checks the applicable principles through their canonical skills.
 
 The Adversarial axis loads `interrogate` and uses `blast-radius` evidence to challenge callers, contracts, migrations, runtime effects, and verification without merging its findings into Standards or Spec.
 

@@ -68,6 +68,33 @@ def evaluate_global(
     read: Callable[[str], str | None],
     list_files: Callable[[str], list[str]],
 ) -> list[str]:
+    if check.get("type") == "contamination":
+        pattern_checks = check.get("patterns", [])
+        if not pattern_checks:
+            return ["contamination check defines no patterns"]
+        try:
+            patterns = {
+                str(pattern_check["label"]): re.compile(
+                    str(pattern_check["regex"]), re.IGNORECASE
+                )
+                for pattern_check in pattern_checks
+            }
+        except (KeyError, re.error) as error:
+            return [f"invalid contamination pattern: {error}"]
+        failures = []
+        for relative in list_files("*/SKILL.md"):
+            content = read(relative)
+            if content is None:
+                failures.append(f"missing {relative}")
+                continue
+            for line_number, line in enumerate(content.splitlines(), start=1):
+                for label, pattern in patterns.items():
+                    if pattern.search(line):
+                        failures.append(
+                            f"{relative}:{line_number} contains {label}: {line.strip()!r}"
+                        )
+        return failures
+
     if check.get("type") == "references_resolve":
         failures = []
         reference_pattern = re.compile(r"references/[A-Za-z0-9._/-]+\.md")

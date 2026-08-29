@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 `dev-cycle` is the normal entrypoint for development work. It reads the task, selects a primary mode, activates the capabilities that mode needs, and keeps the work moving toward a verified result. Existing phase and specialist skills remain directly invocable.
 
-This skill is the routing and coordination source of truth. It does not copy the detailed procedures owned by `grilling`, `architect`, `to-spec`, `to-tickets`, `implement`, `code-review`, `wayfinder`, `handoff`, or `writing-for-agents`.
+This skill routes and coordinates development work. It loads specialist procedures when their triggers fire instead of repeating them here.
 
 ## Sticky task mode
 
@@ -31,7 +31,6 @@ Keep the current task, primary mode, active capabilities, decisions, evidence, a
 - Preserve the human checkpoint after grilling for product and scope decisions.
 - `architect` itself has no automatic checkpoint. It proceeds unless the user explicitly asks it to stop.
 - Do not declare success from a self-report, compilation alone, or a proxy observation.
-- Preserve the single source of truth for every rule. `unslop` belongs only to `writing-for-agents`. The no-comments rule belongs only to `coding-standards`.
 - Do not add a test methodology that the task does not require.
 
 ## Principles index

@@ -4,6 +4,18 @@ The skill-specific branch of [`writing-for-agents`](SKILL.md): what changes when
 
 The skill-authoring workflow must read `writing-for-agents` before creating or editing a skill. This file adds skill-specific mechanics only; it does not override the general writing rules.
 
+## Isolation
+
+A skill is complete from its own text plus the explicit procedural inputs it names.
+
+- Reference another skill or document only as an actionable dependency. State when it is loaded and which result this procedure consumes.
+- Keep policy provenance out of the skill. Agent configuration, system prompts, project instruction files, and earlier conversations do not supply missing behavior.
+- Write the required behavior locally when this skill owns it. When another skill owns a procedure, load it and consume its result without restating or defending its policy.
+- A continuity skill may consume a named handoff, transcript, issue, branch, or session-search result only when it defines how to retrieve the artifact and reconcile it with live state. It must not assume the artifact's contents.
+- Review every cross-reference before completion. Keep explicit procedural inputs and remove references that only explain where a rule originated.
+
+Completion criterion: the skill remains interpretable in a fresh invocation, and every external reference has a local trigger and a named result.
+
 ## Invocation
 
 Two choices, trading the two loads:

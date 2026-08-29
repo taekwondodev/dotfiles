@@ -28,6 +28,7 @@ browser:
   backend: browser-use
   inactivity_timeout: 120
   cloud_provider: local
+  use_real_profile: true
 tool_loop_guardrails:
   warnings_enabled: true
   hard_stop_enabled: false
@@ -92,8 +93,8 @@ memory:
   nudge_interval: 10
   flush_min_turns: 6
 delegation:
-  provider: opencode-go
   model: deepseek-v4-flash
+  provider: opencode-go
   max_iterations: 250
 skills:
   creation_nudge_interval: 15
@@ -130,6 +131,8 @@ skills:
 timezone: Europe/Rome
 approvals:
   destructive_slash_confirm: false
+plugins:
+  enabled: []
 hooks:
   pre_tool_call:
     - matcher: terminal|read_file|write_file|patch|search_files
@@ -175,8 +178,6 @@ platform_toolsets:
     - terminal
     - todo
     - web
-plugins:
-  enabled: []
 known_plugin_toolsets:
   cli:
     - a2a

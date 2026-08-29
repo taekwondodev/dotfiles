@@ -629,11 +629,9 @@
         },
         {
           "file": "code-review/SKILL.md",
-          "contains": [
-            "no-comments rule comes only from `/coding-standards`"
-          ],
           "not_contains": [
-            "A comment is allowed only when"
+            "A comment is allowed only when",
+            "no-comments rule comes only from `/coding-standards`"
           ]
         }
       ]
@@ -650,7 +648,7 @@
         },
         {
           "file": "menu/SKILL.md",
-          "contains": [
+          "not_contains": [
             "only source of truth for agent-facing prose and `unslop`"
           ]
         }
@@ -680,6 +678,24 @@
             "Do **not** merge or rerank findings",
             "rerun every affected axis"
           ]
+        }
+      ]
+    },
+    {
+      "id": "skills-are-isolated",
+      "type": "contamination",
+      "patterns": [
+        {
+          "label": "external policy provenance",
+          "regex": "\\b(?:comes only from|belongs only to|exists only in|only source of truth for|(?:pipeline|checkpoints|invocation rules)[^\\n]*lives? in[^\\n]*skill)\\b"
+        },
+        {
+          "label": "hidden history",
+          "regex": "\\b(?:as (?:we )?(?:(?:previously|already|earlier) (?:agreed|established|stated|said|noted|decided)|(?:agreed|established|stated|said|noted|decided) (?:previously|earlier)|(?:already )?discussed)|previously agreed|according to (?:the )?system (?:rule|policy))\\b"
+        },
+        {
+          "label": "external instruction file",
+          "regex": "^\\s*(?:[-*]\\s*)?(?:read|load|follow|apply|consult|obey|use|review)\\b[^\\n]*(?:AGENTS\\.md|CLAUDE\\.md|HERMES\\.md|GEMINI\\.md|copilot-instructions\\.md|\\.cursorrules|config\\.ya?ml|profile configuration|system prompt|project instruction file)"
         }
       ]
     },

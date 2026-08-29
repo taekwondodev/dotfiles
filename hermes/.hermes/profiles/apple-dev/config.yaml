@@ -12,9 +12,9 @@ auxiliary:
     provider: opencode-go
     model: mimo-v2.5
 delegation:
-  default: deepseek-v4-flash
   provider: opencode-go
-  base_url: https://opencode.ai/zen/go/v1
+  base_url: ''
+  model: deepseek-v4-flash
 skills:
   external_dirs:
     - ~/.hermes/skills
@@ -69,3 +69,5 @@ mcp_servers:
   figma:
     url: https://mcp.figma.com/mcp
     auth: oauth
+browser:
+  use_real_profile: true

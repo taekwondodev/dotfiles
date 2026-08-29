@@ -27,8 +27,6 @@ Never maintain a hand-written catalog of skill names, descriptions, procedures, 
 - Use `skill_view` only when a description is insufficient to explain a distinction or relationship.
 - Use the skill's actual frontmatter and body as the authority.
 - Treat `dev-cycle` as the primary development entrypoint because its own skill definition says so.
-- Treat `writing-for-agents` as the only source of truth for agent-facing prose and `unslop`.
-- Treat `coding-standards` as the only source of truth for coding standards and no-comments.
 
 If the catalog and a skill body disagree, report the disagreement rather than silently creating a third interpretation.
 

@@ -14,7 +14,7 @@ auxiliary:
 delegation:
   default: deepseek-v4-flash
   provider: opencode-go
-  base_url: https://opencode.ai/zen/go/v1
+  base_url: ''
 skills:
   external_dirs:
     - ~/.hermes/skills
@@ -162,3 +162,5 @@ skills:
     - xurl
     - youtube-content
 _config_version: 39
+browser:
+  use_real_profile: true

@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 Implement the work described by the user in the spec or ticket.
 
-**This step is user-invoked**: do not start it on your own. The user triggers it explicitly (normally by approving a spec or tickets, after grilling/to-spec/to-tickets). The pipeline, its checkpoints, and the invocation rules live in the `dev-cycle` skill; read it before proceeding.
+**This step is user-invoked**: do not start it on your own. The user triggers it explicitly, normally by approving a spec or tickets after grilling, to-spec, or to-tickets.
 
 Read the ticket's **Layer(s)** line first (`/to-tickets` sets it). It tells you which of `/architect`'s Handler/Service/Repository/Middleware layers this touches before you open a single file.
 

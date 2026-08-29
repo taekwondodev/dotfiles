@@ -11,14 +11,7 @@ This skill is the understanding phase of `dev-cycle`. It does not publish a spec
 
 ## Pre-flight
 
-Read the repository context before the first decision round:
-
-- `AGENTS.md`;
-- `CONTEXT.md` or `CONTEXT-MAP.md`;
-- relevant ADRs;
-- relevant README or design documents;
-- the issue body, comments, and labels when the user provides an issue reference;
-- the current conversation.
+Read the relevant domain context, ADRs, README material, design documents, issue evidence, and current conversation before the first decision round.
 
 Treat an explicit, unambiguous decision in these sources as settled. Do not ask it again. If sources conflict, ask about the conflict after presenting the evidence.
 
