@@ -24,5 +24,10 @@ hermes/.hermes/profiles/*/cron/
 hermes/.hermes/profiles/*/logs/
 hermes/.hermes/profiles/*/memories/
 hermes/.hermes/profiles/*/sessions/
-hermes/.hermes/profiles/*/skills/
+hermes/.hermes/profiles/*/skills/.bundled_manifest
+hermes/.hermes/profiles/*/skills/.curator_ledger.jsonl
+hermes/.hermes/profiles/*/skills/.curator_state
+hermes/.hermes/profiles/*/skills/.usage.json
+hermes/.hermes/profiles/*/skills/.usage.json.lock
+hermes/.hermes/profiles/*/skills/.hub/
 HANDOFF.md
