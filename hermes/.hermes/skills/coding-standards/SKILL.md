@@ -52,8 +52,9 @@ dump. In order:
 * No comments by default. A comment is allowed only when it records a non-obvious WHY that the code cannot express more clearly. Never explain WHAT the code does.
 * This no-comments rule applies equally to production code, tests, scripts, migrations, configuration, verification harnesses, and generated artifacts. Review every comment against the rule before declaring work complete.
 * DRY, modern idioms, zero-cost abstractions.
+* **Low cognitive complexity:** minimize branching, nesting, and hidden control flow. Decompose by domain responsibility, not merely to satisfy complexity metrics.
 * **Fail fast:** missing required config = unrecoverable error. Crash early.
 * **Secure defaults:** insecure = explicit opt-in, never opt-out.
-* **Validate at boundaries only:** Handler layer validates. Internal layers trust already-validated types.
+* **Validate once, then trust:** convert untrusted input into types that enforce their intrinsic invariants at the earliest entry point. Internal code trusts those types and never repeats validation or recomputes established facts. Context-dependent rules remain with the code that owns the required state and decisions.
 * **Least privilege:** request only minimum permissions needed.
 * **Secrets hygiene:** never in logs, errors, traces, comments. Hardcoded secret = build-breaking bug.

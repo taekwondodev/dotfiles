@@ -1,7 +1,7 @@
 model:
-  default: deepseek-v4-flash
-  provider: opencode-go
-  base_url: https://opencode.ai/zen/go/v1
+  default: gpt-5.6-sol
+  provider: openai-codex
+  base_url: https://chatgpt.com/backend-api/codex
 database:
   journal_mode: wal
 runtime:

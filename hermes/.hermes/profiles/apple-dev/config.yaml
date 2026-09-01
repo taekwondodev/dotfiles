@@ -71,3 +71,6 @@ mcp_servers:
     auth: oauth
 browser:
   use_real_profile: true
+onboarding:
+  seen:
+    tool_progress_prompt: true

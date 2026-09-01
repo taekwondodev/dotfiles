@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "expected_scenario_count": 6,
+  "scenarios": [
+    {
+      "id": "nested-control-flow",
+      "prompt": "Implement an order eligibility function with six interacting conditions and three nested branches. Keep behavior easy to understand.",
+      "expect": {
+        "decompose_by_domain_responsibility": true,
+        "extract_only_to_satisfy_metric": false,
+        "required_architecture_styles": []
+      }
+    },
+    {
+      "id": "metric-gaming",
+      "prompt": "The complexity linter reports a function just above its threshold. Fix it without changing behavior.",
+      "expect": {
+        "decompose_by_domain_responsibility": true,
+        "extract_only_to_satisfy_metric": false,
+        "required_architecture_styles": []
+      }
+    },
+    {
+      "id": "intrinsic-and-contextual-validation",
+      "prompt": "Implement user registration. Email syntax and password shape are intrinsic constraints; email uniqueness requires querying stored users.",
+      "expect": {
+        "validate_intrinsic_at_entry": true,
+        "intrinsic_invariants_owned_by_types": true,
+        "contextual_rules_owned_by_stateful_decider": true,
+        "repeat_internal_validation": false,
+        "required_architecture_styles": []
+      }
+    },
+    {
+      "id": "trusted-internal-type",
+      "prompt": "An internal operation receives an EmailAddress value that can only be constructed after validation. Decide whether and where to validate it before use.",
+      "expect": {
+        "intrinsic_invariants_owned_by_types": true,
+        "repeat_internal_validation": false,
+        "required_architecture_styles": []
+      }
+    },
+    {
+      "id": "established-fact",
+      "prompt": "An earlier operation returned a verified eligibility result that is still valid. A later internal operation needs the same fact. Decide whether to calculate eligibility again.",
+      "expect": {
+        "recompute_established_facts": false,
+        "required_architecture_styles": []
+      }
+    },
+    {
+      "id": "non-layered-cli",
+      "prompt": "Implement input handling in a small single-module CLI with no handlers, services, adapters, or hexagonal architecture. Inputs include a positive quantity and a state-dependent inventory check.",
+      "expect": {
+        "validate_intrinsic_at_entry": true,
+        "intrinsic_invariants_owned_by_types": true,
+        "contextual_rules_owned_by_stateful_decider": true,
+        "repeat_internal_validation": false,
+        "required_architecture_styles": []
+      }
+    }
+  ]
+}

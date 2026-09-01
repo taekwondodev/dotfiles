@@ -67,15 +67,20 @@ def baseline_reader(repo: Path, baseline_ref: str) -> Callable[[str], str]:
     return read
 
 
-def build_prompt(matrix: dict[str, Any], read: Callable[[str], str], variant: str) -> str:
+def policy_sha256(read: Callable[[str], str]) -> str:
+    material = "".join(
+        f"{relative}\0{read(relative)}\0" for relative in POLICY_FILES
+    ).encode()
+    return hashlib.sha256(material).hexdigest()
+
+
+def build_prompt(matrix: dict[str, Any], read: Callable[[str], str]) -> str:
     scenarios = [{"id": item["id"], "prompt": item["prompt"]} for item in matrix["scenarios"]]
     policies = []
     for relative in POLICY_FILES:
         policies.append(f"<policy path=\"{relative}\">\n{read(relative)}\n</policy>")
 
     return f"""You are the workflow router. Apply the supplied policy bundle to each user request and emit the route you would follow. This is a routing exercise: do not perform the requested repository changes or call tools.
-
-Policy variant: {variant}
 
 Return exactly one object per scenario inside <eval-json> and </eval-json>. The content between those tags must be valid JSON with no markdown fences.
 
@@ -351,6 +356,46 @@ def compare(
     return failures
 
 
+def evaluate_variants(
+    variants: list[tuple[str, Callable[[str], str]]],
+    matrix: dict[str, Any],
+    known_skills: set[str],
+    run_budget: int,
+    model: str | None,
+    provider: str | None,
+) -> dict[str, dict[str, Any]]:
+    results: dict[str, dict[str, Any]] = {}
+    decisions_by_policy: dict[str, tuple[str, list[dict[str, Any]], dict[str, list[str]]]] = {}
+
+    for variant, read in variants:
+        digest = policy_sha256(read)
+        existing = decisions_by_policy.get(digest)
+        if existing is not None:
+            source_variant, observed, failures = existing
+            results[variant] = {
+                "policy_sha256": digest,
+                "decision_source": "identical-policy-alias",
+                "policy_alias_of": source_variant,
+                "observed": observed,
+                "failures": failures,
+                "blocking_failures": {},
+            }
+            continue
+
+        observed = run_hermes(build_prompt(matrix, read), run_budget, model, provider)
+        failures = compare(matrix, observed, known_skills)
+        decisions_by_policy[digest] = (variant, observed, failures)
+        results[variant] = {
+            "policy_sha256": digest,
+            "decision_source": "fresh-run",
+            "observed": observed,
+            "failures": failures,
+            "blocking_failures": failures,
+        }
+
+    return results
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--matrix", type=Path)
@@ -358,7 +403,7 @@ def main() -> int:
     parser.add_argument("--candidate-only", action="store_true")
     parser.add_argument("--model")
     parser.add_argument("--provider")
-    parser.add_argument("--run-budget", type=int, default=240)
+    parser.add_argument("--run-budget", type=int, default=480)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
 
@@ -381,6 +426,16 @@ def main() -> int:
     if not args.candidate_only:
         variants.insert(0, ("baseline", baseline_reader(repo, args.baseline_ref)))
 
+    known_skills = {path.parent.name for path in skills_root.glob("*/SKILL.md")}
+    variant_results = evaluate_variants(
+        variants,
+        matrix,
+        known_skills,
+        args.run_budget,
+        args.model,
+        args.provider,
+    )
+
     report: dict[str, Any] = {
         "matrix": str(matrix_path.relative_to(repo)),
         "matrix_sha256": hashlib.sha256(matrix_path.read_bytes()).hexdigest(),
@@ -388,33 +443,32 @@ def main() -> int:
         "baseline_ref": None if args.candidate_only else args.baseline_ref,
         "model": args.model or "config-default",
         "provider": args.provider or "config-default",
-        "candidate_source": "fresh-run",
-        "variants": {},
+        "candidate_source": variant_results["candidate"]["decision_source"],
+        "variants": variant_results,
     }
 
-    for variant, read in variants:
-        prompt = build_prompt(matrix, read, variant)
-        observed = run_hermes(prompt, args.run_budget, args.model, args.provider)
-        known_skills = {path.parent.name for path in skills_root.glob("*/SKILL.md")}
-        failures = compare(matrix, observed, known_skills)
-        policy_material = "".join(
-            f"{relative}\0{read(relative)}\0" for relative in POLICY_FILES
-        ).encode()
-        report["variants"][variant] = {
-            "policy_sha256": hashlib.sha256(policy_material).hexdigest(),
-            "observed": observed,
-            "failures": failures,
-        }
+    for variant, _ in variants:
+        result = variant_results[variant]
+        observed = result["observed"]
+        failures = result["failures"]
         print(f"{variant}\tscenarios={len(observed)}\tfailures={len(failures)}")
+        print(f"{variant}_decision_source\t{result['decision_source']}")
+        if "policy_alias_of" in result:
+            print(f"{variant}_policy_alias_of\t{result['policy_alias_of']}")
         for identifier, messages in failures.items():
             for message in messages:
-                print(f"{variant}_failure\t{identifier}\t{message}")
+                failure_kind = (
+                    f"{variant}_shared_failure"
+                    if result["decision_source"] == "identical-policy-alias"
+                    else f"{variant}_failure"
+                )
+                print(f"{failure_kind}\t{identifier}\t{message}")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(report, indent=2) + "\n")
     print(f"report\t{output_path}")
 
-    candidate_failures = report["variants"]["candidate"]["failures"]
+    candidate_failures = report["variants"]["candidate"]["blocking_failures"]
     return 1 if candidate_failures else 0
 
 

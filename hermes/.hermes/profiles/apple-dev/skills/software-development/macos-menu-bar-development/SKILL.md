@@ -37,6 +37,12 @@ When a layout bug is reported as "the menu opens but shows nothing":
 4. Relaunch the actual executable and visually confirm the popover.
 5. Keep a build/test regression check; UI smoke confirmation may be manual because Swift Testing does not cover SwiftUI UI interaction.
 
+## Popover content cleanup
+
+When removing redundant trailing status content from a popover, remove the separator that only introduced that content and delete presentation helpers that no longer have consumers. Keep the underlying availability, timestamp, refresh, and snapshot state when it remains part of the data contract. Re-scan callers after each deletion so the UI does not retain empty labels, sentinel strings, or dead presentation code.
+
+Verify the resulting edge in every relevant state: live, offline, waiting, persisted, stale, and unavailable. A visual cleanup should reduce the terminal content without changing quota values, reset messaging, accounting disclosures, or popover sizing constraints.
+
 ## Disclosure controls
 
 For expandable secondary content, use `DisclosureGroup` with a real `@Binding`:
