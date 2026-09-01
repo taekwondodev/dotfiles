@@ -13,8 +13,9 @@ Find dependencies and behavior outside the obvious diff before a change ships. P
 1. Identify the changed symbol, contract, data shape, or behavior.
 2. Search all callers, implementers, serializers, migrations, fixtures, docs, and external boundaries.
 3. Classify each affected consumer and likely failure mode.
-4. Run the smallest check that proves the important safety assumption.
-5. Return the findings to `to-spec`, `implement`, or `code-review`.
+4. Load `principle-prove-it-works` when the important safety assumption depends on public runtime behavior. Consume its project-verification selection and evidence contract.
+5. Run the smallest check that proves the important safety assumption.
+6. Return the findings to `to-spec`, `implement`, or `code-review`.
 
 ## Verification
 

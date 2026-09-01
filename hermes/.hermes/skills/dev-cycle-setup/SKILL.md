@@ -12,6 +12,7 @@ Scaffold the per-repo configuration that `/capture-issue`, `/to-spec`, `/to-tick
 - **Issue labels**: the strings used for the canonical category, state, and workflow-marker roles
 - **Domain docs**: where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
 - **Project context**: one portable `AGENTS.md` at the repo root, produced from whatever agent-rule sources already exist
+- **Runtime verification**: an optional project-local `verify-*` skill offered after the base setup is complete
 
 Read `writing-for-agents` before drafting the generated project context, domain, and tracker documents. Its general writing rules govern those documents; this skill adds only setup-specific structure.
 
@@ -27,6 +28,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `CONTEXT.md` and `CONTEXT-MAP.md` at the repo root
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/`: does this skill's prior output already exist?
+- Project-local `verify-*` skills, end-to-end harnesses, control scripts, documented runtime drives, and commands that already prove public behavior. Record what exists without expanding the base setup scope.
 - Monorepo signals: a workspace manifest, or a populated `packages/*`/`crates/*` with its own `src/`. Present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.
 - **Existing agent-rule sources**, searched across Git-tracked files at the repo root and at the conventional per-agent config directories, plus an explicit existence check for each known conventional path even when Git ignores it: `AGENTS.md` and `CLAUDE.md` at the repo root; `CLAUDE.md` in `.claude/`; `GEMINI.md` in `.gemini/`; `.hermes.md` and `HERMES.md` in `.hermes/`; `.cursorrules` and rules under `.cursor/rules/` only when they carry no path-scoped frontmatter; `.github/copilot-instructions.md`. Record each hit's path and read its full content. Treat a hit as repo-global only when its location gives it repository-wide scope. A rule file nested inside a package, subproject, or other subdirectory whose scope is that subtree only is directory-scoped: report it in the findings but exclude it from both the merge and the cleanup candidates, because broadening it to root would change its meaning. Never treat `AGENTS.override.md` as a merge source, and exclude every path-specific instruction file (any rules file whose frontmatter, name, or declared scope applies to selected paths rather than the whole repository). For each repo-global source found, check whether it already carries a `## Dev cycle` section; if it carries domain terms or architectural decisions beyond operational rules and pointers, flag it as a migration candidate for Section D.
 
@@ -130,7 +132,7 @@ Then write the docs files using the seed templates in this skill folder as a sta
 - [triage-labels.md](./triage-labels.md): label mapping
 - [domain.md](./domain.md): domain doc consumer rules + layout
 
-### 5. Done
+### 5. Finish the base setup
 
 After everything is written and verified, offer optional cleanup of the superseded agent-rule sources:
 
@@ -140,4 +142,18 @@ After everything is written and verified, offer optional cleanup of the supersed
 4. Ask one yes/no question covering every file on the proposed-for-deletion list together. Never delete without an explicit yes, and never delete a retained file as part of that confirmation.
 5. On confirmation, delete exactly the proposed-for-deletion originals in one operation. Then remove only directories that became empty as a direct result of that deletion: for each deleted file, check its parent directory and walk upward only while the directory is empty, stopping at the repository root or at the first non-empty directory. Never delete a directory that was not empty after the file deletion, and never delete directories containing retained files. Show the resulting repository status, including any retained files and any directories removed because they became empty.
 
-Then tell the user the setup is complete and which skills will now read from these files. Mention they can edit `docs/agents/*.md` and `AGENTS.md` directly later. Re-running this skill is only necessary if they want to switch issue trackers, redo the context merge, or restart from scratch.
+Tell the user the base setup is complete and which skills will now read from these files. Mention they can edit `docs/agents/*.md` and `AGENTS.md` directly later. Re-running this skill is only necessary if they want to switch issue trackers, redo the context merge, or restart from scratch.
+
+### 6. Offer runtime verification
+
+After the base setup and its optional cleanup are complete, present the runtime-verification finding from Explore:
+
+- An applicable project `verify-*` skill exists: report its path and stop. The project skill index and `principle-prove-it-works` own later discovery and activation.
+- A working harness exists without a project skill: offer to invoke `create-verification-skill` so it can wrap the existing owner.
+- No repeatable public runtime drive exists: offer to invoke `create-verification-skill` so it can build the smallest missing lever.
+
+Ask once. On acceptance, load `create-verification-skill` and consume its generated path, proven capability, evidence, isolation limit, and coverage boundary. On decline, finish without placeholders, persistent reminders, or an `AGENTS.md` pointer.
+
+The generated skill lives under `.hermes/skills/verify-<app>/`. Do not copy its path or procedure into `AGENTS.md`: project skill metadata supplies discovery, and `principle-prove-it-works` owns the global activation rule.
+
+Completion criterion: the base setup remains complete regardless of the answer, and an accepted verification setup ends with one proven project skill rather than duplicated instructions.

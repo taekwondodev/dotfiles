@@ -136,7 +136,10 @@ def evaluate_scenario(
     read: Callable[[str], str | None],
 ) -> list[str]:
     failures = []
+    project_skills = set(scenario.get("project_skills", []))
     for name in [*scenario.get("capabilities", []), *scenario.get("principles", [])]:
+        if name in project_skills:
+            continue
         if read(f"{name}/SKILL.md") is None:
             failures.append(f"missing skill {name}")
     for check in scenario.get("checks", []):

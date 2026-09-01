@@ -1,0 +1,221 @@
+{
+  "version": 1,
+  "expected_scenario_count": 5,
+  "scenarios": [
+    {
+      "id": "standards-review",
+      "role": "Standards reviewer",
+      "policy_files": [
+        "code-review/SKILL.md",
+        "coding-standards/SKILL.md",
+        "architect/SKILL.md",
+        "testing/SKILL.md"
+      ],
+      "task_context": "Review this bounded diff. The API boundary receives an account identifier as an unvalidated string and passes it into the service. A test only checks that the source text contains the new branch. A one-line local variable rename is also present.\n\nEvidence anchors:\n- src/http/account.py:18: `account_id: str = request.path_params[\"account_id\"]`\n- src/http/account.py:19: `service.load(account_id)`\n- tests/test_account.py:31: `assert \"if account_id\" in inspect.getsource(load_account)`\n- src/http/account.py:17: local variable `req` renamed to `request`",
+      "candidates": [
+        {
+          "id": "S1",
+          "claim": "The unvalidated account identifier crossing the HTTP boundary is a hard standards violation.",
+          "classification_options": ["hard_violation", "judgement_call"],
+          "evidence_options": ["src/http/account.py:18", "src/http/account.py:19"]
+        },
+        {
+          "id": "S2",
+          "claim": "The source-inspection assertion is an implementation-coupled test and a hard test-quality violation.",
+          "classification_options": ["hard_violation", "judgement_call"],
+          "evidence_options": ["tests/test_account.py:31"]
+        },
+        {
+          "id": "S3",
+          "claim": "The local variable rename is a release-blocking standards violation.",
+          "classification_options": ["hard_violation"],
+          "evidence_options": ["src/http/account.py:17"]
+        }
+      ],
+      "expected": {
+        "verdict": "findings",
+        "selected": {
+          "S1": {
+            "classification": "hard_violation",
+            "evidence": ["src/http/account.py:18", "src/http/account.py:19"]
+          },
+          "S2": {
+            "classification": "hard_violation",
+            "evidence": ["tests/test_account.py:31"]
+          }
+        },
+        "rejected": ["S3"]
+      }
+    },
+    {
+      "id": "spec-review",
+      "role": "Spec reviewer",
+      "policy_files": ["code-review/SKILL.md"],
+      "task_context": "Review this bounded diff against the supplied ticket.\n\nTicket requirements:\n- SPEC:4: Reject expired sessions with HTTP 401.\n- SPEC:5: Preserve the existing `--json` CLI flag.\n- SPEC:6: Add an audit event after successful refresh.\n\nDiff evidence:\n- src/session.py:44 refreshes a session without checking `expires_at`.\n- src/cli.py:12 removes the `--json` argument.\n- src/session.py:51 emits `session.refreshed` after successful refresh.\n- tests/test_session.py:70 covers the successful audit event only.",
+      "candidates": [
+        {
+          "id": "P1",
+          "claim": "The expiry requirement is missing.",
+          "classification_options": ["missing_requirement", "scope_creep"],
+          "evidence_options": ["SPEC:4", "src/session.py:44"]
+        },
+        {
+          "id": "P2",
+          "claim": "Removing `--json` violates the compatibility requirement.",
+          "classification_options": ["wrong_implementation", "scope_creep"],
+          "evidence_options": ["SPEC:5", "src/cli.py:12"]
+        },
+        {
+          "id": "P3",
+          "claim": "The audit event is unrequested scope creep.",
+          "classification_options": ["missing_requirement", "scope_creep"],
+          "evidence_options": ["SPEC:6", "src/session.py:51"]
+        }
+      ],
+      "expected": {
+        "verdict": "findings",
+        "selected": {
+          "P1": {
+            "classification": "missing_requirement",
+            "evidence": ["SPEC:4", "src/session.py:44"]
+          },
+          "P2": {
+            "classification": "wrong_implementation",
+            "evidence": ["SPEC:5", "src/cli.py:12"]
+          }
+        },
+        "rejected": ["P3"]
+      }
+    },
+    {
+      "id": "adversarial-review",
+      "role": "Adversarial reviewer",
+      "policy_files": [
+        "code-review/SKILL.md",
+        "interrogate/SKILL.md",
+        "blast-radius/SKILL.md"
+      ],
+      "task_context": "Challenge this bounded database change.\n\nEvidence:\n- migrations/042.sql:3 adds `tenant_id UUID NOT NULL` to a table with existing rows and contains no default or backfill.\n- migrations/042_down.sql is absent.\n- tests/test_tenant.py:20 creates only a fresh empty database.\n- src/pure_slug.py:8 is a pure function changed from `lower()` to `casefold()` and has no shared state.\n- The production deployment procedure applies migrations before starting the new application version and requires every migration to have a tested rollback script.",
+      "candidates": [
+        {
+          "id": "A1",
+          "claim": "Existing rows make the NOT NULL migration fail.",
+          "classification_options": ["act_on", "consider", "noted"],
+          "evidence_options": ["migrations/042.sql:3"]
+        },
+        {
+          "id": "A2",
+          "claim": "The missing required rollback script is a release-blocking rollback gap.",
+          "classification_options": ["act_on", "consider", "noted"],
+          "evidence_options": ["migrations/042_down.sql:absent"]
+        },
+        {
+          "id": "A3",
+          "claim": "The slug normalization change creates a concurrent write race.",
+          "classification_options": ["act_on", "consider", "noted"],
+          "evidence_options": ["src/pure_slug.py:8"]
+        }
+      ],
+      "expected": {
+        "verdict": "findings",
+        "selected": {
+          "A1": {
+            "classification": "act_on",
+            "evidence": ["migrations/042.sql:3"]
+          },
+          "A2": {
+            "classification": "act_on",
+            "evidence": ["migrations/042_down.sql:absent"]
+          }
+        },
+        "rejected": ["A3"]
+      }
+    },
+    {
+      "id": "bounded-investigation",
+      "role": "Investigation subagent",
+      "policy_files": ["investigation/SKILL.md"],
+      "task_context": "Determine the cause of an immediately stale cache entry without changing code.\n\nEvidence:\n- logs/cache.log:88 records `stored_at=1720000000 ttl_ms=5000 now=1720000001`.\n- src/cache.py:27 computes `expired = now_seconds > stored_at_seconds + ttl_ms`.\n- src/cache.py:40 has a lock around both cache reads and writes.\n- db/query.sql:2 returns the current row version.\n- A focused probe with ttl_ms=5000 remains cached for more than one hour instead of five seconds.",
+      "candidates": [
+        {
+          "id": "I1",
+          "claim": "TTL milliseconds are added directly to epoch seconds, causing entries to live about one thousand times too long.",
+          "classification_options": ["root_cause", "contributing_factor"],
+          "evidence_options": ["src/cache.py:27", "probe:ttl-5000-over-one-hour"]
+        },
+        {
+          "id": "I2",
+          "claim": "An unlocked read-write race causes the stale value.",
+          "classification_options": ["root_cause", "contributing_factor"],
+          "evidence_options": ["src/cache.py:40"]
+        },
+        {
+          "id": "I3",
+          "claim": "The database query returns an old row version.",
+          "classification_options": ["root_cause", "contributing_factor"],
+          "evidence_options": ["db/query.sql:2"]
+        }
+      ],
+      "expected": {
+        "verdict": "findings",
+        "selected": {
+          "I1": {
+            "classification": "root_cause",
+            "evidence": ["src/cache.py:27", "probe:ttl-5000-over-one-hour"]
+          }
+        },
+        "rejected": ["I2", "I3"]
+      }
+    },
+    {
+      "id": "bounded-blast-radius",
+      "role": "Blast-radius subagent",
+      "policy_files": ["blast-radius/SKILL.md"],
+      "task_context": "Assess the blast radius of changing serialized `UserId` values from a JSON string to `{\"value\": string}`.\n\nInspected consumers:\n- src/http/user.py:30 serializes UserId into public REST responses.\n- src/queue/publish.py:22 serializes UserId into `user.created` events.\n- worker/consume.py:19 deserializes `user.created` using a string schema.\n- docs/openapi.yaml:144 declares UserId as `type: string`.\n- src/admin/theme.py:7 changes dashboard colors. A repository-wide reference scan and import graph prove that this module has no UserId reference, serialization call, response or event boundary, or dependency path from the changed serializer.\n- tests/test_user_id.py:11 covers only in-process equality and does not serialize.",
+      "candidates": [
+        {
+          "id": "B1",
+          "claim": "The public REST response and OpenAPI contract are affected consumers.",
+          "classification_options": ["confirmed_impact", "plausible_risk"],
+          "evidence_options": ["src/http/user.py:30", "docs/openapi.yaml:144"]
+        },
+        {
+          "id": "B2",
+          "claim": "The event producer and string-schema worker are affected consumers.",
+          "classification_options": ["confirmed_impact", "plausible_risk"],
+          "evidence_options": ["src/queue/publish.py:22", "worker/consume.py:19"]
+        },
+        {
+          "id": "B3",
+          "claim": "The proven-independent dashboard color module must change for the UserId serialization migration.",
+          "classification_options": ["confirmed_impact"],
+          "evidence_options": ["src/admin/theme.py:7"]
+        },
+        {
+          "id": "B4",
+          "claim": "The equality-only test leaves serialization compatibility unproven.",
+          "classification_options": ["unproven_check"],
+          "evidence_options": ["tests/test_user_id.py:11"]
+        }
+      ],
+      "expected": {
+        "verdict": "findings",
+        "selected": {
+          "B1": {
+            "classification": "confirmed_impact",
+            "evidence": ["src/http/user.py:30", "docs/openapi.yaml:144"]
+          },
+          "B2": {
+            "classification": "confirmed_impact",
+            "evidence": ["src/queue/publish.py:22", "worker/consume.py:19"]
+          },
+          "B4": {
+            "classification": "unproven_check",
+            "evidence": ["tests/test_user_id.py:11"]
+          }
+        },
+        "rejected": ["B3"]
+      }
+    }
+  ]
+}

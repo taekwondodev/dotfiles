@@ -26,6 +26,24 @@ Code and features:
 Delegation: trust artifacts, not self-reports.
 When verifying delegated work, inspect the actual output artifact (git diff, file contents, runtime behavior), not the delegate's summary. Agents report what they intended, not always what happened.
 
+## Project verification skills
+
+When a claim depends on public runtime behavior, inspect the project skill index for an applicable `verify-*` skill before designing a one-off check. Load it when its named surface covers the behavior and its isolation contract makes the drive safe.
+
+Use the verification skill for:
+
+- a read-only runtime observation on an isolated or non-mutating path;
+- a bug reproduction before the fix and the same drive after it;
+- acceptance of new public behavior;
+- before-and-after equivalence for a runtime-sensitive refactoring;
+- a representative workload when a performance procedure owns the metric and measurement method;
+- the smallest live check selected by blast-radius analysis;
+- independent review of runtime evidence when rerunning the drive is affordable.
+
+Prefer a more direct proof for static artifacts, documentation, compile-time guarantees, internal properties covered by deterministic tests, or behavior outside the skill's mapped surface. A verification skill complements tests; it does not replace the smallest regression proof.
+
+Follow the selected skill's `Doctor`, isolation, drive, evidence, and cleanup contracts. Use the same drive for baseline and result. When the skill cannot cover the claim, record the coverage gap and use another check rather than treating an internal shortcut as public proof.
+
 ## Script the check when you can
 
 The strongest proof is a deterministic script that re-runs the same comparison, not a one-time eyeball. Write the script, run it, and keep its output as an artifact a reviewer can re-run instead of trusting your word. A script comparing the old and new compiled output catches what a glance misses.

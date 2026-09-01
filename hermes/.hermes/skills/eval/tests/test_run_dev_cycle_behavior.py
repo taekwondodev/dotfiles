@@ -100,6 +100,89 @@ class DevCycleBehaviorRunnerTests(unittest.TestCase):
             results["candidate"]["policy_sha256"],
         )
 
+    def test_declared_project_skill_is_a_known_expected_capability(self) -> None:
+        matrix = {
+            "scenarios": [
+                {
+                    "id": "runtime",
+                    "primary_mode": "bug_fix",
+                    "project_skills": ["verify-api"],
+                    "capabilities": ["investigation", "verify-api"],
+                    "principles": ["principle-prove-it-works"],
+                    "checkpoint": "none",
+                }
+            ],
+            "optional_capabilities": {},
+            "optional_principles": {},
+            "forbidden_capabilities": [],
+        }
+        observed = [
+            {
+                "id": "runtime",
+                "primary_mode": "bug_fix",
+                "capabilities": ["investigation", "verify-api"],
+                "principles": ["principle-prove-it-works"],
+                "checkpoint": "none",
+                "questions_before_evidence": [],
+                "testing_methods": [],
+                "architecture_styles": [],
+                "review_axes": [],
+                "verification_steps": [
+                    {"artifact": "public API", "observation": "bug is rejected"}
+                ],
+            }
+        ]
+
+        failures = RUNNER.compare(
+            matrix,
+            observed,
+            known_skills={"investigation", "principle-prove-it-works"},
+        )
+
+        self.assertEqual(failures, {})
+
+    def test_unexpected_project_skill_still_fails_scope_check(self) -> None:
+        matrix = {
+            "scenarios": [
+                {
+                    "id": "runtime",
+                    "primary_mode": "bug_fix",
+                    "project_skills": ["verify-web"],
+                    "capabilities": ["investigation"],
+                    "principles": ["principle-prove-it-works"],
+                    "checkpoint": "none",
+                }
+            ],
+            "optional_capabilities": {},
+            "optional_principles": {},
+            "forbidden_capabilities": [],
+        }
+        observed = [
+            {
+                "id": "runtime",
+                "primary_mode": "bug_fix",
+                "capabilities": ["investigation", "verify-web"],
+                "principles": ["principle-prove-it-works"],
+                "checkpoint": "none",
+                "questions_before_evidence": [],
+                "testing_methods": [],
+                "architecture_styles": [],
+                "review_axes": [],
+                "verification_steps": [
+                    {"artifact": "parser", "observation": "bug is rejected"}
+                ],
+            }
+        ]
+
+        failures = RUNNER.compare(
+            matrix,
+            observed,
+            known_skills={"investigation", "principle-prove-it-works"},
+        )
+
+        self.assertIn("runtime", failures)
+        self.assertIn("unexpected capabilities ['verify-web']", failures["runtime"])
+
 
 if __name__ == "__main__":
     unittest.main()

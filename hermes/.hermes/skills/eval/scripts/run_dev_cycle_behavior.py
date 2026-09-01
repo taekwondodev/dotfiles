@@ -19,6 +19,7 @@ POLICY_FILES = [
     "code-review/SKILL.md",
     "wayfinder/SKILL.md",
     "handoff/SKILL.md",
+    "principle-prove-it-works/SKILL.md",
     "menu/SKILL.md",
 ]
 
@@ -38,7 +39,7 @@ PRIMARY_MODES = [
 # candidate matrix whose SHA-256 differs, so the expected set of scenarios,
 # capabilities, and checkpoints cannot be silently weakened by a future edit.
 # Changing scenarios deliberately requires updating this hash in the same commit.
-EXPECTED_MATRIX_SHA256 = "f64937cb3fbbcafa064319fd8f12722490cda7530933a1a4be55e4093c84ed52"
+EXPECTED_MATRIX_SHA256 = "f4545ce35758071b93888bca0da8654be9cd81d09000d5d21ddfebb8de4dfb0f"
 
 def git(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
@@ -236,7 +237,8 @@ def compare(
         actual_capabilities = set(raw_capabilities)
         if len(raw_capabilities) != len(actual_capabilities):
             scenario_failures.append("capabilities contain duplicates")
-        unknown_capabilities = sorted(actual_capabilities - known_skills)
+        scenario_known_skills = known_skills | set(expected.get("project_skills", []))
+        unknown_capabilities = sorted(actual_capabilities - scenario_known_skills)
         if unknown_capabilities:
             scenario_failures.append(f"unknown capabilities {unknown_capabilities}")
         missing_capabilities = sorted(set(expected["capabilities"]) - actual_capabilities)

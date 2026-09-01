@@ -11,11 +11,12 @@ Improve one measurable result against an explicit target through repeated experi
 ## Procedure
 
 1. Define the realistic workload, metric, direction of improvement, target, and stop predicate.
-2. Build and freeze a sensitive measurement harness.
-3. Record the baseline and green regression gate.
-4. For each iteration, record one hypothesis, implement one change, measure before and after, run the gate, and keep or revert the change.
-5. Push past the first plateau by changing hypothesis category or revisiting the grounded architecture.
-6. Stop only when the predicate is met, cheap hypotheses are exhausted, or the remaining cost is explicitly accepted.
+2. Load `principle-prove-it-works` when a project `verify-*` skill may provide the representative workload. Consume its selection and evidence contract without yielding ownership of the metric or measurement method.
+3. Build and freeze a sensitive measurement harness.
+4. Record the baseline and green regression gate.
+5. For each iteration, record one hypothesis, implement one change, measure before and after, run the gate, and keep or revert the change.
+6. Push past the first plateau by changing hypothesis category or revisiting the grounded architecture.
+7. Stop only when the predicate is met, cheap hypotheses are exhausted, or the remaining cost is explicitly accepted.
 
 ## Verification
 
