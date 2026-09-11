@@ -38,7 +38,8 @@ Use this skill when a native macOS menu-bar utility needs a UI redesign, visual 
 - Use explicit `minHeight`, `idealHeight`, and `maxHeight` for `MenuBarExtra` popovers with scrolling content. Treat numeric bounds as acceptance decisions when the user selected them, not as arbitrary implementation details.
 - Test the layout contract and pure display-model transformations at the highest seam available. Do not unit-test private SwiftUI view structure or repositories.
 - Run focused tests, then the full suite with warnings-as-errors when possible, plus `git diff --check`.
-- Before claiming a visual pass, launch the actual menu-bar executable and inspect the popover if the environment permits. If only compilation/tests were verified, say so explicitly.
+- Before claiming a visual pass, launch the actual native macOS menu-bar executable and have the user inspect the popover on the Mac. Xcode Preview is supplementary layout evidence, not runtime proof. Do not substitute a simulator or automated GUI control for that inspection.
+- If manual inspection has not occurred, state that only compilation and tests were verified.
 
 ## References
 

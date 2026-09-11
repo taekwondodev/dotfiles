@@ -5,39 +5,183 @@
     "test-driven-development"
   ],
   "optional_capabilities": {
-    "read-only-code-question": ["dev-cycle", "investigation"],
-    "factual-bug-investigation": ["dev-cycle"],
-    "local-bug-fix": ["blast-radius", "dev-cycle", "interrogate"],
-    "runtime-bug-with-applicable-verifier": ["blast-radius", "dev-cycle", "interrogate"],
-    "runtime-bug-with-unrelated-verifier": ["blast-radius", "dev-cycle", "interrogate"],
-    "bug-fix-public-api-change": ["blast-radius", "dev-cycle", "interrogate", "investigation", "to-tickets", "writing-for-agents"],
-    "simple-feature": ["blast-radius", "dev-cycle", "interrogate", "writing-for-agents"],
-    "multi-layer-feature": ["arena", "blast-radius", "dev-cycle", "how", "interrogate", "to-tickets", "writing-for-agents"],
-    "behavior-preserving-refactoring": ["dev-cycle", "interrogate"],
-    "one-off-performance-issue": ["blast-radius", "dev-cycle", "grilling", "interrogate"],
-    "iterative-hillclimb": ["blast-radius", "dev-cycle", "grilling", "interrogate", "pause-safely", "session-pickup", "writing-for-agents"],
-    "live-runtime-symptom": ["dev-cycle", "investigation"],
-    "existing-trace-artifact": ["dev-cycle", "investigation"],
-    "novel-architecture-decision": ["how", "why"],
-    "large-uncertain-effort": ["architect", "code-review", "coding-standards", "dev-cycle", "domain-modeling", "grilling", "handoff", "implement", "interrogate", "pause-safely", "session-pickup", "show-me-your-work", "testing", "to-spec", "to-tickets", "writing-for-agents"],
-    "explanation-request": ["dev-cycle", "investigation"],
-    "rationale-request": ["dev-cycle", "investigation"]
+    "read-only-code-question": [
+      "dev-cycle",
+      "investigation"
+    ],
+    "factual-bug-investigation": [
+      "dev-cycle"
+    ],
+    "local-bug-fix": [
+      "blast-radius",
+      "dev-cycle",
+      "interrogate"
+    ],
+    "bug-fix-public-api-change": [
+      "blast-radius",
+      "dev-cycle",
+      "interrogate",
+      "investigation",
+      "to-tickets",
+      "writing-for-agents"
+    ],
+    "simple-feature": [
+      "blast-radius",
+      "dev-cycle",
+      "interrogate",
+      "writing-for-agents"
+    ],
+    "multi-layer-feature": [
+      "arena",
+      "blast-radius",
+      "dev-cycle",
+      "how",
+      "interrogate",
+      "to-tickets",
+      "writing-for-agents"
+    ],
+    "behavior-preserving-refactoring": [
+      "dev-cycle",
+      "interrogate"
+    ],
+    "one-off-performance-issue": [
+      "blast-radius",
+      "dev-cycle",
+      "grilling",
+      "interrogate"
+    ],
+    "iterative-hillclimb": [
+      "blast-radius",
+      "dev-cycle",
+      "grilling",
+      "interrogate",
+      "pause-safely",
+      "session-pickup",
+      "writing-for-agents"
+    ],
+    "live-runtime-symptom": [
+      "dev-cycle",
+      "investigation"
+    ],
+    "existing-trace-artifact": [
+      "dev-cycle",
+      "investigation"
+    ],
+    "novel-architecture-decision": [
+      "how",
+      "why"
+    ],
+    "large-uncertain-effort": [
+      "architect",
+      "code-review",
+      "coding-standards",
+      "dev-cycle",
+      "domain-modeling",
+      "grilling",
+      "handoff",
+      "implement",
+      "interrogate",
+      "pause-safely",
+      "session-pickup",
+      "show-me-your-work",
+      "testing",
+      "to-spec",
+      "to-tickets",
+      "writing-for-agents"
+    ],
+    "explanation-request": [
+      "dev-cycle",
+      "investigation"
+    ],
+    "rationale-request": [
+      "dev-cycle",
+      "investigation"
+    ],
+    "small-error-handling-change": [
+      "blast-radius",
+      "dev-cycle",
+      "interrogate"
+    ],
+    "sync-vs-async-comparison": [
+      "blast-radius",
+      "dev-cycle",
+      "interrogate",
+      "how",
+      "to-spec",
+      "writing-for-agents"
+    ]
   },
   "optional_principles": {
-    "factual-bug-investigation": ["principle-prove-it-works"],
-    "local-bug-fix": ["principle-laziness-protocol", "principle-sequence-verifiable-units"],
-    "runtime-bug-with-applicable-verifier": ["principle-laziness-protocol", "principle-sequence-verifiable-units"],
-    "runtime-bug-with-unrelated-verifier": ["principle-laziness-protocol", "principle-sequence-verifiable-units"],
-    "bug-fix-public-api-change": ["principle-boundary-discipline", "principle-outcome-oriented-execution", "principle-sequence-verifiable-units"],
-    "simple-feature": ["principle-foundational-thinking", "principle-laziness-protocol", "principle-never-block-on-the-human", "principle-sequence-verifiable-units"],
-    "multi-layer-feature": ["principle-exhaust-the-design-space", "principle-experience-first", "principle-never-block-on-the-human", "principle-prove-it-works", "principle-redesign-from-first-principles", "principle-sequence-verifiable-units", "principle-type-system-discipline"],
-    "behavior-preserving-refactoring": ["principle-laziness-protocol", "principle-minimize-reader-load", "principle-outcome-oriented-execution", "principle-sequence-verifiable-units"],
-    "one-off-performance-issue": ["principle-build-the-lever", "principle-fix-root-causes", "principle-sequence-verifiable-units"],
-    "iterative-hillclimb": ["principle-build-the-lever", "principle-guard-the-context-window", "principle-never-block-on-the-human"],
-    "live-runtime-symptom": ["principle-prove-it-works"],
-    "existing-trace-artifact": ["principle-fix-root-causes", "principle-guard-the-context-window", "principle-never-block-on-the-human"],
-    "novel-architecture-decision": ["principle-boundary-discipline", "principle-minimize-reader-load", "principle-prove-it-works", "principle-redesign-from-first-principles", "principle-type-system-discipline"],
-    "large-uncertain-effort": ["principle-prove-it-works"]
+    "factual-bug-investigation": [
+      "principle-prove-it-works"
+    ],
+    "local-bug-fix": [
+      "principle-laziness-protocol",
+      "principle-sequence-verifiable-units"
+    ],
+    "bug-fix-public-api-change": [
+      "principle-boundary-discipline",
+      "principle-outcome-oriented-execution",
+      "principle-sequence-verifiable-units"
+    ],
+    "simple-feature": [
+      "principle-foundational-thinking",
+      "principle-laziness-protocol",
+      "principle-never-block-on-the-human",
+      "principle-sequence-verifiable-units"
+    ],
+    "multi-layer-feature": [
+      "principle-exhaust-the-design-space",
+      "principle-experience-first",
+      "principle-never-block-on-the-human",
+      "principle-prove-it-works",
+      "principle-redesign-from-first-principles",
+      "principle-sequence-verifiable-units",
+      "principle-type-system-discipline"
+    ],
+    "behavior-preserving-refactoring": [
+      "principle-laziness-protocol",
+      "principle-minimize-reader-load",
+      "principle-outcome-oriented-execution",
+      "principle-sequence-verifiable-units"
+    ],
+    "one-off-performance-issue": [
+      "principle-build-the-lever",
+      "principle-fix-root-causes",
+      "principle-sequence-verifiable-units"
+    ],
+    "iterative-hillclimb": [
+      "principle-build-the-lever",
+      "principle-guard-the-context-window",
+      "principle-never-block-on-the-human"
+    ],
+    "live-runtime-symptom": [
+      "principle-prove-it-works"
+    ],
+    "existing-trace-artifact": [
+      "principle-fix-root-causes",
+      "principle-guard-the-context-window",
+      "principle-never-block-on-the-human"
+    ],
+    "novel-architecture-decision": [
+      "principle-boundary-discipline",
+      "principle-minimize-reader-load",
+      "principle-prove-it-works",
+      "principle-redesign-from-first-principles",
+      "principle-type-system-discipline"
+    ],
+    "large-uncertain-effort": [
+      "principle-prove-it-works"
+    ],
+    "small-error-handling-change": [
+      "principle-sequence-verifiable-units"
+    ],
+    "sync-vs-async-comparison": [
+      "principle-laziness-protocol",
+      "principle-never-block-on-the-human",
+      "principle-sequence-verifiable-units",
+      "principle-build-the-lever"
+    ]
   },
   "scenarios": [
     {
@@ -140,47 +284,9 @@
       ]
     },
     {
-      "id": "runtime-bug-with-applicable-verifier",
-      "prompt": "Fix a runtime cache bug without changing its public contract. The project exposes a project-local verify-api skill that safely isolates the service and covers this cache path through launch, doctor, public drive, evidence, and cleanup.",
+      "id": "small-error-handling-change",
+      "prompt": "Change how one recovery error is handled in a personal macOS utility: suspend instead of retrying. No persisted format or external contract changes.",
       "primary_mode": "bug_fix",
-      "project_skills": [
-        "verify-api"
-      ],
-      "capabilities": [
-        "investigation",
-        "implement",
-        "coding-standards",
-        "architect",
-        "testing",
-        "code-review",
-        "verify-api"
-      ],
-      "principles": [
-        "principle-fix-root-causes",
-        "principle-prove-it-works"
-      ],
-      "checkpoint": [
-        "none",
-        "conditional_contract_change"
-      ],
-      "checks": [
-        {
-          "file": "principle-prove-it-works/SKILL.md",
-          "contains": [
-            "inspect the project skill index",
-            "a bug reproduction before the fix and the same drive after it",
-            "Follow the selected skill's `Doctor`, isolation, drive, evidence, and cleanup contracts"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "runtime-bug-with-unrelated-verifier",
-      "prompt": "Fix a runtime parser bug without changing its public contract. The project exposes a project-local verify-web skill, but it covers only the dashboard and has no parser drive.",
-      "primary_mode": "bug_fix",
-      "project_skills": [
-        "verify-web"
-      ],
       "capabilities": [
         "investigation",
         "implement",
@@ -191,18 +297,92 @@
       ],
       "principles": [
         "principle-fix-root-causes",
-        "principle-prove-it-works"
+        "principle-prove-it-works",
+        "principle-laziness-protocol"
       ],
-      "checkpoint": [
-        "none",
-        "conditional_contract_change"
-      ],
+      "checkpoint": "none",
       "checks": [
+        {
+          "file": "dev-cycle/SKILL.md",
+          "contains": [
+            "## Size the work",
+            "Default to **small**",
+            "how an error is handled",
+            "bug fix at small size",
+            "references/sizing.md"
+          ]
+        },
+        {
+          "file": "code-review/SKILL.md",
+          "contains": [
+            "## Scope the review",
+            "skip the sub-agents"
+          ]
+        },
         {
           "file": "principle-prove-it-works/SKILL.md",
           "contains": [
-            "behavior outside the skill's mapped surface",
-            "record the coverage gap and use another check"
+            "## Proportional proof",
+            "cost of being wrong",
+            "complete proof, not a shortcut"
+          ]
+        },
+        {
+          "file": "testing/SKILL.md",
+          "contains": [
+            "## Where expected values come from",
+            "written **before** the implementation",
+            "expected line",
+            "## Tooling and verification scripts"
+          ]
+        },
+        {
+          "file": "implement/SKILL.md",
+          "contains": [
+            "expected line",
+            "run it to see it fail"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sync-vs-async-comparison",
+      "prompt": "Decide whether a media-key event tap should run on the main run loop or a dedicated thread in a personal utility, by comparing both.",
+      "primary_mode": "feature",
+      "capabilities": [
+        "grilling",
+        "prototype",
+        "implement",
+        "coding-standards",
+        "architect",
+        "testing",
+        "code-review"
+      ],
+      "principles": [
+        "principle-exhaust-the-design-space",
+        "principle-prove-it-works"
+      ],
+      "checkpoint": "product_scope",
+      "checks": [
+        {
+          "file": "dev-cycle/references/sizing.md",
+          "contains": [
+            "Comparing two implementations of the same behavior",
+            "let the user try both",
+            "## Signals that do not raise the size"
+          ]
+        },
+        {
+          "file": "principle-prove-it-works/SKILL.md",
+          "contains": [
+            "Two builds and one log line beat a campaign",
+            "apparatus larger than the change"
+          ]
+        },
+        {
+          "file": "principle-build-the-lever/SKILL.md",
+          "contains": [
+            "the lever has become the project"
           ]
         }
       ]
@@ -280,7 +460,9 @@
           "file": "to-spec/SKILL.md",
           "contains": [
             "principle-experience-first",
-            "principle-outcome-oriented-execution"
+            "principle-outcome-oriented-execution",
+            "## Budget",
+            "at most 6 stories"
           ]
         }
       ]
@@ -569,6 +751,7 @@
           "file": "dev-cycle/SKILL.md",
           "contains": [
             "### Large or multi-session work",
+            "for every large-size task",
             "wayfinder",
             "handoff"
           ]
@@ -681,6 +864,13 @@
         },
         {
           "file": "implement/SKILL.md",
+          "not_contains": [
+            "test-driven-development",
+            "TDD"
+          ]
+        },
+        {
+          "file": "testing/SKILL.md",
           "not_contains": [
             "test-driven-development",
             "TDD"

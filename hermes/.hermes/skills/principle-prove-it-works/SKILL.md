@@ -26,26 +26,18 @@ Code and features:
 Delegation: trust artifacts, not self-reports.
 When verifying delegated work, inspect the actual output artifact (git diff, file contents, runtime behavior), not the delegate's summary. Agents report what they intended, not always what happened.
 
-## Project verification skills
+## Proportional proof
 
-When a claim depends on public runtime behavior, inspect the project skill index for an applicable `verify-*` skill before designing a one-off check. Load it when its named surface covers the behavior and its isolation contract makes the drive safe.
+The cost of the proof is bounded by the cost of being wrong. Before building any check, name the failure it would catch and what that failure would cost the user (a restart, a lost keypress, corrupted data, a security hole). Choose the cheapest check that catches it against the real artifact.
 
-Use the verification skill for:
+- A reversible change to a personal utility is proven by the existing suite, a build, and the user exercising the feature once. That is a complete proof, not a shortcut.
+- A comparison between two implementations is proven by running both against the same check and letting the user try both. Two builds and one log line beat a campaign.
+- Persisted data, security boundaries, and contracts consumed outside the repository earn scripted, rerunnable proof.
 
-- a read-only runtime observation on an isolated or non-mutating path;
-- a bug reproduction before the fix and the same drive after it;
-- acceptance of new public behavior;
-- before-and-after equivalence for a runtime-sensitive refactoring;
-- a representative workload when a performance procedure owns the metric and measurement method;
-- the smallest live check selected by blast-radius analysis;
-- independent review of runtime evidence when rerunning the drive is affordable.
-
-Prefer a more direct proof for static artifacts, documentation, compile-time guarantees, internal properties covered by deterministic tests, or behavior outside the skill's mapped surface. A verification skill complements tests; it does not replace the smallest regression proof.
-
-Follow the selected skill's `Doctor`, isolation, drive, evidence, and cleanup contracts. Use the same drive for baseline and result. When the skill cannot cover the claim, record the coverage gap and use another check rather than treating an internal shortcut as public proof.
+A verification apparatus larger than the change it verifies is a separate decision the user makes explicitly, never a default. When you notice the apparatus growing (protocols, receipts, signed manifests, evidence directories), stop and ask whether the risk justifies it.
 
 ## Script the check when you can
 
-The strongest proof is a deterministic script that re-runs the same comparison, not a one-time eyeball. Write the script, run it, and keep its output as an artifact a reviewer can re-run instead of trusting your word. A script comparing the old and new compiled output catches what a glance misses.
+When the failure cost warrants it, the strongest proof is a deterministic script that re-runs the same comparison, not a one-time eyeball. Write the script, run it, and keep its output as an artifact a reviewer can re-run instead of trusting your word. A script comparing the old and new compiled output catches what a glance misses.
 
 Keep the artifact visible for the human. Commit it only for large or complex work where the trail has to be auditable later, like a big port or migration (the **show-me-your-work** skill). Most work just needs it visible, not committed.

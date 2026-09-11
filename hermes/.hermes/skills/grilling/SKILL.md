@@ -7,7 +7,9 @@ description: Resolve decisions through evidence, investigation, and a structured
 
 Interview the user until the decision tree is complete and shared understanding is reached. Before asking a question, determine whether it is a fact, a hypothesis, or a decision. Facts belong to tools and investigation. Decisions belong to the user.
 
-This skill is the understanding phase of `dev-cycle`. It does not publish a spec or implement code. It may investigate, prototype, profile, or run read-only forensics before asking questions.
+This skill resolves open decisions. It does not publish a spec or implement code. It may investigate, prototype, profile, or run read-only forensics before asking questions.
+
+Grill only the decisions the work actually opens. A small change usually has zero or one; state it, get the answer, and stop. The size of the ledger follows the size of the change, never the other way round.
 
 ## Pre-flight
 
@@ -91,7 +93,7 @@ Then stop. Report:
 - unresolved risks;
 - the recommended next phase.
 
-Do not start `to-spec`, `to-tickets`, `implement`, or `code-review` automatically. The user invokes the next phase.
+Do not start any other skill automatically. The user invokes the next step.
 
 ## Verification
 

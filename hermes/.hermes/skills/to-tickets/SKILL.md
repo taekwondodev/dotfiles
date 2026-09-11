@@ -44,7 +44,9 @@ Look for opportunities to prefactor the code to make the implementation easier. 
 
 Break the work into **tracer bullet** tickets.
 
-First decide whether the approved spec describes one independently implementable slice or multiple slices. If it is one slice, report that `to-tickets` would add no value and stop, handing off to the user-invoked `implement` phase. Do not publish a redundant ticket.
+First decide whether the approved spec describes one independently implementable slice or multiple slices. If it is one slice, report that `to-tickets` would add no value and stop. Do not publish a redundant ticket.
+
+Budget: at most 5 tickets per spec. A spec that needs more is describing more than one unit of work; say so and propose the split before publishing anything. A ticket carries at most 5 acceptance criteria, each an observable behavior; a sixth criterion means the ticket delivers two behaviors and is two tickets.
 
 <vertical-slice-rules>
 
@@ -80,7 +82,7 @@ Iterate until the user approves the breakdown.
 
 Publish the approved tickets in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the tracker's native blocking / sub-issue relationship. See `docs/agents/issue-tracker.md`'s "Tracer-bullet ticket operations" section. Apply the configured `ready-for-agent` state label unless instructed otherwise: the tickets are agent-grabbable by construction.
 
-Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom. When a closed ticket opens up more than one frontier ticket at once, `/implement` will ask whether to dispatch a sub-agent for another one. It doesn't happen silently, and there's nothing to set up here for it.
+Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
 
 Do NOT close or modify any parent issue.
 

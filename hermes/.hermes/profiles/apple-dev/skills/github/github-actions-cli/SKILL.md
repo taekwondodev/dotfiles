@@ -40,6 +40,32 @@ to "push and wait for CI" or to add a secrets-scan gate.
 This loop recovers on its own for a fix commit, but only if the gate is designed for it (see
 below).
 
+## Rewriting already-pushed history (squash) on a fast-forward-only main
+
+When the repo gates every main push through a wrapper that only does a plain `git push`
+(fast-forward, e.g. a `push-and-watch.sh` that runs `git push origin main` and then watches
+the CI run), a squash/rebase rewrite of already-pushed commits will be REJECTED: after the
+rewrite, local main shows `ahead 1, behind N` because its ancestry no longer contains the
+rewritten commits.
+
+- **Non-interactive squash:** `git reset --soft <base-commit>` then `git commit -m "..."`
+  (avoids `git rebase -i`). Safe when the working tree is clean; verify with `git status -sb`
+  before committing to be sure there is nothing uncommitted.
+- **Landing the rewrite requires force-push**, which the wrapper's plain `git push` cannot
+  do: `git push --force-with-lease origin main`. The lease verifies the remote tip is still
+  the commit you rebased from, so it will not clobber a coworker's push.
+- A force-push **bypasses the "push only via the wrapper" gate** (and the secret-scan
+  orchestration it wires up), even though the scan still runs on the pushed branch. Get
+  explicit user confirmation before force-pushing to main, then watch the scan run on the new
+  HEAD with the same headSha-matching loop.
+
+### Close the associated issue only after green
+
+Follow the AGENTS-style rule (close implementation tickets only after the commit lands and
+code review / CI passes): push → resolve the run by `headSha` → `gh run watch <id>
+--exit-status` → **only then** `gh issue close N --comment "Risolto... commit <sha>. CI
+verde."`. Verify by reading back `gh issue view N --json state` (state must be `CLOSED`).
+
 ## Recoverable CI gate design
 
 - A blocking gate on the **full git history** is unrecoverable in a push loop: a commit

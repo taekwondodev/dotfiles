@@ -39,7 +39,7 @@ PRIMARY_MODES = [
 # candidate matrix whose SHA-256 differs, so the expected set of scenarios,
 # capabilities, and checkpoints cannot be silently weakened by a future edit.
 # Changing scenarios deliberately requires updating this hash in the same commit.
-EXPECTED_MATRIX_SHA256 = "f4545ce35758071b93888bca0da8654be9cd81d09000d5d21ddfebb8de4dfb0f"
+EXPECTED_MATRIX_SHA256 = "f7ec9f30870581c19a06a5116e989dc9217d113fa6f8a5ddc7fc3df49ae34580"
 
 def git(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(

@@ -39,6 +39,17 @@ Use this class-level skill for native macOS menu bar companions that observe Her
 - Drain or discard stderr safely, enforce bounded subprocess timeouts, and terminate hung children.
 - Keep mutable reset baselines in an actor/service; never put reset rules in a refresh button handler.
 
+## Runtime boundary: observe vs control (Hermes)
+
+A companion observes Hermes runtime data; it cannot drive live sessions. This is not just policy — it is enforced by Hermes internals (verified against the local Hermes source):
+
+- **Enumerate active sessions: yes.** Read `$HERMES_HOME/runtime/active_sessions.json` (or `hermes_cli.active_sessions.active_session_registry_snapshot()`). Entries carry `session_id`, `surface` (`cli`/`desktop`/`gateway`), `pid`, liveness — enough to know WHAT is running. The lease does NOT expose model/provider, so "sessions running on model X" is not derivable.
+- **Inject a message / steer / pause into a live session: no.** `/steer` drains an in-memory same-process queue (`agent._drain_pending_steer()` in `agent_runtime_helpers.py`); there is no cross-process channel. The active-session registry enforces per-session single-writer exclusivity (`SESSION_NOT_OWNED` refusal); an external writer to a session with a live owner is rejected by design. Injecting a synthetic user message mid-loop is an explicit Hermes anti-invariant.
+- **`hermes send`** delivers only to configured gateway platforms (Telegram/Discord/Slack/…), never to an agent session.
+- **`hermes pause`** is a global emergency stop: it halts NEW cron/kanban/gateway turns only, never in-flight work, never a live desktop/CLI session, and produces no handoff.
+
+So any "auto-pause the running agents" idea driven from a companion is not implementable; the natural home is Hermes-side (an agent/cron that observes the quota and steers its own `delegate_task` children). See `references/hermes-runtime-control-surface.md` for the detailed verification matrix.
+
 ## Reset notification semantics
 
 A manual refresh keeps its normal data-acquisition behavior and is not itself a notification trigger. A manual refresh may notify only when it observes this exact live transition:
@@ -68,6 +79,15 @@ Aggregate simultaneous verified window resets into one notification containing p
 - `swift run` is not an app bundle. Guard `UserNotifications` and app identity calls when `Bundle.main.bundleURL.pathExtension != "app"`.
 - For SwiftPM executable resources in a packaged `.app`, place the resource bundle under `Contents/Resources` and resolve it with `Bundle.main.url(forResource:withExtension:)`; do not rely on the generated `.build` absolute fallback.
 - Use an explicit app bundle with Info.plist, `LSUIElement`, stable bundle identifier, ad-hoc signing for personal use, and a real `.app` launch smoke test.
+
+## Running-artifact verification before assuming a UI regression
+
+When the user reports behavior that contradicts the current source (e.g. "the scroll bar is visible again" while `ScrollView` still has `.scrollIndicators(.hidden)`), do NOT assume a code regression and jump into the source. First prove which binary is actually running:
+
+- `ps aux | grep -i <app>` → exec path and start time. Confirm the running process uses `~/Applications/<App>.app/Contents/MacOS/<App>` (or the real install location), not a stale `.build/` copy.
+- Compare timestamps: `.build/<config>/<binary>`, installed `.app/Contents/MacOS/<binary>`, and `git log -1 --format=%cI` of HEAD. A build date equal to the last commit date means the installed artifact carries the current source.
+- SingleInstanceGuard gives a classic false "regression": if an old process is still alive, launching the updated `.app` just `exit(EXIT_SUCCESS)`es, so the user keeps seeing the OLD binary while the source on disk is already fixed. Check for a live process that predates the latest build.
+- On this machine macOS overlay scroll scrollers render persistently (they do not auto-hide for the mouse); ADR-0006 records that `.scrollIndicators(.hidden)` is the fix and that `contentMargins(_:for: .scrollContent)` never separates the bar from content. If a scroll bar reappears with `.scrollIndicators(.hidden)` present in the running binary, distinguish idle-vs-expanded-state overflow (expanded DisclosureGroup pushes content past `maxHeight` 700) rather than re-litigating the modifier chain.
 
 ## Hermes update resilience
 

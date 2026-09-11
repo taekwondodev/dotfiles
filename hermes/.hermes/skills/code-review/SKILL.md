@@ -15,15 +15,26 @@ The Adversarial axis loads `interrogate` and uses `blast-radius` evidence to cha
 
 All available axes run as **parallel sub-agents** so they do not pollute each other's context, then this skill reports them side by side.
 
-`/implement` invokes this automatically as its close-out step, before committing. Reach for it directly whenever you want to review a branch or PR against a fixed point.
+`implement` invokes this as its close-out step, before committing. Reach for it directly whenever you want to review a branch, a ticket, or a PR against a fixed point.
 
 The issue tracker should have been provided to you. Tell the user to run `/dev-cycle-setup` if `docs/agents/issue-tracker.md` is missing; it's user-invoked, so you can't call it yourself.
+
+## Scope the review
+
+A review costs three sub-agent runs and a fix round. Spend it once per unit of work, on the code that ships.
+
+- **Small change** (one behavior, few files, reversible): skip the sub-agents. Read the diff yourself against `/coding-standards`, the spec or issue, and the Adversarial questions below, and report findings inline in the same three groups. Escalate to the full review only when you find a hard violation you cannot fix locally.
+- **Medium or large change**: run the full three-axis review once, after the last ticket of the unit lands and the suite is green. Do not review each ticket separately when the tickets are one dependent chain; review the chain.
+- **Re-review after fixes**: run only the axis that produced each fixed finding, with the brief narrowed to "confirm the listed findings are resolved and report any regression the fixes introduced". A re-review does not reopen the whole diff.
+- **Review target**: product code, its tests, and contracts. Verification scripts, evidence files, and disposable prototypes are reviewed only when the user asks; otherwise note their presence and size in the summary.
+
+Two full review rounds on the same unit without convergence is a signal to stop and show the user the remaining findings rather than starting a third.
 
 ## Process
 
 ### 1. Pin the fixed point
 
-Whatever the user said is the fixed point: a commit SHA, branch name, tag, `main`, `HEAD~5`, etc. If they didn't specify one, ask for it. Inside `/implement`, the fixed point is always the ticket's starting commit.
+Whatever the user said is the fixed point: a commit SHA, branch name, tag, `main`, `HEAD~5`, etc. If they didn't specify one, ask for it. When the review closes a ticket, the fixed point is the ticket's starting commit.
 
 Resolve the comparison base once with `git merge-base <fixed-point> HEAD`, then capture the review command as `git diff <merge-base>`. Comparing the working tree to the merge-base includes committed, staged, and unstaged changes; `git diff <fixed-point>...HEAD` would silently omit uncommitted implementation work. Also record `git status --short` and the commit list via `git log <fixed-point>..HEAD --oneline`.
 
@@ -44,7 +55,7 @@ The Standards axis is anchored on this repo's own rules, never a generic baselin
 
 - **`/coding-standards`**: TyDD, dependency management, secure defaults, visibility, secrets hygiene, version/API lookup discipline.
 - **`/architect`**: layering (Handler/Service/Repository/Middleware), bounded contexts, shared kernel, cross-boundary error handling, observability, threat modeling.
-- **`/testing`**: scope rule and the Test quality anti-patterns (implementation-coupled, tautological, self-graded). `/implement` writes tests itself, so this axis is their only independent judge.
+- **`/testing`**: scope rule and the Test quality anti-patterns (implementation-coupled, tautological, self-graded). The implementer writes tests itself, so this axis is their only independent judge.
 
 Read all three skills' full bodies before spawning the sub-agent. The sub-agent gets them pasted in, not a pointer, since it has no other access.
 
@@ -101,7 +112,7 @@ Present the reports under `## Standards`, `## Spec`, and `## Adversarial` headin
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Do not pick a single winner across axes.
 
-Inside `/implement`: a hard Standards violation, a missing Spec requirement, or an evidenced Adversarial finding categorized `act on` blocks the commit. Fix it and rerun every affected axis rather than committing around it. Judgement-call smells, scope-creep notes, and `consider` findings do not block; surface them and let the user decide.
+A hard Standards violation, a missing Spec requirement, or an evidenced Adversarial finding categorized `act on` blocks the commit. Fix it and rerun every affected axis, narrowed as described in Scope the review, rather than committing around it. Judgement-call smells, scope-creep notes, and `consider` findings do not block; surface them and let the user decide.
 
 ## Why separate axes
 

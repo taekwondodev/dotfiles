@@ -49,6 +49,11 @@ The correct division of responsibility:
   proceeds straight to install + relaunch. This shapes the whole install/relaunch loop
   in a headless context, not just `build`.
 
+- **Freeze executable hashes only after final bundle signing.** `codesign` can mutate the Mach-O, so a digest captured from the raw SwiftPM executable will not bind the installed executable and can also make an emergency stop reject the launched app. For artifact-bound campaigns, retain the fully assembled signed bundle and install a byte-for-byte copy without re-signing; follow `references/transactional-app-install-rollback.md`.
+- **Finish runner, protocol, candidate-ref, and independent review gates before freezing an immutable campaign.** Any later change to one of those bindings requires a fresh campaign directory; never patch retained evidence in place.
+- **Parse designated requirements across current and legacy `codesign -d -r-` framing.** Inspect both stdout and stderr, accept `designated => …` and `# designated => …`, and require exactly one non-empty requirement; macOS versions differ in stream and comment-prefix framing even for a valid signature.
+- **Distinguish rollback ownership from identity-isolated cleanup.** A transactional replacement may stop its corrupt candidate by the exact owned install path after validating the backup; a side-by-side campaign must instead revalidate the candidate identity before signaling and refuse on mismatch so it cannot affect the production app. Follow `references/transactional-app-install-rollback.md` for both threat models.
+
 ## Verification before trusting a destructive target
 
 Before shipping a `clean` target, verify empirically it does NOT touch the installed

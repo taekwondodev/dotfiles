@@ -51,6 +51,18 @@ Every delegated task should state:
 
 For parallel work, make subtasks independent. Do not delegate a task that requires another child’s unverified output unless the dependency is passed explicitly after verification.
 
+## Research result intake
+
+When a delegated research batch completes, ingest its artifacts before starting overlapping research:
+
+1. Read the complete saved summary or linked artifact when the inline result is truncated.
+2. Separate verified observations, hypotheses, and unresolved claims.
+3. Identify only the claims that change the current decision.
+4. Verify those claims against repository evidence, primary documentation, or a reproducible probe.
+5. Synthesize the verified result before launching any supplementary search.
+
+A live transcript and a child’s completion report show progress, not truth. Do not resolve a ticket or make an architectural choice from either one alone. When the user asks whether delegated findings are being used, answer directly and distinguish the child’s evidence from the lead’s independent verification.
+
 ## Persistent bot teams and group rooms
 
 Use persistent Hermes profiles when a specialist will be reused across sessions or needs its own memory, skills, model, or routine. Use ephemeral delegation for bounded subtasks that do not need durable identity.

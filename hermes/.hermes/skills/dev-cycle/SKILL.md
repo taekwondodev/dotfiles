@@ -32,6 +32,21 @@ Keep the current task, primary mode, active capabilities, decisions, evidence, a
 - `architect` itself has no automatic checkpoint. It proceeds unless the user explicitly asks it to stop.
 - Do not declare success from a self-report, compilation alone, or a proxy observation.
 - Do not add a test methodology that the task does not require.
+- Size the work before choosing a route. Ceremony follows size, never the other way round.
+
+## Size the work
+
+Estimate the change before classifying it. Default to **small** and move up only on evidence. Ask the user only when two sizes are genuinely plausible and the answer changes the route. When the size is not obvious, read [`references/sizing.md`](references/sizing.md) for worked examples.
+
+| Size | Signals | Route | Proof and review |
+|---|---|---|---|
+| **Small** | one behavior, few files, reversible with `git revert`, no persisted format or shared contract changes | reproduce, write the expected line and get it confirmed, add the regression test, change the code, run the existing suite and build | the smallest regression proof plus a manual check by the user; one inline review |
+| **Medium** | one feature or fix spanning a few modules, or one contract inside the repository | `grilling` on the open decisions only, then `to-spec` into the existing issue, then implement | targeted tests, real-artifact check, `code-review` once |
+| **Large** | new bounded context, schema or persisted format, security boundary, multi-session work | `wayfinder`, which owns the whole route from map to spec | as the spec's Testing Decisions require |
+
+Entering **Large** requires the user's explicit agreement.
+
+Proof is proportional to the cost of being wrong. `principle-prove-it-works` owns the rule; the router applies it when sizing: an apparatus larger than the change it verifies needs the user's explicit request.
 
 ## Principles index
 
@@ -95,23 +110,25 @@ dev-cycle why does X continue to work?
 
 ### Feature
 
-Use for new or changed behavior. Route through `grilling`, then the governed feature path:
+Use for new or changed behavior. A small feature follows the small route from the sizing table. A medium feature routes through `grilling`, then the governed feature path:
 
 ```text
 grilling
 → product and scope decisions
 → checkpoint
 → to-spec
-→ to-tickets when needed
+→ to-tickets when the spec has more than one slice
 → implement
 → code-review
 ```
+
+A large feature starts in `wayfinder`, which reaches the same path through its map.
 
 Activate `architect` when the feature crosses a boundary or changes a shape or contract.
 
 ### Bug fix
 
-Use for a reported defect. Reproduce first, trace the root cause, add the smallest regression proof available, then use `implement` for the fix and `code-review` for close-out. Promote to the governed feature path if the fix changes a public contract, schema, security boundary, scope, or architecture.
+Use for a reported defect. Reproduce first, trace the root cause, add the smallest regression proof available, fix it, and review per the sizing table. A change to how an error is handled, recovered from, or surfaced is a bug fix at small size unless it changes a persisted format or a contract other code depends on. Promote to the governed feature path only when the fix changes a public contract, schema, security boundary, or scope.
 
 ### Refactoring
 
@@ -131,7 +148,7 @@ Use `architect` when data shape, ownership, dependency direction, public surface
 
 ### Large or multi-session work
 
-Use `wayfinder` when the route is too large or uncertain for one session. Use `handoff` and `show-me-your-work` when the task must survive a session boundary or unattended period.
+Use `wayfinder` for every large-size task once the user has agreed to the size. It owns the map, the research and grilling tickets, and the hand-off into `to-spec`. Use `handoff` and `show-me-your-work` when the task must survive a session boundary or unattended period.
 
 ### Review and delivery
 
@@ -141,18 +158,15 @@ Use `code-review` for fixed-point review. Use the repository's GitHub and `commi
 
 Promote a local capability to the governed dev-cycle path when the work changes:
 
-- product behavior;
+- product behavior the user has not already asked for;
 - scope;
-- a public API or trait;
+- a public API or trait consumed outside the repository;
 - a schema or persisted format;
 - a bounded context;
-- ownership or dependency direction;
 - a security or trust boundary;
-- a major compatibility decision;
-- a durable architectural decision;
-- a contract future agents must know.
+- a major compatibility decision.
 
-Do not promote solely because the task uses a prototype, benchmark, investigation, or local reversible edit.
+Do not promote solely because the task uses a prototype, benchmark, investigation, or local reversible edit, and do not promote because the change is internally architectural: ownership, dependency direction, and thread or actor placement inside one application are recorded in an ADR when durable, not routed through a spec.
 
 Apply `principle-never-block-on-the-human` when promotion reaches a user-owned decision. Continue gathering reversible evidence, but stop before choosing product, scope, architecture, contract, or security direction for the user.
 

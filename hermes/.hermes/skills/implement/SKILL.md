@@ -1,18 +1,20 @@
 ---
 name: implement
-description: "Implement a piece of work based on a spec or set of tickets, writing tests against the spec's Testing Decisions and closing out with /code-review before committing."
+description: "Implement a piece of work based on a spec, ticket, or agreed small change, writing tests against its Testing Decisions or acceptance criteria."
 disable-model-invocation: true
 ---
 
 Implement the work described by the user in the spec or ticket.
 
-**This step is user-invoked**: do not start it on your own. The user triggers it explicitly, normally by approving a spec or tickets after grilling, to-spec, or to-tickets.
+**This step is user-invoked**: do not start it on your own. The user triggers it explicitly.
 
-Read the ticket's **Layer(s)** line first (`/to-tickets` sets it). It tells you which of `/architect`'s Handler/Service/Repository/Middleware layers this touches before you open a single file.
+The input is a spec, a ticket, or, for a small change, the user's own description of the fix plus the reproduction. Read the ticket's **Layer(s)** line first when there is one. It tells you which of `/architect`'s Handler/Service/Repository/Middleware layers this touches before you open a single file.
 
 **Read the standards FIRST, before opening any file**: load the `coding-standards`, `architect`, and `testing` skills and keep their bodies in context for the whole implementation. Their titles in the index are not enough: the rules live in the bodies (TyDD, dependency direction, secure defaults, layer placement, test seams), and skills load lazily, so you must read them explicitly or they never enter context. Apply them while you write, not just at review time: place new code in the layer the ticket names, wire it through the port the layer already exposes, and apply `/coding-standards`' TyDD/dependency/secure-defaults rules as you write each piece. Do not defer this to `/code-review` to catch after the fact (the review's Standards axis loads the same skills and judges against them, so anything you skip here surfaces there as rework).
 
 Write tests alongside the implementation, at the seams `/testing` allows. Take expected values from the spec/ticket's Testing Decisions or acceptance criteria. Never invent them from the same reasoning that produced the implementation; that's the self-graded anti-pattern in `/testing`'s Test quality section. Layers outside `/testing`'s scope get integration coverage instead. Never bend a unit test to reach them.
+
+For a small change with no spec or ticket, the order is fixed: write the **expected line** (observed behavior from the reproduction, required behavior after the change) and get the user's confirmation; write the regression test against that line and run it to see it fail; then change the code. The expected line is the artifact the test and the review judge against. When the user confirms the line in chat, record it in the issue or commit message so it outlives the conversation.
 
 ## Modes, capabilities, and principles
 
@@ -32,6 +34,8 @@ Run typechecking regularly, single test files regularly, and the full test suite
 
 When closing a ticket unblocks new frontier tickets (per `docs/agents/issue-tracker.md`), **ask** the user whether to dispatch a sub-agent to implement one of them in parallel. Never spawn it without asking first.
 
-Once done, read the `code-review` skill and review the work against this ticket, with `git rev-parse` of the ticket's starting commit as the fixed point. Its Standards axis independently judges the tests you wrote, catching what a self-graded pass would miss. A hard `coding-standards`/`architect` violation or a missing Spec requirement blocks the commit. Fix it and re-review; do not commit around it.
+Completion criterion: the suite and build are green on the real artifact, the changed behavior has been exercised once end to end, and every changed file is accounted for. Report what was exercised and what was not.
+
+Then read the `code-review` skill and review the work against its spec, ticket, or agreed change, with `git rev-parse` of the starting commit as the fixed point. `code-review` decides how much review the change earns (inline for a small change, full axes for larger ones); its Standards axis independently judges the tests you wrote, catching what a self-graded pass would miss. A blocking finding stops the commit. Fix it and re-review the affected axis; do not commit around it.
 
 Commit your work to the current branch, then close the ticket per `docs/agents/issue-tracker.md`'s tracer-bullet operations.
