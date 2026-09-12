@@ -63,9 +63,7 @@ The bound is a deadlock escape hatch, not a teardown SLA or performance claim. K
 ## Verification checklist
 
 - Search for `@MainActor`, `await`, semaphore waits, joins, and framework calls in the callback path.
-- Verify the event mask/filter and queue capacity against the frozen common contract.
+- Verify the event mask/filter and queue capacity against the frozen contract.
 - Exercise Domain/Service seam tests for overflow, stale generations, release pairing, sleep/wake, and Service serialization.
-- Run the project-defined full test/check/offline gates plus a strict-concurrency Release build.
-- Read the actual offline report and verify its executable hash/path matches the Release harness that ran.
-- If verification is non-touching, compare installed-bundle metadata and file hashes before and after; do not install, launch, request permission, or synthesize input.
-- List the native obligations that remain unproven by offline evidence: callback scheduling/duration, tap creation/disable/teardown effects, Accessibility behavior, OSD draw/scanout, wakeups, and physical hardware effects.
+- Run the project's test, check, and strict-concurrency Release build commands, then `make build` and the user's manual sequence on the installed app (keys, bursts, revoke grant while running, regrant, reopen, quit).
+- List what the seam tests leave unproven and what the manual run covered: callback scheduling/duration, tap creation/disable/teardown effects, Accessibility behavior, OSD draw, wakeups, physical hardware effects.

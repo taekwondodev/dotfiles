@@ -60,7 +60,11 @@ Exercise each relevant state independently:
 
 For each state, record permission APIs, capability creation, event consumption, relaunch requirement, and revocation detection. A successful `tccutil reset` message is not evidence of the resulting state. Verify launch/reset cases from a fresh LaunchServices-owned process; preserve the existing process for live grant, revocation, and regrant cases.
 
-Ad-hoc builds can change code identity between rebuilds. If a visible TCC toggle and the process result disagree, compare the exact installed build identity and test removing and re-adding that build rather than assuming the toggle applies.
+Ad-hoc builds change code identity on every rebuild, so TCC treats each build as a new app: the visible toggle stays on while the process reads untrusted. Sign with a stable identity (Apple Development or a fixed self-signed code-signing certificate) so grants survive rebuilds; until then, after every rebuild have the user toggle the grant before testing.
+
+A revocation while the tap was active leaves the surviving process permanently unable to create a tap: `AXIsProcessTrusted` returns true again after regrant, but every `CGEvent.tapCreate` returns nil. Recovery is a new process, never a retry in the same one.
+
+An accessory app with no windows never receives the Finder or Spotlight reopen callback (`applicationShouldHandleReopen`), so "grant, then reopen the app" is not a valid recovery path for the user; the app must poll for the grant itself while it waits for permission, and kill-and-relaunch is the only reopen the platform guarantees. The distributed notification `com.apple.accessibility.api` does not fire for the revocation of the running process, so it cannot replace polling.
 
 ## `SMAppService` lifecycle
 
@@ -75,6 +79,18 @@ Record explicit status transitions around each action:
 
 Registration success alone does not prove next-login launch. `sfltool dumpbtm` can show a disabled historical record after unregister, while the app API reports `notRegistered` or `notFound`; record both rather than treating record presence as enabled state.
 
+For a first-run, at-most-once registration contract, use a dedicated persisted attempt marker rather than `SMAppService.status`. Persist the marker before calling `register()`, because a status-driven launch path treats a user-disabled item as unregistered and silently enables it again. Keep registration failure independent from the app's primary lifecycle when the feature is explicitly best effort.
+
+Verify the no-reenable contract against the signed installed app:
+
+1. start with the attempt marker absent and the background-task record absent or disabled;
+2. launch through LaunchServices, then read the marker and use `sfltool dumpbtm` to confirm the real disposition;
+3. unregister through an app-owned `SMAppService.mainApp.unregister()` probe, because `sfltool` inspects background-task state but does not perform this app-scoped transition;
+4. relaunch the production build with the marker still present and confirm the disposition remains disabled;
+5. remove every temporary probe path, rebuild the production artifact, and restore the product's agreed final registration state before reporting completion.
+
+Keep full `sfltool dumpbtm` output local because it inventories unrelated installed software; publish only the target app's redacted record.
+
 ## Cross-login continuity
 
 Before logout or restart:
@@ -88,14 +104,14 @@ Do not rely on a worktree under `/tmp` surviving logout. If it is deliberately d
 
 ## Restoration proof
 
-Restore the initial state as its own verified unit:
+Restore the agreed state as its own verified unit. A diagnostic probe returns to the initial state; implementation of an approved system-state change returns to the specified final state instead.
 
-- unregister the login item and confirm disabled or absent state;
-- stop all exact app processes;
-- reset only the app's relevant permissions;
-- use a fresh LaunchServices-owned diagnostic process to verify the denied state;
-- restore the saved bundle and compare its executable hash and bundle contents;
-- verify the restored bundle's code signature and zero running processes;
+- set the login item to the required final disposition and verify it as enabled, disabled, or absent;
+- stop or launch the exact app process according to the required final state;
+- reset only the app's relevant permissions when the probe changed them;
+- use a fresh LaunchServices-owned diagnostic process when the final permission state must be verified;
+- restore the production bundle and compare its executable hash and bundle contents;
+- verify the restored bundle's code signature and exact process count;
 - remove stale worktree metadata only after its diagnostic diff is no longer needed.
 
 Keep raw evidence local unless the task requires publication. Publish only redacted observations and contract decisions.

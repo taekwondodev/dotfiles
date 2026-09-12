@@ -161,7 +161,7 @@ skills:
     - xlsx
     - xurl
     - youtube-content
-_config_version: 42
+_config_version: 43
 browser:
   use_real_profile: true
 

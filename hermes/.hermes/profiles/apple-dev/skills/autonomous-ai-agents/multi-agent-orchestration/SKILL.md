@@ -63,6 +63,12 @@ When a delegated research batch completes, ingest its artifacts before starting 
 
 A live transcript and a child’s completion report show progress, not truth. Do not resolve a ticket or make an architectural choice from either one alone. When the user asks whether delegated findings are being used, answer directly and distinguish the child’s evidence from the lead’s independent verification.
 
+## Ceremony follows size
+
+Delegate a review, a measurement, or a parallel workstream only when the change is large enough to pay for it. For a small reversible change the lead reads the diff itself; three parallel reviewers on a thirty-line fix produce findings that cost more to triage than the fix. When a delegated verification apparatus (scripts, protocols, evidence directories) grows past the size of the change it verifies, stop and ask the user whether they want that project, because the apparatus has become the work.
+
+For a delegated test refactor, verify the arithmetic before committing: tests before, minus tests whose subject was deliberately deleted, must equal tests after, and every original test name must still be present. A child that drops a test to make the build pass reports success.
+
 ## Persistent bot teams and group rooms
 
 Use persistent Hermes profiles when a specialist will be reused across sessions or needs its own memory, skills, model, or routine. Use ephemeral delegation for bounded subtasks that do not need durable identity.

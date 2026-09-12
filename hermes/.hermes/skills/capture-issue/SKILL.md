@@ -23,12 +23,12 @@ The issue tracker and issue-label vocabulary must be configured before this skil
 
 ## Resuming from a fresh session
 
-The created issue URL or number is the handoff between sessions. The issue body and labels must be enough to find and classify the parked idea without this conversation.
+When the user is ready to work on the captured issue, ask them to invoke
+`/dev-cycle <issue URL or number>`.
 
-Later, from a fresh session with no capture context:
+On resumption, read the issue's full body, comments, and labels through the
+configured tracker. Use them as input to `dev-cycle`'s sizing and routing
+procedure, then follow the selected route and its human checkpoints.
 
-1. Invoke `/grilling <issue URL or number>`. `grilling` reads the issue's full body, comments, and labels through the configured tracker before asking questions.
-2. After the grilling hand-off, invoke `/to-spec <same issue URL or number>`. `to-spec` rereads the issue and comments, writes the complete spec to that same issue, and replaces the configured `needs-grilling` state with `ready-for-agent`.
-3. Invoke `/to-tickets <same issue URL or number>` only if the complete spec needs multiple implementation slices. Otherwise invoke `/implement <same issue URL or number>` directly.
-
-The capture session itself stops after publishing. It does not try to grill, create a spec, or preserve hidden state in the original conversation.
+The configured `needs-grilling` label marks a parked issue awaiting
+assessment. The selected route determines whether grilling or a spec is needed.
