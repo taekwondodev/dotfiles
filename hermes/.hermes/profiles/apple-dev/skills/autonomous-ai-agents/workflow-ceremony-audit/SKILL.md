@@ -34,6 +34,17 @@ Don't use for a single skill's prose fix with no sizing or routing question.
 8. **Update the eval contract** (see Eval contract) and rerun the gates before reporting.
 9. **Report** as a change-per-skill list plus the measured numbers that motivated each, then offer the repo cleanup as a separate step. When the user accepts, follow [`references/apparatus-retirement.md`](references/apparatus-retirement.md).
 
+## Upstream Workflow Audits
+
+When evaluating upstream changes for an adapted library, compare behavior before proposing a port. An analysis request stays read-only until the user authorizes implementation.
+
+1. Resolve the supplied commits and their parents with `gh api repos/OWNER/REPO/commits/REF`. Save large JSON responses outside the repository and extract file lists and individual patches in bounded batches; printing every patch at once hides changes in truncated output.
+2. Classify each change as behavioral, prose-only, or release bookkeeping. Compare changed sentences with the actual local skill and its callers, not merely the shared skill name. Count overlap programmatically and state the denominator precisely; matching removed lines does not establish whole-file equivalence.
+3. Preserve local proportionality limits and human decision boundaries. Treat locally rewritten skills as independent adaptations rather than stale upstream copies. Integrate a useful rule into its existing owner before adding another principle skill.
+4. Challenge new absolute rules with a concrete counterexample or minimal executable probe. A matcher name alone does not establish test quality, and a diagnostic for actor imbalance does not generalize to every failed debugging hypothesis.
+5. Recommend adopt, adapt, already covered, or skip for each substantive change. Separate upstream-reported measurements, locally reproduced measurements, and expected benefits. Fewer words do not establish better routing or lower total task cost.
+6. For an authorized update, check reference integrity and direct invocation paths after pruning. Reuse existing structural gates and targeted behavioral scenarios; retain baseline expectations unless the user has explicitly approved changing the behavior contract.
+
 ## Review Frequency Rule
 
 When the user asks whether reviews should be cut, fix frequency and scope, not the axes: the axes catch different defects. Small change: inline review by the agent, no sub-agents. Medium or large: full review once per unit of work after the last ticket lands and the suite is green, not per ticket. After fixes: re-run only the axis that produced the finding with a narrowed brief. Two full rounds without convergence: stop and show remaining findings. Verification scripts and evidence are out of the review target unless asked.
