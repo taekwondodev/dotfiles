@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Pause Safely
 
-Suspend an active task without losing its decisions, evidence, repository state, or next criterion. Use before leaving, restarting Hermes, or reaching a context boundary.
+Suspend an active task without losing its decisions, evidence, repository state, or next criterion. Use before leaving, restarting the agent, or reaching a context boundary.
 
 ## Procedure
 

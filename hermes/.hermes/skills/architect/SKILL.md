@@ -137,7 +137,7 @@ When this skill is invoked as part of implementation, use the selected sketch as
 - Keep the implementation inside the selected ownership and dependency boundaries.
 - Surface a deviation instead of silently bolting on a new parameter, wrapper, optional field, or compatibility path.
 - Apply `principle-migrate-callers-then-delete-legacy-apis` when an internal API changes.
-- Use explicit Hermes `delegate_task` contexts for delegated work.
+- Use explicit `delegate_task` contexts for delegated work.
 - Inspect delegated artifacts directly with `read_file`, `search_files`, git diff, and the matching verification command.
 
 Completion criterion: every implementation deviation is either resolved by revising the sketch or recorded as an accepted requirement or constraint.
@@ -193,9 +193,9 @@ Possible references include:
 
 A reference informs a decision. It does not override the grounded system model or force a pattern that protects no real boundary.
 
-## Hermes Adaptation
+## Execution
 
-Use Hermes mechanisms:
+Use the available mechanisms:
 
 - `read_file` and `search_files` for grounding;
 - `delegate_task` for candidates and independent exploration;
@@ -203,8 +203,6 @@ Use Hermes mechanisms:
 - `clarify` only for explicit user-owned decisions or an explicitly requested checkpoint;
 - explicit git worktrees when parallel workers write to the repository;
 - `terminal` for builds, tests, profiling, and git verification.
-
-Do not use Cursor-specific `Task`, `AskQuestion`, `poteto-agent`, Graphite, `/loop`, or control skills.
 
 ## Verification
 

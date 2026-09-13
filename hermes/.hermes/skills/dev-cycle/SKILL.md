@@ -16,7 +16,7 @@ Treat `dev-cycle` as active for the current task across turns.
 
 - `continue` resumes the current mode and phase.
 - `new task` resets classification and starts a new task.
-- Hermes `/new` creates a fresh session.
+- `/new` creates a fresh session.
 - A direct invocation of another skill overrides the current step for that request without silently changing the task's recorded state.
 
 Keep the current task, primary mode, active capabilities, decisions, evidence, and next completion criterion visible in the todo list or handoff artifact when the work spans turns.
@@ -152,7 +152,7 @@ Use `wayfinder` for every large-size task once the user has agreed to the size. 
 
 ### Review and delivery
 
-Use `code-review` for fixed-point review. Use the repository's GitHub and `commit` skills for PR and commit operations. Do not import Cursor-specific Graphite, `/loop`, or `poteto-agent` behavior.
+Use `code-review` for fixed-point review. Use the repository's GitHub and `commit` skills for PR and commit operations.
 
 ## Promotion rules
 

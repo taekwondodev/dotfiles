@@ -28,7 +28,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/`: does this skill's prior output already exist?
 - Monorepo signals: a workspace manifest, or a populated `packages/*`/`crates/*` with its own `src/`. Present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.
-- **Existing agent-rule sources**, searched across Git-tracked files at the repo root and at the conventional per-agent config directories, plus an explicit existence check for each known conventional path even when Git ignores it: `AGENTS.md` and `CLAUDE.md` at the repo root; `CLAUDE.md` in `.claude/`; `GEMINI.md` in `.gemini/`; `.hermes.md` and `HERMES.md` in `.hermes/`; `.cursorrules` and rules under `.cursor/rules/` only when they carry no path-scoped frontmatter; `.github/copilot-instructions.md`. Record each hit's path and read its full content. Treat a hit as repo-global only when its location gives it repository-wide scope. A rule file nested inside a package, subproject, or other subdirectory whose scope is that subtree only is directory-scoped: report it in the findings but exclude it from both the merge and the cleanup candidates, because broadening it to root would change its meaning. Never treat `AGENTS.override.md` as a merge source, and exclude every path-specific instruction file (any rules file whose frontmatter, name, or declared scope applies to selected paths rather than the whole repository). For each repo-global source found, check whether it already carries a `## Dev cycle` section; if it carries domain terms or architectural decisions beyond operational rules and pointers, flag it as a migration candidate for Section D.
+- **Existing agent-rule sources**, searched across Git-tracked files at the repo root and at the conventional per-agent config directories, plus an explicit existence check for each known conventional path even when Git ignores it: `AGENTS.md` and `CLAUDE.md` at the repo root; `CLAUDE.md` in `.claude/`; `GEMINI.md` in `.gemini/`; `.hermes.md` and `HERMES.md` in `.hermes/`; `.cursorrules` and rules under `.cursor/rules/` only when they carry no path-scoped frontmatter; `.github/copilot-instructions.md`. Record each hit's path and read its full content. Treat a hit as repo-global only when its location gives it repository-wide scope. A rule file nested inside a package, subproject, or other subdirectory whose scope is that subtree only is directory-scoped: report it in the findings but exclude it from the merge, because broadening it to root would change its meaning. Never treat `AGENTS.override.md` as a merge source, and exclude every path-specific instruction file (any rules file whose frontmatter, name, or declared scope applies to selected paths rather than the whole repository). For each repo-global source found, check whether it already carries a `## Dev cycle` section; if it carries domain terms or architectural decisions beyond operational rules and pointers, flag it as a migration candidate for Section D.
 
 For the known conventional paths above, check the filesystem directly even when the path is ignored by Git. Use tracked-file search only for additional recursive discovery, so dependencies, build output, and vendored copies are never treated as project rules.
 
@@ -40,7 +40,7 @@ Lead each section with the recommended answer so the user can accept it in a wor
 
 **Section A0: Existing agent rules.** Only runs when Explore found at least one source.
 
-> Explainer: the dev-cycle expects one portable `AGENTS.md` at the repo root. Whatever agent wrote the existing rule files, they are merged into it; the originals are left untouched until you approve cleanup at the end.
+> Explainer: the dev-cycle expects one portable `AGENTS.md` at the repo root. Whatever agent wrote the existing rule files, they are merged into it; the originals remain untouched.
 
 Take these steps before the other sections, because their output feeds Sections B through D:
 
@@ -101,7 +101,7 @@ Let them edit before writing.
 
 ### 4. Write
 
-Write `AGENTS.md` at the repo root. The generated root `AGENTS.md` is this skill's deliverable, never a deletable source: it never appears on the cleanup list. If an `AGENTS.md` already existed at the root, its pre-existing content is preserved in version control before composition and its operational content is carried into the merge; the cleanup step may not delete it because deleting it would remove the deliverable itself. Do not modify any other agent-rule source file: the originals stay byte-for-byte unchanged until the cleanup step.
+Write `AGENTS.md` at the repo root. If an `AGENTS.md` already existed there, preserve its operational content in the merge. Do not modify any other agent-rule source file; the originals remain byte-for-byte unchanged.
 
 If Section D ran: write the new ADR files and `CONTEXT.md` entries first, then compose `AGENTS.md` with the operational rules plus one-line pointers to where migrated content went, per `/writing-for-agents`' context-pointer rule; name what moved and where, don't restate it.
 
@@ -129,15 +129,5 @@ Then write the docs files using the seed templates in this skill folder as a sta
 - [issue-tracker-linear.md](./issue-tracker-linear.md): Linear issue tracker, including the operations `/wayfinder` needs
 - [triage-labels.md](./triage-labels.md): label mapping
 - [domain.md](./domain.md): domain doc consumer rules + layout
-
-### 5. Finish the base setup
-
-After everything is written and verified, offer optional cleanup of the superseded agent-rule sources:
-
-1. List every discovered repo-global source file. Split the list in two: files proposed for deletion, and files retained (directory-scoped rules, files the user asked to keep, and any source the user excluded from the merge). Only the first list is deletable.
-2. State clearly that deletion is irreversible and that `AGENTS.md` now carries the merged content.
-3. Verify `AGENTS.md` exists and contains the merged result before proposing deletion.
-4. Ask one yes/no question covering every file on the proposed-for-deletion list together. Never delete without an explicit yes, and never delete a retained file as part of that confirmation.
-5. On confirmation, delete exactly the proposed-for-deletion originals in one operation. Then remove only directories that became empty as a direct result of that deletion: for each deleted file, check its parent directory and walk upward only while the directory is empty, stopping at the repository root or at the first non-empty directory. Never delete a directory that was not empty after the file deletion, and never delete directories containing retained files. Show the resulting repository status, including any retained files and any directories removed because they became empty.
 
 Tell the user the base setup is complete and which skills will now read from these files. Mention they can edit `docs/agents/*.md` and `AGENTS.md` directly later. Re-running this skill is only necessary if they want to switch issue trackers, redo the context merge, or restart from scratch.

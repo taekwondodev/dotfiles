@@ -18,9 +18,9 @@ Run independent candidate attempts against the same problem, compare whole shape
 6. Select a base and graft only justified parts of other candidates. Do not average incompatible designs.
 7. Record the synthesis decision, rejected alternatives, and the principle that changed the choice.
 
-## Hermes boundaries
+## Delegation
 
-Use `delegate_task`, not Cursor `Task` or `poteto-agent`. The parent owns synthesis and verification. Delegate self-reports are not proof.
+Use `delegate_task` for independent candidates. The parent owns synthesis and verification. Delegate self-reports are not proof.
 
 ## Verification
 
