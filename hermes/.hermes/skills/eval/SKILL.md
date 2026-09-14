@@ -37,6 +37,14 @@ Run the blocking gate with `python3 hermes/.hermes/skills/eval/scripts/run_subag
 
 `references/coding-standards-scenarios.json` fixes the behavior contract for cognitive complexity, validated types, contextual rules, trusted internal values, established facts, and architecture-neutral input handling. `scripts/run_coding_standards_behavior.py` compares `coding-standards/SKILL.md` at the git baseline and in the working tree, rejects malformed decisions, and embeds the immutable matrix hash. Run it with `python3 hermes/.hermes/skills/eval/scripts/run_coding_standards_behavior.py --baseline-ref HEAD` whenever coding philosophy or validation behavior changes.
 
+## Tool-execution contract
+
+`references/tool-use-scenarios.json` fixes the execution contract for repository search, file reading and editing, command execution, delegation, structured questions, visible task tracking, skill discovery and loading, session-history retrieval, and unavailable-capability behavior. `scripts/run_tool_use_behavior.py` materializes the pinned baseline and candidate skill trees in separate temporary Hermes homes, starts fresh sessions, exports authoritative runtime traces, and checks matched tool results, child session records, fixture writes, and required artifacts. It interleaves baseline and candidate jobs while serializing delegation-heavy parent runs, because each isolated Hermes home enforces only its own child limit. Expected observations remain outside model prompts. The structured-question scenario uses an isolated callback that supplies synthetic fixture answers; it does not question the real user or authorize work outside the fixture.
+
+Run the release gate with `python3 hermes/.hermes/skills/eval/scripts/run_tool_use_behavior.py --baseline-ref e1d68989579d82927396c5c8f8f744c15d4caf87`. Its default is three fresh repetitions per scenario and policy bundle. Use `--repetitions 1 --scenario <id>` only for runner debugging. A candidate semantic failure blocks release. Transport or malformed-trace failures receive at most one recorded retry. A tool name in prose or a model self-report never counts as execution.
+
+This gate is a Hermes integration test. A passing report supports only the recorded Hermes version, model, provider, tool configuration, and fixture hashes. It is not proof for an untested harness.
+
 ## Verification
 
 Every unique policy bundle has a fresh model decision with attributable policy and matrix hashes; identical bundles are explicitly aliased rather than sampled twice. The matrix includes edge cases and direct-invocation prompts, but does not exercise Hermes's slash-command dispatcher. Results distinguish structural policy failures from routing-decision failures. Run each routed procedure's artifact verification separately.
