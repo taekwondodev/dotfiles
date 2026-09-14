@@ -1,36 +1,6 @@
-model:
-  default: gpt-5.6-sol
-  provider: openai-codex
-  base_url: ''
-agent:
-  bot_mode_protocol: true
-  clarify_timeout: 0
-  reasoning_effort: medium
-browser:
-  use_real_profile: true
-auxiliary:
-  vision:
-    provider: gemini
-    model: gemini-3.8-flash
-  compression:
-    provider: gemini
-    model: gemini-3.8-flash
-  title_generation:
-    provider: gemini
-    model: gemini-3.8-flash
-memory:
-  memory_enabled: false
-  user_profile_enabled: false
-delegation:
-  model: deepseek/deepseek-v4.1-flash
-  provider: nous
-  fallback_providers:
-    - provider: nous
-      model: deepseek-v4-flash
-  base_url: ''
 skills:
   external_dirs:
-    - ~/.hermes/skills
+    - ~/.agents/skills
   trusted_project_dirs:
     - /Users/taekwondodev/Developer/HermesUsageMonitor
     - /Users/taekwondodev/Developer/ProArtVolume
@@ -81,6 +51,36 @@ skills:
     - weights-and-biases
     - xlsx
     - youtube-content
+model:
+  default: gpt-5.6-sol
+  provider: openai-codex
+  base_url: ''
+agent:
+  bot_mode_protocol: true
+  clarify_timeout: 0
+  reasoning_effort: medium
+browser:
+  use_real_profile: true
+auxiliary:
+  vision:
+    provider: gemini
+    model: gemini-3.8-flash
+  compression:
+    provider: gemini
+    model: gemini-3.8-flash
+  title_generation:
+    provider: gemini
+    model: gemini-3.8-flash
+memory:
+  memory_enabled: false
+  user_profile_enabled: false
+delegation:
+  model: deepseek/deepseek-v4.1-flash
+  provider: nous
+  fallback_providers:
+    - provider: nous
+      model: deepseek-v4-flash
+  base_url: ''
 onboarding:
   seen:
     tool_progress_prompt: true

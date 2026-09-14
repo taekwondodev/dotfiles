@@ -1,3 +1,38 @@
+skills:
+  trusted_project_dirs: []
+  creation_nudge_interval: 15
+  disabled:
+    - airtable
+    - apple-notes
+    - apple-reminders
+    - docx
+    - email-inbox-triage
+    - evaluating-llms-harness
+    - findmy
+    - gif-search
+    - google-workspace
+    - himalaya
+    - huggingface-hub
+    - imessage
+    - llama-cpp
+    - maps
+    - meeting-action-items
+    - nano-pdf
+    - notion
+    - obsidian
+    - openhue
+    - serving-llms-vllm
+    - songsee
+    - songwriting-and-ai-music
+    - teams-meeting-pipeline
+    - touchdesigner-mcp
+    - weekly-review-planning
+    - weights-and-biases
+    - xlsx
+    - xurl
+    - youtube-content
+  external_dirs:
+    - ~/.agents/skills
 model:
   default: deepseek/deepseek-v4.1-flash
   provider: nous
@@ -102,39 +137,6 @@ delegation:
   model: deepseek-v4-flash
   provider: opencode-go
   max_iterations: 250
-skills:
-  trusted_project_dirs: []
-  creation_nudge_interval: 15
-  disabled:
-    - airtable
-    - apple-notes
-    - apple-reminders
-    - docx
-    - email-inbox-triage
-    - evaluating-llms-harness
-    - findmy
-    - gif-search
-    - google-workspace
-    - himalaya
-    - huggingface-hub
-    - imessage
-    - llama-cpp
-    - maps
-    - meeting-action-items
-    - nano-pdf
-    - notion
-    - obsidian
-    - openhue
-    - serving-llms-vllm
-    - songsee
-    - songwriting-and-ai-music
-    - teams-meeting-pipeline
-    - touchdesigner-mcp
-    - weekly-review-planning
-    - weights-and-biases
-    - xlsx
-    - xurl
-    - youtube-content
 timezone: Europe/Rome
 approvals:
   destructive_slash_confirm: false

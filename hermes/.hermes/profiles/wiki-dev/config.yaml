@@ -1,34 +1,6 @@
-model:
-  default: deepseek-v4-flash
-  provider: opencode-go
-  base_url: https://opencode.ai/zen/go/v1
-agent:
-  bot_mode_protocol: true
-  reasoning_effort: medium
-terminal:
-  cwd: /Users/taekwondodev/dotfiles
-browser:
-  use_real_profile: true
-auxiliary:
-  vision:
-    provider: gemini
-    model: gemini-3.8-flash
-  compression:
-    provider: gemini
-    model: gemini-3.8-flash
-  title_generation:
-    provider: gemini
-    model: gemini-3.8-flash
-memory:
-  memory_enabled: false
-  user_profile_enabled: false
-delegation:
-  provider: opencode-go
-  base_url: ''
-  default: deepseek-v4-flash
 skills:
   external_dirs:
-    - ~/.hermes/skills
+    - ~/.agents/skills
   disabled:
     - agent-context-migration
     - agent-environment-migration
@@ -172,6 +144,34 @@ skills:
     - xlsx
     - xurl
     - youtube-content
+model:
+  default: deepseek-v4-flash
+  provider: opencode-go
+  base_url: https://opencode.ai/zen/go/v1
+agent:
+  bot_mode_protocol: true
+  reasoning_effort: medium
+terminal:
+  cwd: /Users/taekwondodev/dotfiles
+browser:
+  use_real_profile: true
+auxiliary:
+  vision:
+    provider: gemini
+    model: gemini-3.8-flash
+  compression:
+    provider: gemini
+    model: gemini-3.8-flash
+  title_generation:
+    provider: gemini
+    model: gemini-3.8-flash
+memory:
+  memory_enabled: false
+  user_profile_enabled: false
+delegation:
+  provider: opencode-go
+  base_url: ''
+  default: deepseek-v4-flash
 _config_version: 44
 
 # ── Security ──────────────────────────────────────────────────────────
