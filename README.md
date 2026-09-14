@@ -1,5 +1,5 @@
 # My Dotfiles
-Hermes Agent, GitHub CLI, Kali, Ghostty, tmux, Vim, Neovim, Fish and Starship configuration files
+Hermes Agent, Ghostty, Vim, Neovim, Fish and Starship configuration files
 
 ## Install
 
@@ -34,11 +34,9 @@ chmod +x scripts/bootstrap.sh
 | nvim     | ✓ | ✓ | — |
 | fish     | ✓ | ✓ | — |
 | ghostty  | ✓ | ✓ | — |
-| tmux     | ✓ | ✓ | — |
 | starship | ✓ | ✓ | — |
 | vim      | ✓ | ✓ | ✓ |
 | hermes   | ✓ | ✓ | — |
-| gh       | ✓ | ✓ | — |
 
 --- 
 ## Custom subset
@@ -47,7 +45,7 @@ For a custom subset, install `stow` first:
 
 ```bash
 brew install stow                  # macOS
-apt install -y stow                # Debian / Ubuntu / Kali
+apt install -y stow                # Debian / Ubuntu
 dnf install -y stow                # Amazon Linux / Fedora / RHEL
 ```
 
@@ -62,26 +60,11 @@ The `macos` and `linux` profiles handle automatically:
 - **JetBrainsMono Nerd Font** — via `brew` on macOS, via `curl` + `fc-cache` on Linux
 - **tree-sitter-cli** — via `cargo`; installs Rust/rustup first if not present
 - **[Hermes Agent](https://hermes-agent.nousresearch.com/docs/getting-started/installation)** — via the official installer on macOS and Linux
-- **[GitHub CLI](https://cli.github.com/)** (`gh`) — via Homebrew on macOS, via `apt`/`dnf` on Linux
 - **[termicons](https://github.com/mskelton/termicons)** — cannot be automated; the script opens the repo in the browser and waits for you to install it before continuing
-
-After the bootstrap completes, authenticate GitHub CLI if needed:
-
-```bash
-gh auth login
-```
 
 The `macos` and `linux` profiles also stow the tracked Hermes configuration into `~/.hermes`.
 
-## Kali setup
-
-```bash
-./scripts/setup_kali.sh
-```
-
-Then run `./scripts/bootstrap.sh linux` to link the dotfiles.
-
 ## Package manager support
 
-The `linux` profile auto-detects `apt` (Debian/Ubuntu/Kali) and `dnf` (Fedora/RHEL/Amazon Linux).
+The `linux` profile auto-detects `apt` (Debian/Ubuntu) and `dnf` (Fedora/RHEL/Amazon Linux).
 Other package managers (`apk`, `pacman`, etc.) are not yet supported — add a case in `scripts/bootstrap.sh` if needed.
