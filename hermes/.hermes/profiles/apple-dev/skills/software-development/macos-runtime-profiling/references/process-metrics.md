@@ -24,10 +24,11 @@
 
 ## OS reader
 
-- Query `TASK_VM_INFO` and use `phys_footprint` for the Activity Monitor-style memory metric.
-- Query `TASK_THREAD_TIMES_INFO` for cumulative user and system CPU time.
-- Sample with a monotonic awake-time clock. For consecutive samples, compute `deltaCPU / deltaWallTime * 100`; clamp negative values caused by clock or counter anomalies to zero.
-- Treat the first CPU sample as a zero-delta sample, or exclude it consistently from the contract; do not let an unpaired sample create a spike.
+- In-process: query `TASK_VM_INFO` and use `phys_footprint` for the Activity Monitor-style memory metric; query `TASK_THREAD_TIMES_INFO` for cumulative user and system CPU time.
+- External idle of the installed app: `proc_pid_rusage` on the verified exact-path PID; `ri_phys_footprint` is the Activity Monitor quantity; `ri_user_time` and `ri_system_time` are Mach absolute-time ticks. Convert with `mach_timebase_info` before forming a percent. Refuse to measure when that installed executable is not the live process.
+- Sample with a monotonic awake-time clock. For consecutive samples, convert CPU ticks to seconds, then compute `deltaCPU / deltaWallTime * 100`; clamp negative values caused by clock or counter anomalies to zero.
+- Treat the first CPU sample as a zero-delta sample, or exclude it consistently from the contract; do not let an unpaired sample create a spike. Prove the pairing rule with a fixture of consecutive already-converted seconds, not with a live process and not with a nanosecond pretence.
+- Format idle CPU on the committed chart with enough fractional digits that a sub-0.1% measurement is still visible. Two decimal places turn 0.035% into 0.00% and hide regressions.
 
 ## State coverage
 
@@ -46,5 +47,5 @@
 
 - Test the serialized payload as the consumer sees it, not only with a producer-side encode assertion. Swift `Codable` dictionaries keyed by enums may serialize as alternating key/value arrays; use explicit `Codable` structs when the JSON contract requires an object and assert that shape in a producer-consumer test.
 - Read both launch and resource baselines; fail on missing or malformed inputs with a concise boundary error.
-- Render one deterministic PNG from those files, include the product's actual identity motif/palette rather than an assumed substitute, and inspect its dimensions, labels, and existence before replacing the README asset.
+- Render one deterministic chart (SVG or PNG) from those files, include the product's actual identity motif/palette rather than an assumed substitute, and inspect its labels and existence before replacing the README asset.
 - Regenerate the image in the same change as a rebaseline so text, bars, and data cannot drift.

@@ -44,7 +44,7 @@ A hypothesis can be tested with a probe, prototype, benchmark, or forensic artif
 
 ### Decision
 
-A decision changes product behavior, scope, architecture, ownership, contracts, security, or user preference. Ask the user with `clarify`.
+A decision changes product behavior, scope, architecture, ownership, contracts, security, or user preference. Present it with the available structured user-question capability.
 
 When uncertain, do not silently convert a decision into an agent preference. State the evidence and ask.
 
@@ -71,13 +71,13 @@ When investigation reveals an unsettled data shape, module boundary, ownership m
 
 ## User questions
 
-For each decision round, use `clarify`. Do not ask decision questions directly in the response text.
+For each decision round, use the available structured user-question capability. If it is unavailable, ask in ordinary chat while preserving the same checkpoint and state that the structured interaction was unavailable.
 
-- Include concrete choices.
-- Put alternatives only in `choices`.
+- Present concrete alternatives as selectable options when the capability supports them.
+- Keep alternatives out of the question text when the capability has a separate options field.
 - Put the most likely current path first, without presenting it as mandatory.
-- Batch independent frontier questions in one `clarify` call.
-- Do not ask a question whose answer depends on another question still open in the same round.
+- Batch independent frontier questions in one structured interaction.
+- Sequence questions when one answer changes the next question.
 - If the user adds context or corrects an assumption, stop the current round and regenerate the affected frontier.
 
 ## Checkpoint and handoff

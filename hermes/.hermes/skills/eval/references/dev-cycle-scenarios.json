@@ -843,7 +843,7 @@
           "file": "menu/SKILL.md",
           "contains": [
             "read-only catalog",
-            "live `skills_list` inventory",
+            "complete current inventory",
             "never invokes the result",
             "do not start any listed skill"
           ]

@@ -23,10 +23,10 @@ Use `why` for motivation and historical rationale. Use `architect` when the ques
 ## Procedure
 
 1. Define the scope and state the interpretation if the request is ambiguous. Do not ask when repository inspection can resolve the ambiguity.
-2. Use `search_files` and `read_file` to find the entry point, callers, callees, types, persistence or external effects, and tests.
+2. Use the available repository-search and file-reading tools to find the entry point, callers, callees, types, persistence or external effects, and tests. Follow pagination or additional result pages until the relevant source is retrieved.
 3. Trace the flow from input or trigger to output or effect. Follow symbols across module boundaries.
 4. Record ownership, dependency direction, validation, error conversion, observability, and security boundaries.
-5. Use `delegate_task` for independent read-only exploration when the subsystem is broad. Keep each worker on a distinct angle and synthesize the artifacts yourself.
+5. When the subsystem is broad, launch independent read-only subagents in separate contexts through the available delegation capability. Keep each worker on a distinct angle, collect their results, and synthesize them yourself. If delegation is unavailable, state that limitation and continue sequentially only when independent runs are not required by the request.
 6. Present the explanation with overview, key concepts, flow, where things live, and gotchas.
 
 ## Verification

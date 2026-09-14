@@ -48,7 +48,7 @@ A principle must change a decision or verification step. Do not list a principle
 
 Build a traced model of the existing system before proposing structure.
 
-- Use `search_files` and `read_file` to locate the entry point, callers, callees, types, data flow, and current boundaries.
+- Use the available repository-search and file-reading capabilities to locate the entry point, callers, callees, types, data flow, and current boundaries. Retrieve every relevant result page before drawing the model.
 - Use `how` for a subsystem walkthrough when the flow is not already clear.
 - Use `why` when existing rationale or an ADR may constrain the choice.
 - Read the relevant domain context, ADRs, and design documents.
@@ -137,8 +137,8 @@ When this skill is invoked as part of implementation, use the selected sketch as
 - Keep the implementation inside the selected ownership and dependency boundaries.
 - Surface a deviation instead of silently bolting on a new parameter, wrapper, optional field, or compatibility path.
 - Apply `principle-migrate-callers-then-delete-legacy-apis` when an internal API changes.
-- Use explicit `delegate_task` contexts for delegated work.
-- Inspect delegated artifacts directly with `read_file`, `search_files`, git diff, and the matching verification command.
+- Give every delegated subagent self-contained context, including its task, relevant evidence, constraints, and completion criteria.
+- Inspect delegated artifacts directly with the available file-reading and repository-search capabilities, the actual git diff, and an executed verification command.
 
 Completion criterion: every implementation deviation is either resolved by revising the sketch or recorded as an accepted requirement or constraint.
 
@@ -195,14 +195,16 @@ A reference informs a decision. It does not override the grounded system model o
 
 ## Execution
 
-Use the available mechanisms:
+Use the runtime's available capabilities:
 
-- `read_file` and `search_files` for grounding;
-- `delegate_task` for candidates and independent exploration;
-- `todo` for visible phases;
-- `clarify` only for explicit user-owned decisions or an explicitly requested checkpoint;
+- repository search and file reading for grounding;
+- subagents launched in separate contexts for candidates and independent exploration;
+- visible task tracking for the current phases;
+- structured user questions only for explicit user-owned decisions or an explicitly requested checkpoint;
 - explicit git worktrees when parallel workers write to the repository;
-- `terminal` for builds, tests, profiling, and git verification.
+- command execution for builds, tests, profiling, and git verification.
+
+Execute required commands and inspect their real exit status and output. If a required capability is unavailable, record the unmet requirement rather than claiming completion.
 
 ## Verification
 

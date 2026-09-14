@@ -24,7 +24,7 @@ Load the canonical owner when its trigger fires:
 - `principle-sequence-verifiable-units` makes one ticket the normal session unit, with a checkable resolution before the frontier advances.
 - `principle-never-block-on-the-human` sends observable facts and independent research to AFK work while preserving HITL ownership of product, scope, architecture, contract, and security decisions.
 - `show-me-your-work` records an auditable decision trail for long, unattended, or measurement-heavy tickets.
-- Parallel `delegate_task` workers handle independent research only; the map owner verifies artifacts and synthesizes the result.
+- Parallel subagents in separate contexts handle independent research through the available delegation capability; the map owner verifies artifacts and synthesizes the result.
 - `hillclimb` governs multi-session measurement work with a frozen harness and one keep-or-revert iteration per work unit.
 - `session-pickup` reconciles a resumed map with live tracker and repository state. `pause-safely` records evidence and the next completion criterion before a session boundary.
 

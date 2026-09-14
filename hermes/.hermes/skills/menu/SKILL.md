@@ -23,8 +23,8 @@ Do not use `menu` when the user has already stated an objective and wants work p
 
 Never maintain a hand-written catalog of skill names, descriptions, procedures, or routing rules.
 
-- Use the live `skills_list` inventory for available skills and their descriptions.
-- Use `skill_view` only when a description is insufficient to explain a distinction or relationship.
+- Query the live skill catalog through the available discovery capability and use its current names, descriptions, and metadata.
+- Load a skill's current definition through the available skill-loading capability only when its description is insufficient to explain a distinction or relationship.
 - Use the skill's actual frontmatter and body as the authority.
 - Treat `dev-cycle` as the primary development entrypoint because its own skill definition says so.
 
@@ -36,7 +36,7 @@ If the catalog and a skill body disagree, report the disagreement rather than si
 
 For `menu`:
 
-1. Load the current skill inventory with `skills_list`.
+1. Query the complete current inventory through the available skill-discovery capability.
 2. Group results into:
    - primary entrypoints;
    - phase skills;

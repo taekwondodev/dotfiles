@@ -11,8 +11,8 @@ Apply adversarial pressure to a design, implementation, or diff. Look for blind 
 ## Procedure
 
 1. Read the source material, applicable principles, `coding-standards`, `architect`, `testing`, and the spec when available.
-2. Dispatch independent review angles with `delegate_task` when the change warrants it.
-3. Ask each reviewer to challenge a distinct risk area without proposing scope expansion by default.
+2. When the change warrants independent review, launch separate subagents through the available delegation capability.
+3. Give each reviewer self-contained context and a distinct risk area, and prevent scope expansion by default. If delegation is unavailable, label any single-context review as such and do not claim independent coverage.
 4. Inspect the evidence and diff yourself.
 5. Categorize findings as act on, consider, noted, or dismissed, with reasons.
 6. Return findings to `code-review` or `architect` without merging separate review axes into one score.

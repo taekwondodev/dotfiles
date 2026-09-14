@@ -13,7 +13,7 @@ argument-hint: "What will the next session focus on?"
 
 Read `writing-for-agents` before writing `HANDOFF.md` or its resume prompt. Its general writing rules govern the handoff; this skill adds only handoff-specific structure.
 
-Use `pause-safely` as the suspension contract and this skill as the artifact writer. Use `session-pickup` in the next session to reconcile the handoff with live repository state. When conversation context is incomplete, use `session_search` to recall the relevant session; when long or unattended work has a `show-me-your-work` log, point to it instead of copying it.
+Use `pause-safely` as the suspension contract and this skill as the artifact writer. Use `session-pickup` in the next session to reconcile the handoff with live repository state. When conversation context is incomplete, retrieve the relevant prior conversation through the available session-history capability and reconcile it with live state. If required history access is unavailable, record the missing evidence instead of inventing it. When long or unattended work has a `show-me-your-work` log, point to it instead of copying it.
 
 Apply the canonical principles where they change the artifact:
 

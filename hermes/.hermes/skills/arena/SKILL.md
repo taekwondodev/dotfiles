@@ -12,7 +12,7 @@ Run independent candidate attempts against the same problem, compare whole shape
 
 1. Define the decision, constraints, caller usage, data shape, verification contract, and write fences.
 2. Decide the number of candidates. Use at least two for a novel or contested architecture. Keep candidates structurally distinct.
-3. Dispatch candidates with `delegate_task` in parallel. Give every worker the same grounded context and require a decision-rich artifact rather than a vague recommendation.
+3. Launch one subagent per candidate in parallel, each in a separate context, through the available delegation capability. Give every worker the same grounded context and require a decision-rich artifact rather than a vague recommendation.
 4. Keep parallel writes isolated with explicit git worktrees. Read candidate artifacts directly after completion.
 5. Compare candidates on behavior, domain fit, public surface, ownership, dependency direction, reader load, invalid states, security, observability, complexity, migration risk, and verification cost.
 6. Select a base and graft only justified parts of other candidates. Do not average incompatible designs.
@@ -20,7 +20,7 @@ Run independent candidate attempts against the same problem, compare whole shape
 
 ## Delegation
 
-Use `delegate_task` for independent candidates. The parent owns synthesis and verification. Delegate self-reports are not proof.
+Launch independent candidates through the available delegation capability. If it is unavailable, report that the independence requirement is unmet rather than presenting same-context alternatives as independent. The parent owns synthesis and verification. Subagent self-reports are not proof.
 
 ## Verification
 

@@ -16,7 +16,7 @@ Treat `dev-cycle` as active for the current task across turns.
 
 - `continue` resumes the current mode and phase.
 - `new task` resets classification and starts a new task.
-- `/new` creates a fresh session.
+- Starting a new session resets session state; use the runtime's supported new-session mechanism.
 - A direct invocation of another skill overrides the current step for that request without silently changing the task's recorded state.
 
 Keep the current task, primary mode, active capabilities, decisions, evidence, and next completion criterion visible in the todo list or handoff artifact when the work spans turns.
@@ -27,7 +27,7 @@ Keep the current task, primary mode, active capabilities, decisions, evidence, a
 - Separate facts, hypotheses, decisions, and actions.
 - Investigate observable facts before asking the user for them.
 - Use `architect` when a change can lock in a wrong shape, boundary, ownership model, or public contract.
-- Use `clarify` for decisions the user owns, not for facts tools can establish.
+- Present user-owned decisions through the available structured user-question capability; investigate facts instead.
 - Preserve the human checkpoint after grilling for product and scope decisions.
 - `architect` itself has no automatic checkpoint. It proceeds unless the user explicitly asks it to stop.
 - Do not declare success from a self-report, compilation alone, or a proxy observation.
@@ -172,7 +172,7 @@ Apply `principle-never-block-on-the-human` when promotion reaches a user-owned d
 
 ## Delegation
 
-Use `delegate_task` with explicit context, scope, fences, and completion criteria.
+Launch subagents in separate contexts through the available delegation capability. Give each one explicit context, scope, fences, and completion criteria. If delegation is unavailable, report any unmet independence or parallelism requirement instead of simulating it in the parent context.
 
 - Use parallel workers for independent research or genuinely independent artifacts.
 - Use `arena` for competing designs, not for mechanical edits.
