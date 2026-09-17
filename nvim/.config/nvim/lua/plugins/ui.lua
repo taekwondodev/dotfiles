@@ -109,12 +109,26 @@ return {
         },
     },
 
-    -- Markdown rendering in normal mode
+    -- Browser-based HTML/Markdown preview with live updates
     {
-        "MeanderingProgrammer/render-markdown.nvim",
-        ft = { "markdown" },
-        opts = {},
+        "brianhuster/live-preview.nvim",
+        ft = { "markdown", "html", "svg" },
+        cmd = "LivePreview",
+        opts = {
+            browser = "default",
+            dynamic_root = true,
+            sync_scroll = true,
+            picker = "snacks",
+            address = "127.0.0.1",
+        },
+        config = function(_, opts)
+            require("livepreview.config").set(opts)
+        end,
+        keys = {
+            { "<leader>lp", "<cmd>LivePreview start<cr>", desc = "Live HTML/Markdown preview" },
+        },
     },
+
 
     -- Scrollbar indicator
     {
