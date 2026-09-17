@@ -109,6 +109,13 @@ return {
         },
     },
 
+    -- Native Markdown rendering in the Neovim buffer
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "markdown" },
+        opts = {},
+    },
+
     -- Browser-based HTML/Markdown preview with live updates
     {
         "brianhuster/live-preview.nvim",
