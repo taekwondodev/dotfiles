@@ -6,8 +6,8 @@ Hermes Agent, Ghostty, Vim, Neovim, Fish and Starship configuration files
 Clone the repo:
 
 ```bash
-git clone https://github.com/taekwondodev/dotfiles ~/dotfiles
-cd ~/dotfiles
+git clone https://github.com/taekwondodev/dotfiles ~/Developer/dotfiles
+cd ~/Developer/dotfiles
 ```
 
 Prerequisites:

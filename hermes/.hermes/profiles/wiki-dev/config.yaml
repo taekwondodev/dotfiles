@@ -152,7 +152,7 @@ agent:
   bot_mode_protocol: true
   reasoning_effort: medium
 terminal:
-  cwd: /Users/taekwondodev/dotfiles
+  cwd: /Users/taekwondodev/Developer/dotfiles
 browser:
   use_real_profile: true
 auxiliary:
