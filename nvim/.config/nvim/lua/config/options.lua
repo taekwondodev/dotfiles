@@ -93,8 +93,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- Native 0.12 completion
-vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 -- Auto-resize splits on terminal resize
 vim.api.nvim_create_autocmd("VimResized", {
@@ -103,7 +101,7 @@ vim.api.nvim_create_autocmd("VimResized", {
 })
 
 
--- LSP attach: keymaps + native completion + inlay hints
+-- LSP attach: keymaps + inlay hints
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -122,11 +120,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "<leader>d", vim.diagnostic.open_float, "Diagnostic float")
         map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
         map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Prev diagnostic")
-        map("i", "<C-Space>", vim.lsp.completion.get, "Trigger completion")
-
-        if client and client:supports_method("textDocument/completion") then
-            vim.lsp.completion.enable(true, client.id, buf, { autotrigger = true })
-        end
 
         if vim.lsp.inlay_hint and client and client:supports_method("textDocument/inlayHint") then
             if vim.fn.filereadable(vim.api.nvim_buf_get_name(buf)) == 1 then
