@@ -122,7 +122,7 @@ stow_packages() {
     local packages=("$@")
     info "Stowing: ${packages[*]}"
     cd "$DOTFILES_DIR"
-    stow "${packages[@]}"
+    stow --target="$HOME" "${packages[@]}"
     success "Symlink creati"
 }
 

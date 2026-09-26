@@ -1,3 +1,33 @@
+model:
+  default: gpt-5.6-sol
+  provider: openai-codex
+  base_url: https://chatgpt.com/backend-api/codex
+agent:
+  bot_mode_protocol: true
+  clarify_timeout: 0
+  reasoning_effort: medium
+browser:
+  use_real_profile: true
+auxiliary:
+  vision:
+    provider: auto
+    model: ''
+  compression:
+    provider: openai-codex
+    model: gpt-5.6-luna
+  title_generation:
+    provider: gemini
+    model: gemini-3.8-flash
+memory:
+  memory_enabled: false
+  user_profile_enabled: false
+delegation:
+  model: gpt-6-luna
+  provider: openai-codex
+  fallback_providers:
+    - provider: nous
+      model: deepseek-v4-flash
+  base_url: ''
 skills:
   external_dirs:
     - ~/.agents/skills
@@ -13,79 +43,37 @@ skills:
     - box
     - claude-code
     - codex
-    - comfyui
     - document-to-action-items
     - docx
     - email-inbox-triage
-    - evaluating-llms-harness
     - findmy
     - gif-search
     - google-workspace
     - himalaya
-    - huggingface-hub
     - humanizer
     - imessage
-    - llama-cpp
     - manim-video
     - maps
     - meeting-action-items
-    - nano-pdf
     - notion
     - obsidian
-    - ocr-and-documents
     - opencode
-    - openhue
     - p5js
     - pdf
     - powerpoint
-    - pretext
     - product-price-monitor
-    - serving-llms-vllm
-    - session-librarian
     - songsee
     - songwriting-and-ai-music
     - teams-meeting-pipeline
     - test-driven-development
-    - touchdesigner-mcp
     - weekly-review-planning
-    - weights-and-biases
     - xlsx
     - youtube-content
-model:
-  default: gpt-5.6-sol
-  provider: openai-codex
-  base_url: ''
-agent:
-  bot_mode_protocol: true
-  clarify_timeout: 0
-  reasoning_effort: medium
-browser:
-  use_real_profile: true
-auxiliary:
-  vision:
-    provider: gemini
-    model: gemini-3.8-flash
-  compression:
-    provider: gemini
-    model: gemini-3.8-flash
-  title_generation:
-    provider: gemini
-    model: gemini-3.8-flash
-memory:
-  memory_enabled: false
-  user_profile_enabled: false
-delegation:
-  model: deepseek/deepseek-v4.1-flash
-  provider: nous
-  fallback_providers:
-    - provider: nous
-      model: deepseek-v4-flash
-  base_url: ''
 onboarding:
   seen:
     tool_progress_prompt: true
     busy_input_prompt: true
-_config_version: 44
+_config_version: 46
 mcp_servers:
   figma:
     url: https://mcp.figma.com/mcp

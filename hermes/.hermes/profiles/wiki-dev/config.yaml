@@ -1,3 +1,30 @@
+model:
+  default: gpt-5.6-luna
+  provider: openai-codex
+agent:
+  bot_mode_protocol: true
+  reasoning_effort: medium
+terminal:
+  cwd: /Users/taekwondodev/Developer/dotfiles
+browser:
+  use_real_profile: true
+auxiliary:
+  vision:
+    provider: auto
+    model: ''
+  compression:
+    provider: openai-codex
+    model: gpt-5.6-luna
+  title_generation:
+    provider: gemini
+    model: gemini-3.8-flash
+memory:
+  memory_enabled: false
+  user_profile_enabled: false
+delegation:
+  model: gpt-6-luna
+  provider: openai-codex
+  base_url: ''
 skills:
   external_dirs:
     - ~/.agents/skills
@@ -144,35 +171,7 @@ skills:
     - xlsx
     - xurl
     - youtube-content
-model:
-  default: deepseek-v4-flash
-  provider: opencode-go
-  base_url: https://opencode.ai/zen/go/v1
-agent:
-  bot_mode_protocol: true
-  reasoning_effort: medium
-terminal:
-  cwd: /Users/taekwondodev/Developer/dotfiles
-browser:
-  use_real_profile: true
-auxiliary:
-  vision:
-    provider: gemini
-    model: gemini-3.8-flash
-  compression:
-    provider: gemini
-    model: gemini-3.8-flash
-  title_generation:
-    provider: gemini
-    model: gemini-3.8-flash
-memory:
-  memory_enabled: false
-  user_profile_enabled: false
-delegation:
-  provider: opencode-go
-  base_url: ''
-  default: deepseek-v4-flash
-_config_version: 44
+_config_version: 46
 
 # ── Security ──────────────────────────────────────────────────────────
 # Secret redaction is ON by default — strings that look like API keys,

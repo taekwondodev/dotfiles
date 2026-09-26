@@ -1,41 +1,6 @@
-skills:
-  trusted_project_dirs: []
-  creation_nudge_interval: 15
-  disabled:
-    - airtable
-    - apple-notes
-    - apple-reminders
-    - docx
-    - email-inbox-triage
-    - evaluating-llms-harness
-    - findmy
-    - gif-search
-    - google-workspace
-    - himalaya
-    - huggingface-hub
-    - imessage
-    - llama-cpp
-    - maps
-    - meeting-action-items
-    - nano-pdf
-    - notion
-    - obsidian
-    - openhue
-    - serving-llms-vllm
-    - songsee
-    - songwriting-and-ai-music
-    - teams-meeting-pipeline
-    - touchdesigner-mcp
-    - weekly-review-planning
-    - weights-and-biases
-    - xlsx
-    - xurl
-    - youtube-content
-  external_dirs:
-    - ~/.agents/skills
 model:
-  default: deepseek/deepseek-v4.1-flash
-  provider: nous
+  default: gpt-5.6-luna
+  provider: openai-codex
   base_url: ''
 database:
   journal_mode: wal
@@ -43,12 +8,12 @@ runtime:
   nofile_soft_limit: 4096
 agent:
   max_turns: 500
+  text_verbosity: low
   verbose: false
   reasoning_effort: medium
   personalities: {}
 terminal:
   backend: local
-  cwd: /Users/taekwondodev/Developer
   timeout: 180
   home_mode: auto
   container_cpu: 1
@@ -96,11 +61,11 @@ prompt_caching:
   cache_ttl: 5m
 auxiliary:
   vision:
-    provider: gemini
-    model: gemini-3.8-flash
+    provider: auto
+    model: ''
   compression:
-    provider: gemini
-    model: gemini-3.8-flash
+    provider: openai-codex
+    model: gpt-5.6-luna
   title_generation:
     enabled: true
     provider: gemini
@@ -134,14 +99,57 @@ memory:
   nudge_interval: 10
   flush_min_turns: 6
 delegation:
-  model: deepseek-v4-flash
-  provider: opencode-go
+  model: gpt-6-luna
+  provider: openai-codex
   max_iterations: 250
+skills:
+  external_dirs:
+    - ~/.agents/skills
+  trusted_project_dirs: []
+  creation_nudge_interval: 15
+  disabled:
+    - airtable
+    - apple-notes
+    - apple-reminders
+    - docx
+    - email-inbox-triage
+    - evaluating-llms-harness
+    - findmy
+    - gif-search
+    - github-auth
+    - github-code-review
+    - github-issue-to-pr
+    - github-issues
+    - github-pr-workflow
+    - github-repo-management
+    - google-workspace
+    - himalaya
+    - huggingface-hub
+    - imessage
+    - llama-cpp
+    - maps
+    - meeting-action-items
+    - nano-pdf
+    - notion
+    - openhue
+    - serving-llms-vllm
+    - songsee
+    - songwriting-and-ai-music
+    - teams-meeting-pipeline
+    - touchdesigner-mcp
+    - weekly-review-planning
+    - weights-and-biases
+    - xlsx
+    - xurl
+    - youtube-content
 timezone: Europe/Rome
 approvals:
   destructive_slash_confirm: false
 plugins:
-  enabled: []
+  enabled:
+    - claude-subscription-directsdk-experimental
+    - herdr-agent-state
+  disabled: []
 hooks:
   pre_tool_call:
     - matcher: terminal|read_file|write_file|patch|search_files
@@ -166,7 +174,7 @@ updates:
   pre_update_backup: false
   backup_keep: 5
   non_interactive_local_changes: stash
-_config_version: 44
+_config_version: 46
 session_reset:
   mode: none
   idle_minutes: 1440
@@ -177,6 +185,7 @@ platform_toolsets:
     - browser
     - clarify
     - code_execution
+    - connections
     - cronjob
     - delegation
     - file
@@ -197,6 +206,7 @@ known_builtin_toolsets:
     - clarify
     - code_execution
     - computer_use
+    - connections
     - context_engine
     - cronjob
     - delegation
@@ -262,3 +272,5 @@ image_gen:
 # fallback_model:
 #   provider: openrouter
 #   model: anthropic/claude-sonnet-4
+gateway:
+  multiplex_profiles: true

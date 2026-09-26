@@ -52,8 +52,8 @@ dnf install -y stow                # Amazon Linux / Fedora / RHEL
 Then link packages directly:
 
 ```bash
-stow vim nvim fish
-stow -D ghostty   # remove a package
+stow --target="$HOME" vim nvim fish
+stow --target="$HOME" -D ghostty   # remove a package
 ```
 
 The `macos` and `linux` profiles handle automatically:
