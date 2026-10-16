@@ -10,12 +10,16 @@
 ^/\.hermes/[^/]+\.(db|db-.*)$
 ^/\.hermes/(\.env|auth\.json)$
 ^/\.hermes/profiles/[^/]+/backups$
+^/\.hermes/profiles/[^/]+/audio_cache$
 ^/\.hermes/profiles/[^/]+/cache$
 ^/\.hermes/profiles/[^/]+/cron$
 ^/\.hermes/profiles/[^/]+/installs$
 ^/\.hermes/profiles/[^/]+/locks$
+^/\.hermes/profiles/[^/]+/hooks$
+^/\.hermes/profiles/[^/]+/image_cache$
 ^/\.hermes/profiles/[^/]+/logs$
 ^/\.hermes/profiles/[^/]+/memories$
+^/\.hermes/profiles/[^/]+/pairing$
 ^/\.hermes/profiles/[^/]+/sessions$
 ^/\.hermes/profiles/[^/]+/skills$
 ^/\.hermes/profiles/[^/]+/tools$

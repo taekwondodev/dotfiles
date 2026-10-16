@@ -1,11 +1,12 @@
 model:
-  default: gpt-5.6-sol
-  provider: openai-codex
-  base_url: https://chatgpt.com/backend-api/codex
+  default: claude-opus-5-5[1m]
+  provider: claude-subscription-directsdk-experimental
+  base_url: process://claude-subscription-directsdk-experimental
+  api_mode: chat_completions
 agent:
   bot_mode_protocol: true
   clarify_timeout: 0
-  reasoning_effort: medium
+  reasoning_effort: high
 browser:
   use_real_profile: true
 auxiliary:
@@ -73,7 +74,7 @@ onboarding:
   seen:
     tool_progress_prompt: true
     busy_input_prompt: true
-_config_version: 49
+_config_version: 50
 mcp_servers:
   figma:
     url: https://mcp.figma.com/mcp
@@ -120,3 +121,9 @@ telemetry:
   shared_metrics:
     enabled: false
     send: false
+plugins:
+  enabled:
+    - claude-subscription-directsdk-experimental
+  disabled: []
+approvals:
+  destructive_slash_confirm: false
