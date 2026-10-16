@@ -1,6 +1,7 @@
 # font
 font-family = "JetBrainsMono Nerd Font Mono"
 font-family = termicons
+font-codepoint-map = U+F07B,U+F418,U+F407,U+F0645,U+EC20,U+F06E8,U+EE9C,U+F01BC,U+F0954,U+F0717,U+F013,U+F05A=JetBrainsMono Nerd Font
 macos-option-as-alt = left
 font-size = 15
 font-feature = zero, liga, calt

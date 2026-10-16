@@ -53,3 +53,5 @@ source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
 # Added by Android Studio
 set -gx ANDROID_HOME $HOME/Library/Android/sdk
+
+set -gx CLAUDE_SUBSCRIPTION_DIRECTSDK_COMMAND /Users/taekwondodev/.local/bin/claude
