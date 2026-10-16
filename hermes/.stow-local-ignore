@@ -1,0 +1,10 @@
+^/\.hermes/installs$
+^/\.hermes/locks$
+^/\.hermes/skills$
+^/\.hermes/tools$
+^/\.hermes/(cache|cron|logs|memories|sessions)$
+^/\.hermes/[^/]+\.(db|db-.*)$
+^/\.hermes/(\.env|auth\.json)$
+^/\.hermes/profiles/[^/]+/(backups|cache|cron|logs|memories|sessions|skills)$
+^/\.hermes/profiles/[^/]+/(\.env|auth\.json)$
+^/\.hermes/profiles/[^/]+/[^/]+\.(db|db-.*)$
