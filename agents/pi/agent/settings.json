@@ -1,0 +1,20 @@
+{
+  "theme": "rose-pine-moon",
+  "editorPaddingX": 1,
+  "images": {
+    "blockImages": false
+  },
+  "terminal": {
+    "showImages": false
+  },
+  "hideThinkingBlock": true,
+  "quietStartup": "header",
+  "steeringMode": "all",
+  "followUpMode": "all",
+  "collapseChangelog": true,
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-6-luna",
+  "packages": [
+    "../../.local/share/dev/pi-claude-bridge"
+  ]
+}

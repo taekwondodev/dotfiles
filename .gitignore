@@ -6,3 +6,6 @@ wiki/
 nvim/.config/nvim/lazy-lock.json
 /.claude/
 HANDOFF.md
+/flake.lock
+/result
+/result-*

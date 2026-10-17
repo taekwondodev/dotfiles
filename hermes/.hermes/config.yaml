@@ -1,3 +1,4 @@
+# Personal preferences and schema/toolset metadata; no saved trust or session state.
 model:
   default: claude-opus-5-5[1m]
   provider: claude-subscription-directsdk-experimental
@@ -108,7 +109,6 @@ delegation:
 skills:
   external_dirs:
     - ~/.agents/skills
-  trusted_project_dirs: []
   creation_nudge_interval: 15
   disabled:
     - airtable
@@ -151,7 +151,6 @@ approvals:
 plugins:
   enabled:
     - claude-subscription-directsdk-experimental
-    - herdr-agent-state
   disabled: []
 hooks:
   pre_tool_call:
@@ -161,10 +160,10 @@ hooks:
       fail_closed: true
   post_tool_call:
     - matcher: terminal
-      command: /Users/taekwondodev/.local/bin/lavagna hermes-hook
+      command: lavagna hermes-hook
       timeout: 10
   on_session_end:
-    - command: /Users/taekwondodev/.local/bin/lavagna hermes-hook
+    - command: lavagna hermes-hook
       timeout: 10
 kanban:
   review_dispatch: true
@@ -173,15 +172,10 @@ code_execution:
   max_tool_calls: 50
 streaming:
   enabled: false
-onboarding:
-  seen:
-    tool_progress_prompt: true
-    busy_input_prompt: true
 telemetry:
   shared_metrics:
     enabled: true
     send: false
-    offer_version: 2
 updates:
   pre_update_backup: false
   backup_keep: 5

@@ -1,0 +1,24 @@
+.config/fish
+.config/ghostty
+.config/nvim
+.config/starship.toml
+.config/fontconfig
+.vimrc
+.hermes
+.agents/skills
+.pi/agent
+.claude/settings.json
+.claude/hooks
+.claude/skills
+.local/share/dotfiles
+.local/share/dev
+Library/Application Support/dev
+Library/Fonts/HomeManager
+Library/Fonts/.home-manager-fonts-version
+Applications/Home Manager Apps
+Applications/Lavagna.app
+.cache/.keep
+.local/state/.keep
+.local/state/home-manager
+.local/state/nix/profiles/home-manager
+.local/share/fish/home-manager

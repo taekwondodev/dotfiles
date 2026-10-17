@@ -1,3 +1,4 @@
+# Personal preferences and schema/toolset metadata; no saved trust or session state.
 model:
   default: claude-opus-5-5[1m]
   provider: claude-subscription-directsdk-experimental
@@ -32,9 +33,6 @@ delegation:
 skills:
   external_dirs:
     - ~/.agents/skills
-  trusted_project_dirs:
-    - /Users/taekwondodev/Developer/HermesUsageMonitor
-    - /Users/taekwondodev/Developer/ProArtVolume
   disabled:
     - airtable
     - apple-notes
@@ -70,15 +68,7 @@ skills:
     - weekly-review-planning
     - xlsx
     - youtube-content
-onboarding:
-  seen:
-    tool_progress_prompt: true
-    busy_input_prompt: true
 _config_version: 50
-mcp_servers:
-  figma:
-    url: https://mcp.figma.com/mcp
-    auth: oauth
 
 # ── Security ──────────────────────────────────────────────────────────
 # Secret redaction is ON by default — strings that look like API keys,

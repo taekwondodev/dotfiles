@@ -16,8 +16,6 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
-
 vim.opt.guicursor = ""
 vim.opt.number = true
 vim.opt.tabstop = 4
