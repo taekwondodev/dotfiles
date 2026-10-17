@@ -1,0 +1,15 @@
+{
+  "default": "general",
+  "profiles": {
+    "general": { "soul": "general/SOUL.md", "skills": [] },
+    "apple": {
+      "soul": "apple/SOUL.md",
+      "skills": [
+        "apple/skills/swiftui-pro",
+        "apple/skills/swift-concurrency-pro",
+        "apple/skills/swift-testing-pro",
+        "apple/skills/swiftdata-pro"
+      ]
+    }
+  }
+}

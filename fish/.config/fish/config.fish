@@ -8,11 +8,8 @@ starship init fish | source
 set -gx COLORTERM truecolor
 set -gx TERM xterm-256color
 
-# Cargo
-fish_add_path ~/.cargo/bin
-
-# Go 
-fish_add_path ~/go/bin
+# User-built tools remain available without shadowing Nix-owned executables.
+fish_add_path --append ~/.cargo/bin ~/go/bin
 
 # Working Directory
 if status is-interactive && test -d ~/Developer
@@ -34,12 +31,6 @@ function __auto_venv --on-variable PWD
     end
 end
 
-# Kill Java process after quit Android Studio
-if type -q android-studio
-    alias cleanup-as='pkill -u (whoami) java 2>/dev/null; and echo "✅ Processi Java terminati"'
-end
-
-
 # Divider after command output
 function fish_postexec --on-event fish_postexec
     set_color '#394260'
@@ -51,7 +42,6 @@ end
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
-# Added by Android Studio
-set -gx ANDROID_HOME $HOME/Library/Android/sdk
-
-set -gx CLAUDE_SUBSCRIPTION_DIRECTSDK_COMMAND /Users/taekwondodev/.local/bin/claude
+if type -q claude
+    set -gx CLAUDE_SUBSCRIPTION_DIRECTSDK_COMMAND (command -s claude)
+end

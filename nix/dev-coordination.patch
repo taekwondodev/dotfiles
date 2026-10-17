@@ -1,0 +1,20 @@
+--- a/src/runtime-coordination.ts
++++ b/src/runtime-coordination.ts
+@@ -1,4 +1,5 @@
+ import { createHash, randomUUID } from 'node:crypto'
++import { homedir } from 'node:os'
+ import {
+   chmodSync,
+   closeSync,
+@@ -228,5 +229,10 @@
+ const prepareCoordination = (options: CoordinationOptions): string => {
+-  const home = join(options.installationPath ?? installationPath, '.dev')
++  // Nix generations are immutable. Keep one installation-wide coordination
++  // directory across their updates, independently of per-launch DEV_DATA_HOME.
++  // Explicit installation paths still belong to their own source checkout.
++  const home = options.installationPath === undefined
++    ? join(homedir(), 'Library', 'Application Support', 'dev', 'nix-installation')
++    : join(options.installationPath, '.dev')
+   privateDirectory(home)
+   const root = join(realpathSync(home), 'coordination')
+   privateDirectory(root)

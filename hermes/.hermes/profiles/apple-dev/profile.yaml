@@ -1,3 +1,4 @@
+---
 description: 'Sviluppo di app native Apple: Swift/SwiftUI/AppKit/UIKit su macOS, iOS,
   iPadOS, watchOS, visionOS e tvOS'
 description_auto: false
@@ -9,6 +10,4 @@ ui_meta:
     title: Apple Dev
     custom: true
     groups: []
-    group: null
-_ui_meta_revisions:
-  hermes-bots: 4
+    group:

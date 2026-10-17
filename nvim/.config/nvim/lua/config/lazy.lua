@@ -22,14 +22,15 @@ require("lazy").setup({
     spec = {
         { import = "plugins.snacks" },
         { import = "plugins.treesitter" },
-        { import = "plugins.mason" },
         { import = "plugins.editor" },
         { import = "plugins.coding" },
         { import = "plugins.ui" },
     },
+    -- Technical plugin resolution is writable and local, never committed.
+    lockfile = vim.fn.stdpath("state") .. "/lazy-lock.json",
     rocks = { enabled = false },
     install = { colorscheme = { "ayu-mirage", "habamax" } },
-    checker = { enabled = true, notify = false },
+    checker = { enabled = false },
     performance = {
         rtp = {
             disabled_plugins = {
