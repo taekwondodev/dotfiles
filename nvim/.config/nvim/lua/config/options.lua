@@ -20,6 +20,7 @@ vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 
 vim.opt.guicursor = ""
 vim.opt.number = true
+vim.opt.laststatus = 0
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
