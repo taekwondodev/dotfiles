@@ -8,6 +8,11 @@ starship init fish | source
 set -gx COLORTERM truecolor
 set -gx TERM xterm-256color
 
+# Explicit colors keep valid paths distinct from errors across terminal palettes.
+set -g fish_color_param normal
+set -g fish_color_valid_path 9ccfd8 --underline
+set -g fish_color_error eb6f92
+
 # Cargo
 fish_add_path ~/.cargo/bin
 
