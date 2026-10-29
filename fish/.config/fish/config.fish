@@ -40,6 +40,16 @@ if type -q android-studio
 end
 
 
+# Rex greeting: Wall-E fastfetch in top-level panes large enough for the logo.
+# The exported flag skips shells nested inside one, e.g. nvim's :terminal.
+function fish_greeting
+    set -q REX_SESSION; and not set -q __rex_greeted; or return
+    test $COLUMNS -ge 80 -a $LINES -ge 20; or return
+    type -q fastfetch; or return
+    set -gx __rex_greeted 1
+    fastfetch
+end
+
 # Divider after command output
 function fish_postexec --on-event fish_postexec
     set_color '#394260'

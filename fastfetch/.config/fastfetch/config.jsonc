@@ -1,0 +1,37 @@
+// Rex greeting, laid out like macOS "About This Mac": avatar, name, model,
+// then grouped facts with quiet labels. Rose Pine Moon colors; gold title.
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "kitty-direct",
+    "source": "~/.config/fastfetch/walle.png",
+    // Rex cells are 1:3 (18x54 px with +35% line height), so 24x8 is square.
+    // kitty-direct can't read the PNG's size, so both dimensions are fixed.
+    "width": 24,
+    "height": 8,
+    // Top padding centers the 8-row avatar on the 12 rows of text.
+    "padding": { "top": 3, "left": 3, "right": 5 }
+  },
+  "display": {
+    "separator": "",
+    "brightColor": false,
+    "key": { "width": 11 },
+    "color": { "keys": "#908caa", "output": "#e0def4" },
+    "size": { "ndigits": 0 }
+  },
+  "modules": [
+    "break",
+    { "type": "title", "format": "{#1;38;2;246;193;119}{user-name}" },
+    { "type": "host", "key": " ", "keyWidth": 0, "format": "{#38;2;144;140;170}{name}" },
+    "break",
+    { "type": "cpu", "key": "Chip", "format": "{name}" },
+    { "type": "memory", "key": "Memory", "format": "{used} / {total}" },
+    { "type": "os", "key": "macOS", "format": "{codename} {version}" },
+    "break",
+    { "type": "uptime", "key": "Uptime", "format": "{days}d {hours}h {minutes}m" },
+    { "type": "shell", "key": "Shell", "format": "{pretty-name} {version}" },
+    { "type": "terminal", "key": "Terminal", "format": "{pretty-name}" },
+    "break",
+    { "type": "custom", "format": "{#31}●  {#32}●  {#33}●  {#34}●  {#35}●  {#36}●" }
+  ]
+}

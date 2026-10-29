@@ -1,5 +1,5 @@
 # My Dotfiles
-Hermes Agent, Ghostty, Rex, Vim, Neovim, Fish and Starship configuration files
+Hermes Agent, Ghostty, Rex, Fastfetch, Vim, Neovim, Fish and Starship configuration files
 
 ## Install
 
@@ -35,6 +35,7 @@ chmod +x scripts/bootstrap.sh
 | fish     | ✓ | ✓ | — |
 | ghostty  | ✓ | ✓ | — |
 | rex      | ✓ | — | — |
+| fastfetch | ✓ | — | — |
 | starship | ✓ | ✓ | — |
 | vim      | ✓ | ✓ | ✓ |
 | hermes   | ✓ | ✓ | — |
@@ -93,6 +94,14 @@ Ghostty remains installed/configured independently.
   The script does not restart Rex. If preferences do not update live, quit/reopen
   the app when convenient. It never replaces/symlinks the whole app plist, which
   also contains session and connection state.
+
+Shell greeting: inside Rex, `fish_greeting` runs `fastfetch` with
+`fastfetch/.config/fastfetch/config.jsonc`, laid out like macOS "About This Mac":
+the Wall-E avatar (`walle.png`, a circular PNG drawn via the kitty graphics
+protocol) next to name, model, chip, memory, macOS, uptime, shell and terminal,
+in Rose Pine colors. It is skipped outside Rex (`REX_SESSION` unset), in panes
+smaller than 80×20, and in shells nested inside a greeted one (e.g. nvim's
+`:terminal`). `fish/.hushlogin` hides macOS's `Last login` line in every terminal.
 
 Migration limits: add **termicons** in Rex's terminal font fallback picker manually.
 Per-codepoint font overrides and the explicit OpenType `zero` feature are not ported.
