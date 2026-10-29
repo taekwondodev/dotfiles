@@ -17,7 +17,7 @@ TERMICONS_URL="https://github.com/mskelton/termicons"
 usage() {
     echo "Usage: $0 [macos|linux|server]"
     echo ""
-    echo "  macos   — nvim fish ghostty hermes starship vim (brew)"
+    echo "  macos   — nvim fish ghostty rex hermes starship vim (brew)"
     echo "  linux   — nvim fish ghostty hermes starship vim (apt/dnf)"
     echo "  server  — vim only"
     exit 1
@@ -137,7 +137,7 @@ link_server() {
 case "$PROFILE" in
     macos)
         install_macos
-        stow_packages nvim fish ghostty hermes starship vim
+        stow_packages nvim fish ghostty rex hermes starship vim
         ;;
     linux)
         install_linux

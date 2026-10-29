@@ -1,5 +1,5 @@
 # My Dotfiles
-Hermes Agent, Ghostty, Vim, Neovim, Fish and Starship configuration files
+Hermes Agent, Ghostty, Rex, Vim, Neovim, Fish and Starship configuration files
 
 ## Install
 
@@ -34,6 +34,7 @@ chmod +x scripts/bootstrap.sh
 | nvim     | ✓ | ✓ | — |
 | fish     | ✓ | ✓ | — |
 | ghostty  | ✓ | ✓ | — |
+| rex      | ✓ | — | — |
 | starship | ✓ | ✓ | — |
 | vim      | ✓ | ✓ | ✓ |
 | hermes   | ✓ | ✓ | — |
@@ -63,6 +64,42 @@ The `macos` and `linux` profiles handle automatically:
 - **[termicons](https://github.com/mskelton/termicons)** — cannot be automated; the script opens the repo in the browser and waits for you to install it before continuing
 
 The `macos` and `linux` profiles also stow the tracked Hermes configuration into `~/.hermes`.
+
+## Rex (macOS)
+
+Install [Rex](https://www.superlogical.com/rex/docs/installation), then link its configuration:
+
+```bash
+stow --simulate --verbose --target="$HOME" rex  # check for conflicts first
+stow --target="$HOME" rex
+rex config check
+rex config reload
+bash scripts/configure-rex-macos.sh           # run from a Rex terminal
+# With multiple connected apps: bash scripts/configure-rex-macos.sh CLIENT_ID
+```
+
+The macOS bootstrap also stows `rex`; it does not install Rex or apply its app preferences.
+Ghostty remains installed/configured independently.
+
+- `rex/.config/rex/init.lua`: Ghostty-compatible **Cmd+Shift+T** (new tab),
+  **Cmd+D** (split right), **Cmd+Shift+D** (split down), **Cmd+W** (close pane).
+  **Cmd+C / Cmd+V** retain Rex's native copy/paste handling.
+- `rex/.config/rex/themes/rose-pine-moon`: the same palette as Ghostty, imported
+  and selected by the macOS script without requiring Ghostty to be installed.
+- `scripts/configure-rex-macos.sh`: sets JetBrainsMono Nerd Font Mono at 15 pt,
+  +35% line height, ligatures, a block cursor (applications may override its shape),
+  left Option as Alt, and copy-on-select. These use native app preference keys observed in Rex Beta
+  **0.1.0 (1541)**, not a documented Lua API; recheck them after Rex updates.
+  The script does not restart Rex. If preferences do not update live, quit/reopen
+  the app when convenient. It never replaces/symlinks the whole app plist, which
+  also contains session and connection state.
+
+Migration limits: add **termicons** in Rex's terminal font fallback picker manually.
+Per-codepoint font overrides and the explicit OpenType `zero` feature are not ported.
+There is no documented equivalent for Ghostty's global quick terminal, opacity/blur,
+initial window dimensions, `window-save-state`, scrollback byte limit, vsync, or
+secure-input indicator. Fish/Starship stay shared through their existing packages;
+Ghostty-specific shell integration settings are not copied into Rex.
 
 ## Package manager support
 
