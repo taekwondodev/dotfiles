@@ -19,8 +19,8 @@ fish_add_path ~/.cargo/bin
 # Go 
 fish_add_path ~/go/bin
 
-# Working Directory
-if status is-interactive && test -d ~/Developer
+# Default to Developer only when starting from home; preserve explicit directories.
+if status is-interactive && test "$PWD" = "$HOME" && test -d ~/Developer
     cd ~/Developer
 end
 
