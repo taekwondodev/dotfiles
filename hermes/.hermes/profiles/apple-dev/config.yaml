@@ -74,7 +74,7 @@ onboarding:
   seen:
     tool_progress_prompt: true
     busy_input_prompt: true
-_config_version: 50
+_config_version: 52
 mcp_servers:
   figma:
     url: https://mcp.figma.com/mcp
