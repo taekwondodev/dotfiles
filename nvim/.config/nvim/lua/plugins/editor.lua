@@ -45,16 +45,6 @@ return {
         },
     },
 
-    -- Git workflow (ThePrimeagen staple)
-    {
-        "tpope/vim-fugitive",
-        cmd = { "Git", "Gdiff", "Gclog", "Gread", "Gwrite", "GBrowse" },
-        keys = {
-            { "<leader>gs", "<cmd>Git<cr>", desc = "Git status" },
-            { "<leader>gl", "<cmd>Gclog<cr>", desc = "Git log" },
-        },
-    },
-
     -- Visual undo history
     {
         "mbbill/undotree",

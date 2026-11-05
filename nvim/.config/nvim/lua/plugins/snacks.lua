@@ -10,6 +10,13 @@ return {
             explorer = {
                 replace_netrw = true,
             },
+            lazygit = {
+                win = {
+                    position = "float",
+                    width = 0.9,
+                    height = 0.9,
+                },
+            },
             terminal = {
                 win = {
                     position = "bottom",
@@ -48,6 +55,9 @@ return {
             end
         end,
         keys = {
+            { "<leader>gg",  function() Snacks.lazygit() end,               desc = "LazyGit" },
+            { "<leader>gs",  function() Snacks.lazygit() end,               desc = "LazyGit status" },
+            { "<leader>gl",  function() Snacks.lazygit.log() end,           desc = "LazyGit log" },
             { "<leader>e",   function() Snacks.explorer() end,              desc = "Explorer" },
             { "<D-b>",       function() Snacks.explorer() end,              desc = "Explorer", mode = { "n", "i", "v" } },
             { "<leader>pf",  function() Snacks.picker.files() end,          desc = "Find files" },
