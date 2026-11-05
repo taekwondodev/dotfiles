@@ -2,7 +2,7 @@ return {
     { "nvim-tree/nvim-web-devicons", lazy = true },
     { "mskelton/termicons.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, opts = {} },
 
-    -- Ayu mirage: matches ghostty palette exactly, transparent bg lets ghostty bg bleed through
+    -- Ayu mirage: transparent bg lets the terminal bg bleed through
     {
         "Shatur/neovim-ayu",
         lazy = false,

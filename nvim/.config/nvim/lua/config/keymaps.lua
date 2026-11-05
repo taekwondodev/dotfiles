@@ -4,8 +4,6 @@ local map = vim.keymap.set
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
--- Rex owns pane navigation; :split/:vsplit create native views under neorex.
-
 -- Move selected lines up/down
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
@@ -53,5 +51,3 @@ map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
-
--- Keep normal unsaved-buffer checks; neorex owns external window lifetime.

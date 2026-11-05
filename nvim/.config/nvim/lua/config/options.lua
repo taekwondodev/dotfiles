@@ -129,8 +129,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
--- Do not infer editor lifetime from neorex's external windows or UI buffers.
-
 vim.diagnostic.config({
     virtual_text = false,
     signs = {
