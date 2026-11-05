@@ -1,0 +1,6 @@
+os:
+  edit: '"$NEOREX_PYTHON" "$NEOREX_EDITOR_HELPER" {{filename}}'
+  editAtLine: '"$NEOREX_PYTHON" "$NEOREX_EDITOR_HELPER" {{filename}} {{line}}'
+  editAtLineAndWait: '"$NEOREX_PYTHON" "$NEOREX_EDITOR_HELPER" {{filename}} {{line}}'
+  openDirInEditor: '"$NEOREX_PYTHON" "$NEOREX_EDITOR_HELPER" {{dir}}'
+  editInTerminal: false

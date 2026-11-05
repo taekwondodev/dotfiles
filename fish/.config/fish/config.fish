@@ -4,9 +4,11 @@ end
 
 starship init fish | source
 
-# True color
+# True color; keep the terminal's TERM (including Rex's native terminfo).
 set -gx COLORTERM truecolor
-set -gx TERM xterm-256color
+
+# Locally installed tools, including neorex.
+fish_add_path ~/.local/bin
 
 # Explicit colors keep valid paths distinct from errors across terminal palettes.
 set -g fish_color_param normal

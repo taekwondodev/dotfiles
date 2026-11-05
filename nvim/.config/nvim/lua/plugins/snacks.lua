@@ -10,19 +10,6 @@ return {
             explorer = {
                 replace_netrw = true,
             },
-            lazygit = {
-                win = {
-                    position = "float",
-                    width = 0.9,
-                    height = 0.9,
-                },
-            },
-            terminal = {
-                win = {
-                    position = "bottom",
-                    height = 0.3,
-                },
-            },
             picker = {
                 sources = {
                     files = { hidden = true },
@@ -55,9 +42,9 @@ return {
             end
         end,
         keys = {
-            { "<leader>gg",  function() Snacks.lazygit() end,               desc = "LazyGit" },
-            { "<leader>gs",  function() Snacks.lazygit() end,               desc = "LazyGit status" },
-            { "<leader>gl",  function() Snacks.lazygit.log() end,           desc = "LazyGit log" },
+            { "<leader>gg",  function() require("config.rex_lazygit").open() end,      desc = "LazyGit (Rex)" },
+            { "<leader>gs",  function() require("config.rex_lazygit").open() end,      desc = "LazyGit status (Rex)" },
+            { "<leader>gl",  function() require("config.rex_lazygit").open("log") end, desc = "LazyGit log (Rex)" },
             { "<leader>e",   function() Snacks.explorer() end,              desc = "Explorer" },
             { "<D-b>",       function() Snacks.explorer() end,              desc = "Explorer", mode = { "n", "i", "v" } },
             { "<leader>pf",  function() Snacks.picker.files() end,          desc = "Find files" },

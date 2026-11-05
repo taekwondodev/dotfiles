@@ -30,16 +30,20 @@ detect_pkg_manager() {
     fi
 }
 
-install_tree_sitter_cli() {
-    if command -v tree-sitter &>/dev/null; then
-        success "tree-sitter-cli già installato"
-        return
-    fi
+install_rust() {
     if ! command -v cargo &>/dev/null; then
         info "Cargo non trovato. Installazione Rust via rustup..."
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
         source "$HOME/.cargo/env"
     fi
+}
+
+install_tree_sitter_cli() {
+    if command -v tree-sitter &>/dev/null; then
+        success "tree-sitter-cli già installato"
+        return
+    fi
+    install_rust
     info "Installazione tree-sitter-cli..."
     cargo install tree-sitter-cli
 }
@@ -82,10 +86,11 @@ install_hermes() {
 install_macos() {
     command -v brew &>/dev/null || die "Homebrew non trovato: https://brew.sh"
     info "Installazione dipendenze macOS..."
-    brew install stow git starship neovim fd fastfetch
+    brew install stow git starship neovim fd fastfetch lazygit python3
     brew install --cask font-jetbrains-mono-nerd-font
     success "Dipendenze installate"
     install_hermes
+    install_rust
     install_tree_sitter_cli
     install_termicons
 }
@@ -138,6 +143,7 @@ case "$PROFILE" in
     macos)
         install_macos
         stow_packages nvim fish ghostty rex fastfetch hermes starship vim
+        bash "$DOTFILES_DIR/scripts/install-neorex.sh"
         ;;
     linux)
         install_linux

@@ -6,3 +6,6 @@ wiki/
 nvim/.config/nvim/lazy-lock.json
 /.claude/
 HANDOFF.md
+/.build/
+/rex/.config/rex/ssh_config
+/rex/.config/rex/terminfo-hosts

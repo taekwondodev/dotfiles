@@ -129,35 +129,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-vim.api.nvim_create_autocmd("QuitPre", {
-    callback = function()
-        local ui_wins = {}
-        local real_count = 0
-        local has_explorer = false
-        for _, w in ipairs(vim.api.nvim_list_wins()) do
-            local buf = vim.api.nvim_win_get_buf(w)
-            local ft = vim.bo[buf].filetype
-            if vim.bo[buf].buftype == "" then
-                real_count = real_count + 1
-            else
-                table.insert(ui_wins, w)
-                if ft:match("snacks_picker") or ft == "snacks_layout_box" then
-                    has_explorer = true
-                end
-            end
-        end
-        if real_count == 0 and has_explorer then
-            -- quitting from explorer with no files open → quit all
-            vim.cmd("qa")
-        elseif real_count == 1 and not has_explorer then
-            -- last real window, no explorer → close noice/scrollview noise then quit
-            for _, w in ipairs(ui_wins) do
-                pcall(vim.api.nvim_win_close, w, true)
-            end
-        end
-        -- real_count >= 1 and has_explorer → do nothing, :q closes the file and focuses explorer
-    end,
-})
+-- Do not infer editor lifetime from neorex's external windows or UI buffers.
 
 vim.diagnostic.config({
     virtual_text = false,
