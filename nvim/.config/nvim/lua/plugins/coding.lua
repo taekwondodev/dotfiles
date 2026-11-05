@@ -78,7 +78,7 @@ return {
                 fish = { "fish_indent" },
                 python = { "black" },
                 java = { "google_java_format" },
-                swift = { "swift-format" },
+                swift = { "swift" },
                 terraform = { "terraform_fmt" },
                 terraform_vars = { "terraform_fmt" },
             },

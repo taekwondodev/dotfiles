@@ -1,4 +1,5 @@
 return {
+    cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gosum" },
     settings = {
         gopls = {
