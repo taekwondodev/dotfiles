@@ -4,10 +4,10 @@ end
 
 starship init fish | source
 
-# True color; keep the terminal's TERM (including Rex's native terminfo).
+# True color
 set -gx COLORTERM truecolor
 
-# Locally installed tools, including neorex.
+# Local binaries
 fish_add_path ~/.local/bin
 
 # Explicit colors keep valid paths distinct from errors across terminal palettes.
