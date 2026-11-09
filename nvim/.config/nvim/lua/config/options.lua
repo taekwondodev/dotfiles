@@ -129,6 +129,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+-- :q on the last file window of a tab also closes sidebars (explorer, floats),
+-- so the same :q exits Neovim. Windows close without force, and :q itself still
+-- refuses unsaved changes or running terminal jobs.
+vim.api.nvim_create_autocmd("QuitPre", {
+    callback = function()
+        local current = vim.api.nvim_get_current_win()
+        local others = vim.tbl_filter(function(w)
+            return w ~= current
+        end, vim.api.nvim_tabpage_list_wins(0))
+        for _, w in ipairs(others) do
+            local is_float = vim.api.nvim_win_get_config(w).relative ~= ""
+            if not is_float and vim.bo[vim.api.nvim_win_get_buf(w)].buftype == "" then
+                return
+            end
+        end
+        for _, w in ipairs(others) do
+            pcall(vim.api.nvim_win_close, w, false)
+        end
+    end,
+})
+
 vim.diagnostic.config({
     virtual_text = false,
     signs = {
