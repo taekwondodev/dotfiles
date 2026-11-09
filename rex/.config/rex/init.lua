@@ -24,7 +24,8 @@ rex.action{
   title = "Close Pane (Confirm for dev)",
   run = function(ctx)
     if runs_dev(ctx.block_id) and not confirm_close() then return end
-    rex.client.queue("pane.close")
+    local _, err = rex.call("block.close", { session_id = ctx.session_id, block_id = ctx.block_id })
+    if err ~= nil then error(err, 0) end
   end,
 }
 rex.bind("cmd+w", "close_pane_guarded")
