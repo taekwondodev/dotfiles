@@ -14,6 +14,7 @@ return {
                 sources = {
                     files = { hidden = true },
                     grep = { hidden = true },
+                    grep_word = { hidden = true },
                     explorer = {
                         hidden = true,
                         ignored = true,
