@@ -2,6 +2,11 @@ require("config.options")
 require("config.keymaps")
 require("config.lazy")
 
+-- A Rex picker float runs this config only to serve one picker.
+if vim.env.REX_PICKER then
+    require("config.rex").serve_picker()
+end
+
 local all_servers = { "gopls", "clangd", "ts_ls", "bashls", "lua_ls", "pyright", "jdtls", "rust_analyzer", "dockerls", "terraformls", "docker_compose_language_service", "yamlls", "sourcekit_lsp" }
 local binaries = { gopls = "gopls", clangd = "clangd", ts_ls = "typescript-language-server", bashls = "bash-language-server", lua_ls = "lua-language-server", pyright = "pyright", jdtls = "jdtls", rust_analyzer = "rust-analyzer", dockerls = "docker-langserver", terraformls = "terraform-ls", docker_compose_language_service = "docker-compose-langserver", yamlls = "yaml-language-server", sourcekit_lsp = "sourcekit-lsp" }
 
