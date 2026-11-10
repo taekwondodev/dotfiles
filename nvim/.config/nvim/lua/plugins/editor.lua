@@ -5,8 +5,8 @@ return {
         branch = "harpoon2",
         dependencies = { "nvim-lua/plenary.nvim" },
         keys = {
-            { "<leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon add" },
-            { "<C-e>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Harpoon menu" },
+            { "<leader>ha", function() require("harpoon"):list():add() end, desc = "Add file" },
+            { "<leader>hh", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Menu" },
             { "<M-1>", function() require("harpoon"):list():select(1) end },
             { "<M-2>", function() require("harpoon"):list():select(2) end },
             { "<M-3>", function() require("harpoon"):list():select(3) end },
@@ -37,7 +37,7 @@ return {
                 map("n", "]h", gs.next_hunk, "Next hunk")
                 map("n", "[h", gs.prev_hunk, "Prev hunk")
                 map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame line")
-                map("n", "<leader>gd", gs.diffthis, "Diff this")
+                map("n", "<leader>gd", gs.diffthis, "Diff file")
                 map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
                 map("n", "<leader>gr", gs.reset_hunk, "Reset hunk")
                 map("n", "<leader>gR", gs.reset_buffer, "Reset buffer")
@@ -73,7 +73,7 @@ return {
         keys = {
             { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo" },
             { "[t", function() require("todo-comments").jump_prev() end, desc = "Prev todo" },
-            { "<leader>st", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
+            { "<leader>dt", "<cmd>TodoTrouble<cr>", desc = "Todos" },
         },
     },
 
@@ -85,7 +85,6 @@ return {
         keys = {
             { "<leader>qs", function() require("persistence").load() end, desc = "Restore session" },
             { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore last session" },
-            { "<leader>qd", function() require("persistence").stop() end, desc = "Don't save session" },
         },
     },
 
@@ -94,28 +93,8 @@ return {
         "folke/trouble.nvim",
         cmd = "Trouble",
         keys = {
-            { "<leader>tt", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble diagnostics" },
-            { "<leader>tl", "<cmd>Trouble loclist toggle<cr>", desc = "Trouble loclist" },
-            { "<leader>tq", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble quickfix" },
+            { "<leader>dw", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace" },
         },
         opts = {},
-    },
-
-    -- Code refactoring: extract function/variable, inline variable/function
-    {
-        "ThePrimeagen/refactoring.nvim",
-        dependencies = {
-            "lewis6991/async.nvim",
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {},
-        keys = {
-            { "<leader>re", function() require("refactoring").refactor("Extract Function") end,         mode = "v", desc = "Extract function" },
-            { "<leader>rv", function() require("refactoring").refactor("Extract Variable") end,         mode = "v", desc = "Extract variable" },
-            { "<leader>ri", function() require("refactoring").refactor("Inline Variable") end,          mode = "n", desc = "Inline variable" },
-            { "<leader>rf", function() require("refactoring").refactor("Inline Function") end,          mode = "n", desc = "Inline function" },
-        },
     },
 }

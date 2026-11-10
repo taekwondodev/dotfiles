@@ -71,11 +71,6 @@ return {
         },
         keys = {
             { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
-            { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
-            { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
-            { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
-            { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
-            { "<leader>snt", function() require("noice").cmd("pick") end, desc = "Noice Picker" },
             { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll Forward", mode = { "i", "n", "s" } },
             { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll Backward", mode = { "i", "n", "s" } },
         },
@@ -131,9 +126,16 @@ return {
         config = function(_, opts)
             require("livepreview.config").set(opts)
         end,
-        keys = {
-            { "<leader>lp", "<cmd>LivePreview start<cr>", desc = "Live HTML/Markdown preview" },
-        },
+        init = function()
+            -- Buffer-local so `Space p` only shows up where a preview exists.
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "markdown", "html", "svg" },
+                callback = function(event)
+                    vim.keymap.set("n", "<leader>p", "<cmd>LivePreview start<cr>",
+                        { buffer = event.buf, desc = "Preview in browser" })
+                end,
+            })
+        end,
     },
 
 
@@ -164,12 +166,23 @@ return {
         },
     },
 
-    -- Keymap hints
+    -- Keymap hints. Group names are the mnemonic: Space + group + action.
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
         opts = {
             preset = "helix",
+            spec = {
+                { "<leader>b", group = "Buffer" },
+                { "<leader>c", group = "Code" },
+                { "<leader>d", group = "Diagnostics" },
+                { "<leader>f", group = "Find" },
+                { "<leader>g", group = "Git" },
+                { "<leader>h", group = "Harpoon" },
+                { "<leader>q", group = "Session" },
+                { "[", group = "Prev" },
+                { "]", group = "Next" },
+            },
         },
     },
 }

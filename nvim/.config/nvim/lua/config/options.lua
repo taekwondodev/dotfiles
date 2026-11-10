@@ -115,11 +115,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
         map("n", "gr", vim.lsp.buf.references, "References")
         map("n", "K", vim.lsp.buf.hover, "Hover docs")
-        vim.keymap.set("n", "<leader>rn", ":IncRename ", { buffer = buf, desc = "Rename symbol" })
         map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
-        map("n", "<leader>d", vim.diagnostic.open_float, "Diagnostic float")
-        map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
-        map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Prev diagnostic")
+        map("n", "<leader>cr", ":IncRename ", "Rename symbol")
 
         if vim.lsp.inlay_hint and client and client:supports_method("textDocument/inlayHint") then
             if vim.fn.filereadable(vim.api.nvim_buf_get_name(buf)) == 1 then

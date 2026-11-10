@@ -43,18 +43,18 @@ return {
             end
         end,
         keys = {
-            { "<leader>gg",  function() require("config.rex").lazygit() end,      desc = "LazyGit (Rex)" },
-            { "<leader>gs",  function() require("config.rex").lazygit() end,      desc = "LazyGit status (Rex)" },
-            { "<leader>gl",  function() require("config.rex").lazygit("log") end, desc = "LazyGit log (Rex)" },
-            { "<leader>e",   function() Snacks.explorer() end,              desc = "Explorer" },
-            { "<D-b>",       function() Snacks.explorer() end,              desc = "Explorer", mode = { "n", "i", "v" } },
-            { "<leader>pf",  function() require("config.rex").picker("files") end,     desc = "Find files" },
-            { "<C-p>",       function() require("config.rex").picker("git_files") end, desc = "Git files" },
-            { "<leader>ps",  function() require("config.rex").picker("grep") end,      desc = "Live grep" },
-            { "<leader>pws", function() require("config.rex").picker("grep_word", { search = vim.fn.expand("<cword>") }) end, desc = "Grep word" },
-            { "<leader>vh",  function() Snacks.picker.help() end,           desc = "Help tags" },
-            { "<leader>sb",  function() Snacks.picker.lines() end,          desc = "Buffer lines" },
-            { "<leader>ss",  function() Snacks.picker.lsp_symbols() end,    desc = "LSP symbols" },
+            { "<leader>e",        function() Snacks.explorer() end, desc = "Explorer" },
+            { "<D-b>",            function() Snacks.explorer() end, desc = "Explorer", mode = { "n", "i", "v" } },
+            -- Find
+            { "<leader>ff",       function() require("config.rex").picker("files") end, desc = "Files" },
+            { "<leader>fg",       function() require("config.rex").picker("grep") end,  desc = "Grep" },
+            { "<leader>fw",       function() require("config.rex").picker("grep_word", { search = vim.fn.expand("<cword>") }) end, desc = "Word under cursor" },
+            { "<leader>fl",       function() Snacks.picker.lines() end,       desc = "Lines in buffer" },
+            { "<leader>fs",       function() Snacks.picker.lsp_symbols() end, desc = "Symbols" },
+            { "<leader>fh",       function() Snacks.picker.help() end,        desc = "Help" },
+            -- Git
+            { "<leader>gg",       function() require("config.rex").lazygit() end,      desc = "LazyGit" },
+            { "<leader>gl",       function() require("config.rex").lazygit("log") end, desc = "Log" },
         },
     },
 }
