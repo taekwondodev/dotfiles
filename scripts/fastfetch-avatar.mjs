@@ -1,113 +1,104 @@
-// Draws the fastfetch avatar: a lantern-headed robot caught while it boots, its lamps
-// warming to the gold of the greeting's title. Rose Pine Moon colors, transparent ground.
-// Regenerate with:
-//   node scripts/fastfetch-avatar.mjs | rsvg-convert -o fastfetch/.config/fastfetch/avatar.png
-// The optional argument sets how far it has woken, 0 (off) to 1 (awake); the greeting uses 0.6.
+// Regenerate (requires rsvg-convert):
+//   node scripts/fastfetch-avatar.mjs > fastfetch/.config/fastfetch/avatar.png
+// Optional wake level: 0 (off) to 1 (awake), default 0.6.
+import { execFileSync } from "node:child_process";
+
 const wake = Number(process.argv[2] ?? 0.6);
 const P = {
   base: "#232136", surface: "#2a273f", overlay: "#393552", text: "#e0def4",
   gold: "#f6c177", rose: "#ea9a97", hlLow: "#2a283e", hlMed: "#44415a", hlHigh: "#56526e",
 };
-const S = 864, cx = S / 2;
-// The head is still rising: lower and tilted forward while waking, level when awake.
-const lift = (1 - wake) * 26;
-const tilt = (1 - wake) * 4;
-// Shutters over the lamps open as it wakes.
-const shut = 0.55 * (1 - wake);
+const size = 864;
 const glow = 0.25 + 0.75 * wake;
 
-const eye = (x, y) => {
-  const r = 46, cover = r * 2 * shut;
-  return `
-    <circle cx="${x}" cy="${y}" r="${r + 10}" fill="${P.hlLow}" stroke="${P.hlMed}" stroke-width="4"/>
-    <circle cx="${x}" cy="${y}" r="${r}" fill="url(#lamp)" opacity="${glow}"/>
-    <circle cx="${x}" cy="${y}" r="${r * 0.42}" fill="#fff6e4" opacity="${0.35 + 0.65 * wake}" filter="url(#soft)"/>
-    <clipPath id="c${x}"><circle cx="${x}" cy="${y}" r="${r + 1}"/></clipPath>
-    <g clip-path="url(#c${x})">
-      <rect x="${x - r - 2}" y="${y - r - 2}" width="${2 * r + 4}" height="${cover + 2}" fill="${P.surface}"/>
-      <rect x="${x - r - 2}" y="${y - r + cover - 3}" width="${2 * r + 4}" height="3" fill="${P.hlHigh}"/>
-    </g>`;
-};
+const lens = (cx, rotation) => `
+  <g transform="translate(${cx} 0) rotate(${rotation})">
+    <path d="M-105 -25 Q-98 -87 -37 -98 L48 -91 Q98 -85 106 -39 L98 36 Q90 76 49 80 L-40 77 Q-100 69 -105 12 Z"
+      fill="url(#metal)" stroke="${P.hlHigh}" stroke-width="6"/>
+    <path d="M-88 -22 Q-81 -69 -35 -77 L42 -73 Q79 -68 85 -33 L78 28 Q72 56 44 59 L-39 57 Q-84 49 -88 9 Z"
+      fill="#15131f" stroke="${P.base}" stroke-width="5"/>
+    <circle cy="-6" r="57" fill="${P.hlLow}" stroke="${P.hlMed}" stroke-width="5"/>
+    <circle cy="-6" r="45" fill="url(#lamp)" opacity="${glow}"/>
+    <circle cy="-6" r="23" fill="${P.base}"/>
+    <ellipse cx="-14" cy="-22" rx="13" ry="9" transform="rotate(-28 -14 -22)" fill="#fff6e4" opacity="${glow}"/>
+    <circle cx="16" cy="10" r="5" fill="${P.gold}" opacity="${glow}"/>
+    <path d="M-73 -41 Q-65 -57 -48 -61" fill="none" stroke="${P.text}" stroke-opacity="0.28" stroke-width="5" stroke-linecap="round"/>
+  </g>`;
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}">
+const track = (x) => `
+  <g transform="translate(${x} 0)">
+    <path d="M49 501 H88 Q109 501 119 538 L155 653 Q173 722 104 737 H40 Q-28 730 -12 672 L22 533 Q30 501 49 501 Z"
+      fill="${P.base}" stroke="${P.hlHigh}" stroke-width="6"/>
+    <path d="M56 519 H83 Q99 519 108 551 L139 656 Q154 703 106 717 H44 Q-4 711 8 672 L39 551 Q46 519 56 519 Z"
+      fill="${P.overlay}" stroke="${P.hlMed}" stroke-width="5"/>
+    ${[[70, 562, 17], [58, 606, 21], [42, 664, 27], [103, 664, 27]].map(([cx, cy, r]) => `
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="${P.base}" stroke="${P.hlHigh}" stroke-width="4"/>
+      <circle cx="${cx}" cy="${cy}" r="${r * 0.4}" fill="${P.hlMed}"/>`).join("")}
+    <path d="M30 530 h15 M18 570 h15 M8 610 h15 M-2 651 h15 M-13 692 l18 -2 M12 725 l10 -13 M48 737 v-18 M88 737 v-18 M124 729 l-7 -16 M151 706 l-12 -9"
+      fill="none" stroke="${P.hlHigh}" stroke-width="5" stroke-linecap="round"/>
+  </g>`;
+
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+<title>WALL-E</title>
 <defs>
-  <radialGradient id="lamp" cx="50%" cy="55%" r="50%">
-    <stop offset="0" stop-color="#ffe9c4"/>
-    <stop offset="0.45" stop-color="${P.gold}"/>
+  <radialGradient id="lamp" cx="40%" cy="32%" r="65%">
+    <stop stop-color="#ffe9c4"/>
+    <stop offset="0.48" stop-color="${P.gold}"/>
     <stop offset="1" stop-color="#b9783a"/>
   </radialGradient>
-  <radialGradient id="halo" cx="50%" cy="50%" r="50%">
-    <stop offset="0" stop-color="${P.gold}" stop-opacity="${0.55 * glow}"/>
-    <stop offset="1" stop-color="${P.gold}" stop-opacity="0"/>
-  </radialGradient>
-  <linearGradient id="headFill" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="${P.hlHigh}"/>
-    <stop offset="0.18" stop-color="${P.overlay}"/>
+  <linearGradient id="metal" x2="0" y2="1">
+    <stop stop-color="${P.hlHigh}"/>
+    <stop offset="0.48" stop-color="${P.overlay}"/>
     <stop offset="1" stop-color="${P.surface}"/>
   </linearGradient>
-  <linearGradient id="bodyFill" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="${P.overlay}"/>
-    <stop offset="1" stop-color="${P.base}"/>
+  <linearGradient id="paint" x2="0" y2="1">
+    <stop stop-color="${P.gold}"/>
+    <stop offset="1" stop-color="#b9783a"/>
   </linearGradient>
-  <linearGradient id="warmUnder" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="${P.gold}" stop-opacity="${0.22 * glow}"/>
-    <stop offset="1" stop-color="${P.gold}" stop-opacity="0"/>
-  </linearGradient>
-  <linearGradient id="fadeOut" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0.72" stop-color="#fff"/>
-    <stop offset="1" stop-color="#000"/>
-  </linearGradient>
-  <mask id="vignette"><rect width="${S}" height="${S}" fill="url(#fadeOut)"/></mask>
-  <clipPath id="headClip"><rect x="212" y="250" width="440" height="310" rx="64"/></clipPath>
-  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
-  <filter id="bloom" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+  <radialGradient id="shadow">
+    <stop stop-color="${P.base}" stop-opacity="0.8"/>
+    <stop offset="1" stop-color="${P.base}" stop-opacity="0"/>
+  </radialGradient>
 </defs>
 
-<g mask="url(#vignette)">
-  <!-- Shoulders and chest, cropped by the frame -->
-  <path d="M150 864 L170 690 Q178 640 230 632 L634 632 Q686 640 694 690 L714 864 Z" fill="url(#bodyFill)" stroke="${P.hlMed}" stroke-width="4"/>
-  <path d="M230 632 L634 632 Q686 640 694 690 L170 690 Q178 640 230 632 Z" fill="url(#warmUnder)"/>
-  <rect x="352" y="712" width="160" height="56" rx="12" fill="${P.hlLow}" stroke="${P.hlMed}" stroke-width="3"/>
-  <circle cx="392" cy="740" r="8" fill="${P.gold}" opacity="${glow}"/>
-  <circle cx="392" cy="740" r="16" fill="${P.gold}" opacity="${0.35 * glow}" filter="url(#soft)"/>
-  <circle cx="432" cy="740" r="8" fill="${P.hlMed}"/>
-  <circle cx="472" cy="740" r="8" fill="${P.hlMed}"/>
-  ${[200, 664].map((x) => `<circle cx="${x}" cy="664" r="6" fill="${P.hlHigh}"/>`).join("")}
+<ellipse cx="432" cy="724" rx="347" ry="53" fill="url(#shadow)"/>
+${track(137)}
+${track(589)}
 
-  <!-- Neck: three ribs -->
-  <g transform="translate(0 ${lift * 0.5})">
-    ${[0, 1, 2].map((i) => `<rect x="${384 - i * 4}" y="${560 + i * 24}" width="${96 + i * 8}" height="20" rx="8" fill="${i % 2 ? P.hlMed : P.overlay}"/>`).join("")}
-  </g>
+<!-- Wall-E's boxy compactor and the inset front door. -->
+<g stroke="${P.base}" stroke-width="7" stroke-linejoin="round">
+  <path d="M266 501 L314 446 H577 L615 501 L587 541 H303 Z" fill="${P.gold}"/>
+  <path d="M266 501 H615 V674 Q615 686 603 686 H279 Q266 686 266 673 Z" fill="url(#paint)"/>
+  <rect x="296" y="521" width="288" height="119" rx="11" fill="${P.overlay}"/>
+  <path d="M319 544 H561 V598 L538 618 H342 L319 598 Z" fill="url(#metal)"/>
+</g>
+<path d="M335 555 H545 M342 600 H538" fill="none" stroke="${P.hlHigh}" stroke-width="4" stroke-linecap="round"/>
+<rect x="317" y="648" width="247" height="25" rx="6" fill="${P.base}"/>
+<text x="328" y="666" font-family="sans-serif" font-weight="bold" font-size="17" letter-spacing="3" fill="${P.text}">WALL<tspan fill="${P.rose}">·E</tspan></text>
+<path d="M514 660 h5 m6 0 h5 m6 0 h5 m6 0 h5" stroke="${P.gold}" stroke-width="4" stroke-linecap="round" opacity="${glow}"/>
 
-  <!-- Head -->
-  <g transform="translate(0 ${lift}) rotate(${tilt} ${cx} 560)">
-    <!-- Antenna with its pilot light -->
-    <rect x="${cx + 96}" y="150" width="8" height="110" rx="4" fill="${P.hlMed}"/>
-    <circle cx="${cx + 100}" cy="146" r="${14 + 10 * wake}" fill="${P.rose}" opacity="${0.4 * glow}" filter="url(#soft)"/>
-    <circle cx="${cx + 100}" cy="146" r="11" fill="${P.rose}" opacity="${0.3 + 0.7 * wake}"/>
-    <!-- Side cans -->
-    <rect x="168" y="340" width="54" height="140" rx="18" fill="${P.overlay}" stroke="${P.hlMed}" stroke-width="4"/>
-    <rect x="642" y="340" width="54" height="140" rx="18" fill="${P.overlay}" stroke="${P.hlMed}" stroke-width="4"/>
-    <!-- Lantern head -->
-    <rect x="212" y="250" width="440" height="310" rx="64" fill="url(#headFill)" stroke="${P.hlHigh}" stroke-width="4"/>
-    <!-- A dent and a patched plate -->
-    <path d="M262 286 q22 10 46 2" fill="none" stroke="${P.hlLow}" stroke-width="6" stroke-linecap="round"/>
-    <rect x="520" y="492" width="86" height="40" rx="6" fill="${P.hlMed}" opacity="0.7"/>
-    ${[[534, 504], [592, 504], [534, 520], [592, 520]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.5" fill="${P.hlHigh}"/>`).join("")}
-    ${[[244, 282], [620, 282], [244, 528], [620, 528]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="6" fill="${P.hlMed}"/>`).join("")}
-    <!-- Mouth grille -->
-    ${[0, 1, 2, 3, 4].map((i) => `<rect x="${372 + i * 26}" y="500" width="12" height="30" rx="5" fill="${P.hlLow}"/>`).join("")}
-    <!-- Visor slot: dark glass, warm light spilling onto it -->
-    <rect x="252" y="330" width="360" height="148" rx="74" fill="#15131f" stroke="${P.hlMed}" stroke-width="5"/>
-    <ellipse cx="${cx}" cy="404" rx="210" ry="110" fill="url(#halo)" filter="url(#bloom)"/>
-    ${eye(cx - 84, 404)}
-    ${eye(cx + 84, 404)}
-    <!-- Glass reflection -->
-    <path d="M286 352 Q330 340 380 342" fill="none" stroke="${P.text}" stroke-opacity="0.22" stroke-width="7" stroke-linecap="round"/>
-    <!-- Warm light falling on the lower face, kept inside the head -->
-    <ellipse cx="${cx}" cy="490" rx="170" ry="40" fill="${P.gold}" opacity="${0.16 * glow}" filter="url(#bloom)" clip-path="url(#headClip)"/>
-  </g>
+<!-- Hinged arms and two-finger grippers. -->
+<g stroke-linecap="round" stroke-linejoin="round">
+  <path d="M272 501 L235 541 L213 590 M607 505 L649 548 L671 590" fill="none" stroke="${P.base}" stroke-width="39"/>
+  <path d="M272 501 L235 541 L213 590 M607 505 L649 548 L671 590" fill="none" stroke="url(#paint)" stroke-width="25"/>
+  <path d="M214 583 L179 591 L171 622 L195 635 L199 611 L218 609 L222 632 L245 622 L239 592 Z M671 583 L646 592 L640 622 L663 632 L667 609 L686 611 L690 635 L714 622 L706 591 Z"
+    fill="url(#metal)" stroke="${P.hlHigh}" stroke-width="5"/>
+  <circle cx="235" cy="541" r="9" fill="${P.hlMed}"/>
+  <circle cx="649" cy="548" r="9" fill="${P.hlMed}"/>
+</g>
+
+<!-- Tall articulated neck and separate binocular housings. -->
+<ellipse cx="432" cy="465" rx="62" ry="16" fill="${P.hlMed}" stroke="${P.base}" stroke-width="5"/>
+<path d="M411 458 L393 395 L418 ${240 + (1 - wake) * 30} H458 L436 395 L454 460 Z"
+  fill="url(#metal)" stroke="${P.hlHigh}" stroke-width="6" stroke-linejoin="round"/>
+<circle cx="416" cy="395" r="15" fill="${P.base}" stroke="${P.hlHigh}" stroke-width="5"/>
+<circle cx="416" cy="395" r="5" fill="${P.gold}"/>
+<g transform="translate(432 ${233 + (1 - wake) * 30}) rotate(${-3 - (1 - wake) * 6})">
+  <rect x="-63" y="-31" width="126" height="58" rx="18" fill="${P.base}" stroke="${P.hlHigh}" stroke-width="6"/>
+  ${lens(-121, -9)}
+  ${lens(121, 9)}
 </g>
 </svg>
 `;
-process.stdout.write(svg);
+
+execFileSync("rsvg-convert", { input: svg, stdio: ["pipe", "inherit", "inherit"] });
