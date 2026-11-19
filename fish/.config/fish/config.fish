@@ -47,7 +47,7 @@ if type -q android-studio
 end
 
 
-# Rex greeting: Wall-E fastfetch in top-level panes large enough for the logo.
+# Rex greeting: robot-avatar fastfetch in top-level panes large enough for the logo.
 # The exported flag skips shells nested inside one, e.g. nvim's :terminal.
 function fish_greeting
     set -q REX_SESSION; and not set -q __rex_greeted; or return
