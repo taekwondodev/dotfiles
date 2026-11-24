@@ -40,7 +40,6 @@ return {
         opts = {},
     },
 
-
     -- Auto-close brackets/quotes
     {
         "windwp/nvim-autopairs",
