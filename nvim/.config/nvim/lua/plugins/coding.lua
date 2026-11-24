@@ -1,3 +1,7 @@
+local function has_ruff_config(_, ctx)
+    return require("config.ruff").has_project_config(ctx.dirname)
+end
+
 return {
 
     -- Better LSP rename with live preview
@@ -76,11 +80,17 @@ return {
                 sh = { "shfmt" },
                 bash = { "shfmt" },
                 fish = { "fish_indent" },
-                python = { "black" },
+                python = { "ruff_fix", "ruff_format" },
                 java = { "google_java_format" },
                 swift = { "swift" },
                 terraform = { "terraform_fmt" },
                 terraform_vars = { "terraform_fmt" },
+            },
+            -- Only projects that adopt ruff get rewritten on save; others
+            -- (e.g. OpenStack style) keep their own formatting.
+            formatters = {
+                ruff_fix = { condition = has_ruff_config },
+                ruff_format = { condition = has_ruff_config },
             },
             format_on_save = {
                 timeout_ms = 500,

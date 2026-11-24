@@ -16,6 +16,7 @@ return {
                 "bash-language-server",
                 "lua-language-server",
                 "pyright",
+                "ruff",
                 "jdtls",
                 "terraform-ls",
                 "docker-compose-language-service",
@@ -25,7 +26,6 @@ return {
                 "shfmt",
                 "prettier",
                 "gofumpt",
-                "black",
                 "google-java-format",
             }
 

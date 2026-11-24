@@ -16,6 +16,8 @@ return {
         end
     end,
     settings = {
+        -- Ruff organizes imports.
+        pyright = { disableOrganizeImports = true },
         python = {
             analysis = {
                 typeCheckingMode = "basic",
