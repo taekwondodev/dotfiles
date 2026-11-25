@@ -112,11 +112,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         map("n", "gd", vim.lsp.buf.definition, "Go to definition")
         map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
-        map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-        map("n", "gr", vim.lsp.buf.references, "References")
-        map("n", "K", vim.lsp.buf.hover, "Hover docs")
-        map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
-        map("n", "<leader>cr", ":IncRename ", "Rename symbol")
+        -- K (hover), references, implementation, code action, etc. use Neovim's
+        -- built-in maps; only rename is overridden to get IncRename's live preview.
+        map("n", "grn", ":IncRename ", "Rename symbol")
 
         if vim.lsp.inlay_hint and client and client:supports_method("textDocument/inlayHint") then
             if vim.fn.filereadable(vim.api.nvim_buf_get_name(buf)) == 1 then
