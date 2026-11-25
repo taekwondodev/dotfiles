@@ -4,12 +4,11 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
-            dashboard = { enabled = vim.env.REX_PICKER == nil }, -- not in Rex picker floats
+            dashboard = { enabled = true },
             scroll = { enabled = true },
             bufdelete = { enabled = true },
-            explorer = {
-                replace_netrw = true,
-            },
+            -- Directories open the explorer from the autocmd below instead.
+            explorer = { replace_netrw = false },
             picker = {
                 sources = {
                     files = { hidden = true },
@@ -41,14 +40,35 @@ return {
                 end
                 return orig_icon(name, cat, icon_opts)
             end
+
+            -- Snacks' replace_netrw shows the explorer before the UI attaches when
+            -- Neovim starts on a directory, which kills neopane 0.2.2's daemon
+            -- ("BadMessage"). Opening it after VimEnter works in both nvim and neopane.
+            vim.api.nvim_create_autocmd("BufEnter", {
+                group = vim.api.nvim_create_augroup("directory_explorer", { clear = true }),
+                callback = function(event)
+                    if event.file == "" or vim.fn.isdirectory(event.file) == 0 then
+                        return
+                    end
+                    local function open()
+                        Snacks.explorer.open({ cwd = event.file })
+                        Snacks.bufdelete.delete(event.buf)
+                    end
+                    if vim.v.vim_did_enter == 1 then
+                        open()
+                    else
+                        vim.api.nvim_create_autocmd("VimEnter", { once = true, callback = vim.schedule_wrap(open) })
+                    end
+                end,
+            })
         end,
         keys = {
             { "<leader>e",        function() Snacks.explorer() end, desc = "Explorer" },
             { "<D-b>",            function() Snacks.explorer() end, desc = "Explorer", mode = { "n", "i", "v" } },
             -- Find
-            { "<leader>ff",       function() require("config.rex").picker("files") end, desc = "Files" },
-            { "<leader>fg",       function() require("config.rex").picker("grep") end,  desc = "Grep" },
-            { "<leader>fw",       function() require("config.rex").picker("grep_word", { search = vim.fn.expand("<cword>") }) end, desc = "Word under cursor" },
+            { "<leader>ff",       function() Snacks.picker.files() end,       desc = "Files" },
+            { "<leader>fg",       function() Snacks.picker.grep() end,        desc = "Grep" },
+            { "<leader>fw",       function() Snacks.picker.grep_word() end,   desc = "Word under cursor" },
             { "<leader>fl",       function() Snacks.picker.lines() end,       desc = "Lines in buffer" },
             { "<leader>fs",       function() Snacks.picker.lsp_symbols() end, desc = "Symbols" },
             { "<leader>fh",       function() Snacks.picker.help() end,        desc = "Help" },

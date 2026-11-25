@@ -57,6 +57,17 @@ function fish_greeting
     fastfetch
 end
 
+# In a Rex pane, nvim runs through neopane: windows become Rex panes, pickers Rex floats.
+# Options other than -o/-O/-p/-d, and non-terminal stdin, keep plain nvim.
+function nvim --wraps nvim
+    if set -q REX_BLOCK; and isatty stdin; and type -q neopane
+        and not string match -qr -- '^-(?![oOpd]$)' $argv
+        neopane $argv
+    else
+        command nvim $argv
+    end
+end
+
 # Divider after command output
 function fish_postexec --on-event fish_postexec
     set_color '#394260'
