@@ -172,6 +172,13 @@ return {
         event = "VeryLazy",
         opts = {
             preset = "helix",
+            -- Default sort puts groups after every leaf key, which pushes `gr`
+            -- below the fold of the `g` popup; lift just that group to the top.
+            sort = {
+                "local",
+                function(item) return item.node.keys == "gr" and 0 or 1 end,
+                "order", "group", "alphanum", "mod",
+            },
             spec = {
                 { "<leader>b", group = "Buffer" },
                 { "<leader>c", group = "Code" },
