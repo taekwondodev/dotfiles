@@ -10,7 +10,7 @@ try:
     line = int(sys.argv[2]) if len(sys.argv) > 2 else 0
     if line < 0:
         raise ValueError("Line must not be negative")
-    window = int(os.environ["NEOREX_EDITOR_WIN"])
+    window = int(os.environ["LAZYGIT_EDITOR_WIN"])
     lua = """(function(a)
         assert(vim.api.nvim_win_is_valid(a[2]), "Source editor window was closed")
         vim.api.nvim_set_current_win(a[2])
@@ -22,12 +22,12 @@ try:
     end)(_A)"""
     expr = "luaeval(" + json.dumps(lua) + ", " + json.dumps([filename, window, line], ensure_ascii=False) + ")"
     subprocess.run(
-        [os.environ["NEOREX_NVIM"], "--server", os.environ["NVIM"], "--remote-expr", expr],
+        [os.environ["LAZYGIT_EDITOR_NVIM"], "--server", os.environ["NVIM"], "--remote-expr", expr],
         check=True, capture_output=True, text=True, timeout=15,
     )
     # Only close the native terminal after the remote edit succeeded.
     subprocess.run(
-        [os.environ["NEOREX_REX"], "block", "close", "-s", os.environ["REX_SESSION"], os.environ["REX_BLOCK"]],
+        [os.environ["LAZYGIT_EDITOR_REX"], "block", "close", "-s", os.environ["REX_SESSION"], os.environ["REX_BLOCK"]],
         check=True, capture_output=True, text=True, timeout=10,
     )
 except (ValueError, KeyError, IndexError, OSError, subprocess.SubprocessError) as error:

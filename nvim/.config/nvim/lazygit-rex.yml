@@ -1,6 +1,6 @@
 os:
-  edit: '"$NEOREX_PYTHON" "$NEOREX_EDITOR_HELPER" {{filename}}'
-  editAtLine: '"$NEOREX_PYTHON" "$NEOREX_EDITOR_HELPER" {{filename}} {{line}}'
-  editAtLineAndWait: '"$NEOREX_PYTHON" "$NEOREX_EDITOR_HELPER" {{filename}} {{line}}'
-  openDirInEditor: '"$NEOREX_PYTHON" "$NEOREX_EDITOR_HELPER" {{dir}}'
+  edit: '"$LAZYGIT_EDITOR_PYTHON" "$LAZYGIT_EDITOR_HELPER" {{filename}}'
+  editAtLine: '"$LAZYGIT_EDITOR_PYTHON" "$LAZYGIT_EDITOR_HELPER" {{filename}} {{line}}'
+  editAtLineAndWait: '"$LAZYGIT_EDITOR_PYTHON" "$LAZYGIT_EDITOR_HELPER" {{filename}} {{line}}'
+  openDirInEditor: '"$LAZYGIT_EDITOR_PYTHON" "$LAZYGIT_EDITOR_HELPER" {{dir}}'
   editInTerminal: false
