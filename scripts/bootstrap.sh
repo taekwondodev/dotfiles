@@ -16,8 +16,6 @@ TERMICONS_URL="https://github.com/mskelton/termicons"
 REX_URL="https://www.superlogical.com/rex/docs/installation"
 REX_CLI="$HOME/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex"
 REX_PREFS="com.superlogical.rex"
-# Revisione di neorex verificata con Neovim 0.12 e Rex.
-NEOREX_REVISION="066c0da5b3b4cc518c33f3fb0d17d2996752cbd9"
 
 usage() {
     echo "Usage: $0 macos"
@@ -67,23 +65,6 @@ install_rex() {
     [[ -x "$REX_CLI" ]] || die "CLI di Rex non trovata: avvia Rex e rilancia il bootstrap."
 }
 
-install_neorex() {
-    if [[ -x "$HOME/.local/bin/neorex" ]]; then
-        success "neorex già installato"
-        return
-    fi
-    info "Compilazione neorex ($NEOREX_REVISION)..."
-    local build
-    build=$(mktemp -d)
-    git clone --filter=blob:none https://github.com/ian-pascoe/neorex.git "$build"
-    git -C "$build" checkout --detach "$NEOREX_REVISION"
-    cargo build --release --locked --manifest-path "$build/Cargo.toml"
-    mkdir -p "$HOME/.local/bin"
-    install -m 755 "$build/target/release/neorex" "$HOME/.local/bin/neorex"
-    rm -rf "$build"
-    success "neorex installato"
-}
-
 install_hermes() {
     if command -v hermes &>/dev/null; then
         success "Hermes Agent già installato"
@@ -98,13 +79,13 @@ install_macos() {
     [[ "$(uname -s)" == Darwin ]] || die "Il profilo macos richiede macOS."
     command -v brew &>/dev/null || die "Homebrew non trovato: https://brew.sh"
     info "Installazione dipendenze macOS..."
-    brew install stow git starship neovim fd fastfetch lazygit python3
+    brew tap spiritledsoftware/tap
+    brew install stow git starship neovim fd fastfetch lazygit python3 spiritledsoftware/tap/neopane
     brew install --cask font-jetbrains-mono-nerd-font
     success "Dipendenze installate"
     install_hermes
     install_rust
     install_tree_sitter_cli
-    install_neorex
     install_manual termicons "$TERMICONS_URL"
     install_rex
 }

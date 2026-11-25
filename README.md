@@ -47,7 +47,7 @@ The `macos` profile handles automatically:
 - **JetBrainsMono Nerd Font** — via `brew`
 - **tree-sitter-cli** — via `cargo`; installs Rust/rustup first if not present
 - **[Hermes Agent](https://hermes-agent.nousresearch.com/docs/getting-started/installation)** — via the official installer
-- **[neorex](https://github.com/ian-pascoe/neorex)** — built with `cargo` at a pinned revision into `~/.local/bin`
+- **[neopane](https://github.com/spiritledsoftware/neopane)** (formerly neorex) — via `brew` from the `spiritledsoftware/tap` tap; run `neopane` (or `npane`) in a Rex pane
 - **[termicons](https://github.com/mskelton/termicons)** — cannot be automated; the script opens the repo in the browser and waits for you to install it before continuing
 - **[Rex](https://www.superlogical.com/rex/docs/installation)** — cannot be automated (beta); like termicons, the script opens the install page and waits; then it sets up terminfo, theme and app preferences
 
